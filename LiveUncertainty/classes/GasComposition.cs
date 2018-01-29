@@ -1,9 +1,10 @@
 ﻿using System;
 
 /// <summary>
-/// Summary description for Class1
+/// gas mol compositions class.
 /// </summary>
 public class GasComposition
+    public double methane;
 {
 	public GasComposition()
 	{
