@@ -1,9 +1,21 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2024
+VisualStudioVersion = 15.0.27130.2026
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiveUncertainty", "LiveUncertainty\LiveUncertainty.csproj", "{6E368F4A-DD70-4912-8DDB-7D0871D6F6AB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5BC72831-EBD3-4007-B4A2-980ECEB6D5B0}"
+	ProjectSection(SolutionItems) = preProject
+		LiveUncertainty\Cromatograph.cs = LiveUncertainty\Cromatograph.cs
+		LiveUncertainty\Densitometer.cs = LiveUncertainty\Densitometer.cs
+		LiveUncertainty\GasComposition.cs = LiveUncertainty\GasComposition.cs
+		LiveUncertainty\MainWindow.xaml.cs = LiveUncertainty\MainWindow.xaml.cs
+		LiveUncertainty\MeterTube.cs = LiveUncertainty\MeterTube.cs
+		LiveUncertainty\Path.cs = LiveUncertainty\Path.cs
+		LiveUncertainty\Transmitters.cs = LiveUncertainty\Transmitters.cs
+		LiveUncertainty\USM.cs = LiveUncertainty\USM.cs
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

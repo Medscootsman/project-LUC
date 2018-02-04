@@ -230,6 +230,14 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="classes\Cromatograph.cs" />
+    <Compile Include="classes\Densitometer.cs" />
+    <Compile Include="classes\GasComposition.cs" />
+    <Compile Include="classes\MainWindow.xaml.cs" />
+    <Compile Include="classes\MeterTube.cs" />
+    <Compile Include="classes\Path.cs" />
+    <Compile Include="classes\Transmitters.cs" />
+    <Compile Include="classes\USM.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -295,8 +303,6 @@
     <Content Include="x64\d3dcompiler_47.dll" />
     <Content Include="x86\d3dcompiler_47.dll" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="classes\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
