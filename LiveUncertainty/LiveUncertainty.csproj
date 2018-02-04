@@ -230,10 +230,10 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="classes\OpConditions.cs" />
     <Compile Include="classes\Cromatograph.cs" />
     <Compile Include="classes\Densitometer.cs" />
     <Compile Include="classes\GasComposition.cs" />
-    <Compile Include="classes\MainWindow.xaml.cs" />
     <Compile Include="classes\MeterTube.cs" />
     <Compile Include="classes\Path.cs" />
     <Compile Include="classes\Transmitters.cs" />

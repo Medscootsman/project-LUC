@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-
-namespace USM
+namespace LiveUncertainty.classes
 {
 
     public abstract class Transmitter
@@ -83,7 +86,7 @@ namespace USM
             }
         }
 
-        public int Signal
+        public Int16 Signal
         {
             get
             {
