@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-/// <summary>
-/// Summary description for Class1
-/// </summary>
+
 namespace LiveUncertainty.classes
 {
-    public class Densitometer
+    class Analyser
     {
         public string tagNum;
         public double range;
@@ -18,11 +16,35 @@ namespace LiveUncertainty.classes
         public double calFrequency; //calibration frequency
         public double recalTolerance; //re-calibration tolerance
 
-        public Densitometer()
+        public Analyser()
         {
             //
             // TODO: Add constructor logic here
             //
         }
     }
+
+    class Densitometer : Analyser {
+        public Densitometer()
+        {
+
+        }
+    }
+
+    class Cromatograph : Analyser
+    {
+        public Cromatograph()
+        {
+
+        }
+    }
+
+    class RD_Analsyer : Analyser
+    {
+        public RD_Analsyer()
+        {
+
+        }
+    }
+
 }
