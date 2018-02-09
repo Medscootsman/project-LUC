@@ -41,5 +41,68 @@ namespace LiveUncertainty.classes
             // TODO: Add constructor logic here
             //
         }
+
+        public double Methane
+        {
+            get
+            {
+                return methane;
+            }
+
+            set
+            {
+                methane = value;
+            }
+        }
+
+        public double Ethane
+        {
+            get
+            {
+                return ethane;
+            }
+            set
+            {
+                ethane = value;
+            }
+        }
+
+        public double Propane
+        {
+            get
+            {
+                return propane;
+            }
+
+            set
+            {
+                propane = value;
+            }
+        }
+
+        public double NButane
+        {
+            get
+            {
+                return nButane;
+            }
+
+            set
+            {
+                nButane = value;
+            }
+        }
+
+        public double IsoBuntane
+        {
+            get
+            {
+                return isoButane;
+            }
+            set
+            {
+                isoButane = value;
+            }
+        }
     }
 }
