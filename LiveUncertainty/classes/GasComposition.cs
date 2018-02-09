@@ -104,5 +104,18 @@ namespace LiveUncertainty.classes
                 isoButane = value;
             }
         }
+
+        public double NPentane
+        {
+            get
+            {
+                return nPentane;
+            }
+
+            set
+            {
+                nPentane = value;
+            }
+        }
     }
 }
