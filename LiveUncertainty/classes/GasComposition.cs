@@ -117,5 +117,227 @@ namespace LiveUncertainty.classes
                 nPentane = value;
             }
         }
+
+        public double NeoPentane
+        {
+            get
+            {
+                return neoPentane;
+            }
+
+            set
+            {
+                neoPentane = value;
+            }
+        }
+
+        public double Hexane
+        {
+            get
+            {
+                return hexane;
+            }
+
+            set
+            {
+                hexane = value;
+            }
+        }
+        
+        public double Heptane
+        {
+            get
+            {
+                return heptane;
+            }
+
+            set
+            {
+                heptane = value;
+            }
+        }
+
+        public double Octane
+        {
+            get
+            {
+                return octane;
+            }
+
+            set
+            {
+                octane = value;
+            }
+        }
+
+        public double Nonane
+        {
+            get
+            {
+                return nonane;
+            }
+            
+            set
+            {
+                nonane = value;
+            }
+        }
+
+        public double Decane
+        {
+            get
+            {
+                return decane;
+            }
+            set
+            {
+                decane = value;
+            }
+        }
+
+        public double Nitrogen
+        {
+            get
+            {
+                return nitrogen;
+            }
+            set
+            {
+                nitrogen = value;
+            }
+        }
+
+        public double CarbonDioxide
+        {
+            get
+            {
+                return carbonDioxide;
+            }
+
+            set
+            {
+                carbonDioxide = value;
+            }
+        }
+
+        public double Air
+        {
+            get
+            {
+                return air;
+            }
+
+            set
+            {
+                air = value;
+            }
+            
+        }
+
+        public double HydrogenSulfide
+        {
+            get
+            {
+                return hydrogenSulfide;
+            }
+
+            set
+            {
+                hydrogenSulfide = value;
+            }
+        }
+
+        public double CarbonMonoxide
+        {
+            get
+            {
+                return carbonMonoxide;
+            }
+
+            set
+            {
+                carbonMonoxide = value;
+            }
+        }
+
+        public double Helium
+        {
+            get
+            {
+                return helium;
+            }
+
+            set
+            {
+                helium = value;
+            }
+        }
+
+        public double Oxygen
+        {
+            get
+            {
+                return oxygen;
+            }
+
+            set
+            {
+                oxygen = value;
+            }
+        }
+
+        public double Water
+        {
+            get
+            {
+                return water;
+            }
+
+            set
+            {
+                water = value;
+            }
+        }
+
+        public double Methanol
+        {
+            get
+            {
+                return methanol;
+            }
+
+            set
+            {
+                methanol = value;
+            }
+        }
+
+        public double HexanePlus
+        {
+            get
+            {
+                return hexanePlus;
+            }
+
+            set
+            {
+                hexanePlus = value;
+            }
+        }
+
+        public double Sum
+        {
+            get
+            {
+                sum =  Air + CarbonDioxide + CarbonMonoxide + Decane + Ethane + Heptane + Helium + Hexane + HexanePlus + IsoBuntane + Methane + Methanol + NButane + NeoPentane + Octane + Propane + NPentane;
+
+                return sum;
+            }
+        }
+
+
+
+
+
     }
 }
