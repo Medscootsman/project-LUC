@@ -8,6 +8,7 @@ namespace LiveUncertainty.classes
 {
     class Analyser
     {
+        public int analyserID;
         public string tagNum;
         public double range;
         public string manufacturer;
@@ -22,6 +23,111 @@ namespace LiveUncertainty.classes
             // TODO: Add constructor logic here
             //
         }
+
+        public string TagNum
+        {
+            get
+            {
+                return tagNum;
+            }
+
+            set
+            {
+                tagNum = value;
+            }
+        }
+
+        public int ID
+        {
+            get
+            {
+                return analyserID;
+            }
+
+            set
+            {
+                analyserID = value;
+            }
+        }
+
+        public double Range
+        {
+            get
+            {
+                return range;
+            }
+
+            set
+            {
+                range = value;
+            }
+        }
+
+        public string Manufacturer
+        {
+            get
+            {
+                return manufacturer;
+            }
+
+            set
+            {
+                manufacturer = value;
+            }
+        }
+
+        public string Model
+        {
+            get
+            {
+                return model;
+            }
+
+            set
+            {
+                model = value;
+            }
+        }
+
+        public string SigOutput
+        {
+            get
+            {
+                return sigOutput;
+            }
+
+            set
+            {
+                sigOutput = value;
+            }
+        }
+
+        public double CalculationFrequency
+        {
+            get
+            {
+                return calFrequency;
+            }
+
+            set
+            {
+                calFrequency = value;
+            }
+        }
+
+        public double RecalibrationTolerance
+        {
+            get
+            {
+                return recalTolerance;
+            }
+
+            set
+            {
+                recalTolerance = value;
+            }
+        }
+
     }
 
     class Densitometer : Analyser {
