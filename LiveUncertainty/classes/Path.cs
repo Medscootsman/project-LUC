@@ -13,12 +13,12 @@ namespace LiveUncertainty.classes
     {
         public int path_number;
         public Double length;
-        public Double Offset;
+        public Double offset;
         public Double x;
-        public Double Angle;
+        public Double angle;
         public bool weightingFactorUse;
         public double weightingFactor;
-        public int bounces;
+        public uint bounces;
 
         public Path()
         {
@@ -26,5 +26,124 @@ namespace LiveUncertainty.classes
             // TODO: Add constructor logic here
             //
         }
+
+        public int Pathnum
+        {
+            get
+            {
+                return path_number;
+            }
+
+            set
+            {
+                if (value > 6) {
+                    path_number = 6;
+                }
+                else
+                {
+                    path_number = value;
+                }
+            }
+        }
+
+        public double Length
+        {
+            get
+            {
+                return length;
+            }
+
+            set
+            {
+                length = value;
+            }
+        }
+
+        public double Offset
+        {
+            get
+            {
+                return offset;
+            }
+
+            set
+            {
+                offset = value;
+            }
+        }
+
+        public double X
+        {
+            get
+            {
+                return x;
+            }
+
+            set
+            {
+                x = value;
+            }
+        }
+
+        public double Angle
+        {
+            get
+            {
+                return angle;
+            }
+
+            set
+            {
+                angle = value;
+            }
+        }
+
+        public bool WeightingFactorUse
+        {
+            get
+            {
+                return weightingFactorUse;
+            }
+
+            set
+            {
+                weightingFactorUse = value;
+            }
+        }
+
+        public double WeightingFactor
+        {
+            get
+            {
+                return weightingFactor;
+            }
+
+            set
+            {
+                weightingFactor = value;
+            }
+        }
+
+        public uint Bounces
+        {
+            get
+            {
+                return bounces;
+            }
+
+            set
+            {
+                if (value > 2)
+                {
+                    bounces = 2;
+                }
+                
+                else
+                {
+                    bounces = value;
+                }
+            }
+        }
+
     }
 }
