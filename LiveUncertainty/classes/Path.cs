@@ -13,7 +13,7 @@ namespace LiveUncertainty.classes
     {
         public int path_number;
         public Double length;
-        public Double offset;
+        public Double offset; //chords
         public Double x;
         public Double angle;
         public bool weightingFactorUse;

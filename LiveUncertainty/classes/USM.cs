@@ -27,6 +27,8 @@ namespace LiveUncertainty.classes
         public double pathLengthTolerance;
         public double fluidPathTolerance;
         public double meterDiameterTolerance;
+
+        public double elasticity = 210 * Math.Pow(10, 9); //supposed to be constant.
         public const double thermalExpansion = 0.000011;
 
         public List<Path> paths;
@@ -334,6 +336,35 @@ namespace LiveUncertainty.classes
         public void addPath(Path path)
         {
             paths.Add(path);
+            pathsTotal += 1;
+        }
+
+        public void addPathLengths()
+        {
+            pathLengths.Clear();
+            foreach(Path pathobj in paths)
+            {
+                pathLengths.Add(pathobj.Length);
+            }
+        }
+
+        public void addPathAngles()
+        {
+            pathAngles.Clear();
+            foreach(Path pathobj in paths)
+            {
+                pathAngles.Add(pathobj.Angle);
+            }
+        }
+
+        public void addPathChords() //offsets
+        {
+            pathChords.Clear();
+            foreach(Path pathobj in paths)
+            {
+                pathChords.Add(pathobj.offset);
+            }
+
         }
 
         

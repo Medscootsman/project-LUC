@@ -20,10 +20,11 @@ namespace LiveUncertainty.classes
         public bool ptCorrection;
         public double innerSurfaceDeposit;
         public double pipeRoughness;
-
+        public const double pipeRoughnessNew = 0.03;
 
         public MeterTube()
         {
+
         }
 
         public double MaxFluidVelocity
