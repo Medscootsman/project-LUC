@@ -67,7 +67,7 @@ namespace LiveUncertainty.classes
         public const double methaneSqrtb = 0.0447;
         public const double ethaneSqrtb = 0.0922;
         public const double propaneSqrtb = 0.1338;
-
+        public const double nbutaneSqrtb = 58.123;
 
         public GasComposition()
         {

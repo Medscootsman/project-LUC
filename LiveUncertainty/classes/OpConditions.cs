@@ -156,6 +156,21 @@ namespace LiveUncertainty.classes
             }
         }
 
+        //Convert reference pressure and temperature to "SI and absolute"
+        public double calculateSIAbsoluteReferencePressure()
+        {
+            double correctedpref = this.ReferencePressure * Math.Pow(10, 5);
+            return correctedpref;
+        }
+
+        //Convert reference pressure and temperature to "SI and absolute"
+        public double calculateSIAbsoluteReferenceTemperature()
+        {
+            double correctedptemp = this.ReferenceTemperature + 273.15; //273 is how much you need to add to correct it.
+            return correctedptemp;
+        }
+
+
 
     }
 }
