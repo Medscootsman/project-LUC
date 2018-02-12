@@ -63,6 +63,10 @@ namespace LiveUncertainty.classes
         public const double methanolWeight = 32.042;
         public const double hexaneplusWeight = 86.177;
 
+        //sqrt b of each gas type
+        public const double methaneSqrtb = 0.0447;
+        public const double ethaneSqrtb = 0.0922;
+        public const double propaneSqrtb = 0.1338;
 
 
         public GasComposition()
