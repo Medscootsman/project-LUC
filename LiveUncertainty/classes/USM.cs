@@ -32,7 +32,8 @@ namespace LiveUncertainty.classes
         public const double thermalExpansion = 0.000011;
 
         public List<Path> paths;
-        public List<Double> pathLengths;
+        public List<Double> pathLengthsL;
+        public List<Double> pathXvals;
         public List<Double> pathChords;
         public List<Double> pathWeightingFactors;
         public List<Double> pathAngles;
@@ -341,31 +342,53 @@ namespace LiveUncertainty.classes
 
         public void addPathLengths()
         {
-            pathLengths.Clear();
+            pathLengthsL.Clear();
             foreach(Path pathobj in paths)
             {
-                pathLengths.Add(pathobj.Length);
+                pathLengthsL.Add(pathobj.Length);
             }
         }
 
-        public void addPathAngles()
+        public void AddPathAngles()
         {
             pathAngles.Clear();
             foreach(Path pathobj in paths)
             {
-                pathAngles.Add(pathobj.Angle);
+                pathAngles.Add(pathobj.Angle * Math.Pow(10, 3));
             }
         }
 
-        public void addPathChords() //offsets
+        public void AddPathChords() //offsets
         {
             pathChords.Clear();
             foreach(Path pathobj in paths)
             {
-                pathChords.Add(pathobj.offset);
+                pathChords.Add(pathobj.offset * (this.calculateMeterTubeBore() / 2));
             }
 
         }
+
+        public void AddPathWeightingFactors()
+        {
+            pathWeightingFactors.Clear();
+            foreach(Path pathobj in paths)
+            {
+                pathWeightingFactors.Add(pathobj.weightingFactor);
+            }
+        }
+
+        public void AddPathXValues()
+        {
+            pathXvals.Clear();
+            foreach(Path pathobj in paths)
+            {
+                pathXvals.Add(pathobj.x * Math.Pow(10, 3));
+            }
+        }
+
+
+
+
 
         
 

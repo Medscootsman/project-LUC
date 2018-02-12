@@ -35,6 +35,36 @@ namespace LiveUncertainty.classes
         public double hexanePlus;
         public double sum;
 
+        //Molecular Weights (constants)
+        //I am not sure how i am going to do this, so for now i will do this by hardcoding them. Using a database may be more effort than it's worth.
+        //constants also ensure data integrity too, i guess.
+        public const double methaneWeight = 16.043;
+        public const double ethaneWeight = 30.07;
+        public const double propaneWeight = 44.097;
+        public const double nbutaneWeight = 58.123;
+        public const double isobutaneWeight = 58.123;
+        public const double npentaneWeight = 72.15;
+        public const double isopentaneWeight = 72.15;
+        public const double neopentaneWeight = 72.15;
+        public const double hexaneWeight = 86.177;
+        public const double heptaneWeight = 100.204;
+        public const double octaneWeight = 114.231;
+        public const double nonaneWeight = 128.258;
+        public const double decaneWeight = 142.285;
+        public const double hydrogenWeight = 2.0159;
+        public const double hydrogensulfideWeight = 34.082;
+        public const double carbonmonoxideWeight = 28.01;
+        public const double heliumWeight = 4.0026;
+        public const double nitrogenWeight = 28.0135;
+        public const double oxygenWeight = 31.9988;
+        public const double carbondioxideWeight = 44.01;
+        public const double airWeight = 28.9626;
+        public const double waterWeight = 18.0153;
+        public const double methanolWeight = 32.042;
+        public const double hexaneplusWeight = 86.177;
+
+
+
         public GasComposition()
         {
             //
@@ -333,6 +363,13 @@ namespace LiveUncertainty.classes
 
                 return sum;
             }
+        }
+
+        //divide the total by 100 to see if it equals 1, if it doesn't then it is not at 100;
+        public double checkTotal()
+        {
+            double chk = this.Sum / 100;
+            return chk;
         }
 
 
