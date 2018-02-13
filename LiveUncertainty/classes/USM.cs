@@ -467,7 +467,11 @@ namespace LiveUncertainty.classes
             return ctsfr;
         }
 
-
+        public double CalculateCtswr()
+        {
+            double ctswr = 1 + coeff * (this.Calibration_Temperature - tmet);
+            return ctswr;
+        }
 
 
         
