@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LiveUncertainty.classes
 {
-    class OperatingConditions
+    public class OperatingConditions
     {
         public double opPressure;
         public double opTemperature;
@@ -164,13 +164,38 @@ namespace LiveUncertainty.classes
         }
 
         //Convert reference pressure and temperature to "SI and absolute"
-        public double calculateSIAbsoluteReferenceTemperature()
+        public double CalculateSIAbsoluteReferenceTemperature()
         {
             double correctedptemp = this.ReferenceTemperature + 273.15; //273 is how much you need to add to correct it.
             return correctedptemp;
         }
 
+        //Convert operating temperature to "SI and absolute"
+        public double CalculateSIAbsoluteOperatingTemperature()
+        {
+            double correctedOpTemp = this.OperatingTemperature + 273.15;
+            return correctedOpTemp;
+        }
 
+        //Convert operating pressure to "SI and absolute"
+        public double CalculateSIAbsoluteOperatingPressure() //pf
+        {
+            double correctedOpPressure = this.OperatingPressure * Math.Pow(10, 5);
+
+            return correctedOpPressure;
+
+        }
+
+        //hopefully this should be the same.
+
+        public double CalculateSIAbsoluteOperatingPressureConverted() //Pf Capitalized
+        {
+            //add 1.01325 to the value.
+            double correctedOpPressure = this.CalculateSIAboluteOperatingPressure() + 1.01325;
+
+            return correctedOpPressure;
+        }
+        
 
     }
 }

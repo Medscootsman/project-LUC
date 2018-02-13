@@ -28,15 +28,22 @@ namespace LiveUncertainty.classes
         public double fluidPathTolerance;
         public double meterDiameterTolerance;
 
-        public double elasticity = 210 * Math.Pow(10, 9); //supposed to be constant.
+        protected double elasticity = 210 * Math.Pow(10, 9); // known as Yym on the mathcad sheet. supposed to be constant.
+        private double coeff = 1.2 * Math.Pow(10, 5); //Coeff. of Linear Exp. (/°C)
         public const double thermalExpansion = 0.000011;
+        private const double tmet = 20;
 
+        public OperatingConditions opconditions;
+
+        //Objects you will or may need.
         public List<Path> paths;
         public List<Double> pathLengthsL;
         public List<Double> pathXvals;
         public List<Double> pathChords;
         public List<Double> pathWeightingFactors;
         public List<Double> pathAngles;
+        
+
         
 
 
@@ -289,11 +296,24 @@ namespace LiveUncertainty.classes
             }
         }
 
+        public OperatingConditions OperatingConditionsObject
+        {
+            get
+            {
+                return opconditions;
+            }
+
+            set
+            {
+                opconditions = value;
+            }
+        }
+
         //meter tube bore is calculated by dividing the internal diameter by 1000. (Mathcad reference: dDry)
         public double calculateMeterTubeBore()
         {
-            double metertubebore = this.internalDiameter / 1000;
-            return metertubebore;
+            double dDry = this.internalDiameter / 1000;
+            return dDry;
         }
 
         //NOTE: outerdiameter and meterwallthickness can be 0, but 1 has to be filled in at one time.
@@ -386,6 +406,66 @@ namespace LiveUncertainty.classes
             }
         }
 
+        //Convert the wet calibration values into SI + Absolute.
+
+        public double CalculateSIAbsoluteCalibratedPressure() 
+        {
+            double correctedCalPressure = this.Callibration_Pressure * Math.Pow(10, 5);
+            return correctedCalPressure;
+        }
+
+        public double CalculateSIAbsoluteCalibratedTemperature()
+        {
+            double correctedCalTemperature = this.Calibration_Temperature + 275.15;
+            return correctedCalTemperature;
+        }
+
+        public double CalculateSIAbsoluteMetrologyTemperature()
+        {
+            double correctMetTemperature = 20 + 273.15;
+            return correctMetTemperature;
+        }
+
+        //This is for calculating the radical pressure corrected. It is known as Fβs in the mathcad sheets.
+        public double CalculateRadicalPressureCorrection()
+        {
+            //Pull the values you will need. This makes for cleaner code.
+            double dOutSquared = Math.Pow(this.calculateOuterDiameter(), 2);
+
+            double dDrySquared = Math.Pow(this.calculateMeterTubeBore(), 2);
+
+            double FBs = 1 / elasticity * (((1.3 * dOutSquared) - (0.4 * dDrySquared)) /
+                                          (dOutSquared - dDrySquared));
+            return FBs;
+        }
+
+
+
+        //Cpsf
+        //I currently do not know what this stands for. You will need to pass in a Operating Conditions objects.
+        //Pass the corrected Operating pressure as a parameter.
+
+        public double CalculateCpsf()
+        {
+            double cpsf = 1 + this.CalculateRadicalPressureCorrection() * this.opconditions.CalculateSIAbsoluteOperatingPressure();
+
+            return cpsf;
+        }
+        
+        
+        public double CalculateCpsw()
+        {
+            double cpsw = 1 + this.CalculateRadicalPressureCorrection() * (this.CalculateSIAbsoluteCalibratedPressure() - 1);
+
+            return cpsw;
+        }
+
+        public double CalculateCtsfr()
+        {
+            double ctsfr = 1 + coeff * (this.opconditions.OperatingTemperature - tmet);
+
+            return ctsfr;
+        }
 
 
 
