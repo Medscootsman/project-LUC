@@ -68,6 +68,27 @@ namespace LiveUncertainty.classes
         public const double ethaneSqrtb = 0.0922;
         public const double propaneSqrtb = 0.1338;
         public const double nbutaneSqrtb = 58.123;
+        public const double isobuntaneSqrtb = 0.179;
+        public const double npentaneSqrtb = 0.251;
+        public const double isopentaneSqrtb = 0.228;
+        public const double neopentaneSqrtb = 0.2121;
+        public const double hexaneSqrtb = 0.295;
+        public const double heptaneSqrtb = 0.3661;
+        public const double octaneSqrtb = 0.445;
+        public const double nonaneSqrtb = 0.5385;
+        public const double decaneSqrtb = 0.645;
+        public const double hydrogenSqrtb = -0.0048;
+        public const double hydrogensulfideSqrtb = 0.1;
+        public const double carbonmonoxideSqrtb = 0.0224;
+        public const double heliumSqrtb = 0.0002;
+        public const double nitrogenSqrtb = -0.0048;
+        public const double oxygenSqrtb = 0.0283;
+        public const double carbondioxideSqrtb = 0.0748;
+        public const double airSqrtb = 0;
+        public const double waterSqrtb = 0.2345;
+        public const double methanolSqrtb = 0.3578;
+        public const double hexaneplusSqrtb = 0.295;
+
 
         public GasComposition()
         {
