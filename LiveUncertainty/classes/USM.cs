@@ -408,7 +408,7 @@ namespace LiveUncertainty.classes
 
         }
 
-        public void AddPathChordsx() //offsets
+        public void AddPathChordsDividedbydDdry() //offsets
         {
             pathChords.Clear();
             foreach (Path pathobj in paths)
@@ -628,29 +628,26 @@ namespace LiveUncertainty.classes
 
             List<uint> sumlist = GetSumofBounces();
 
-            foreach (uint sum in sumlist)
+            using (var tdval = CalculateTransducerDistance_Clampmeters().GetEnumerator())
+            using (var swt = CalculateSteelWallThickness().GetEnumerator())
+            using (var sum = sumlist.GetEnumerator())
             {
-                if (sum > 0)
+                while (tdval.MoveNext() && swt.MoveNext() && sum.MoveNext())
                 {
-                    foreach (double tdlval in CalculateTransducerDistance_Clampmeters())
+                    if (sum.Current > 0)
                     {
-                        foreach (double swt in CalculateSteelWallThickness())
-                        {
-                            double value = Math.Atan(((calculateMeterTubeBore() + swt) / tdlval));
-                            Zerotdl.Add(value);
-                        }
+
+                        double value = Math.Atan(((calculateMeterTubeBore() + swt.Current) / tdval.Current));
+                        Zerotdl.Add(value);
+
+
                     }
-                }
-                else
-                {
-                    foreach (double tdlval in CalculateTransducerDistance_Clampmeters())
+                    else
                     {
-                        foreach (double swt in CalculateSteelWallThickness_X2())
-                        {
-                            double value = Math.Atan(((calculateMeterTubeBore() + swt) / tdlval));
-                            Zerotdl.Add(value);
-                        }
+                        double value = Math.Atan(((calculateMeterTubeBore() + swt.Current) / tdval.Current));
+                        Zerotdl.Add(value);
                     }
+                    
                 }
             }
             return Zerotdl;
@@ -676,6 +673,36 @@ namespace LiveUncertainty.classes
             {
                 return this.pathAngles_DegreeMultiplied;
             }
+        }
+
+        //this calculates the Ultrasonic path chords. (ψdry)
+        public List<double> CalculateUltraSonicPathChord()
+        {
+
+            List<double> chordDry = new List<double>();
+            List<double> chords = this.pathChordsX;
+            List<uint> noOfBounces = this.pathBounces;
+            double valuetoadd = 0;
+
+            //loop through each bounce and check if it's 0, 1, or 2. bounces can NEVER be more than 2 so that MUST be validated.
+
+            using (var bounce = noOfBounces.GetEnumerator())
+            using (var chord = noOfBounces.GetEnumerator())
+                foreach (uint bounce in noOfBounces)
+                {
+                    foreach (double chord in chords)
+                    {
+                        if (bounce == 0)
+                        {
+                            valuetoadd = 2 * (Math.Sqrt(Math.Pow(this.calculateMeterTubeBore() / 2, 2) - (Math.Pow(chord, 2))));
+                            break;
+                        }
+                    }
+
+                    chordDry.Add(valuetoadd);
+                }
+           
+
         }
 
 
