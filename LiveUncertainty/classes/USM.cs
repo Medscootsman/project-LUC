@@ -561,38 +561,51 @@ namespace LiveUncertainty.classes
         }
 
         //TODO: Add function that checks boolean once you figure out what it actually is from a proper datasheet.
-        public uint GetSumofBounces()
+        public List<uint> GetSumofBounces()
         {
-            uint sum = 0;
+            List<uint> sum = new List<uint>();
+
             foreach (uint val in pathBounces)
             {
-                sum += val;
+                sum.Add(val);
             }
             return sum;
         }
-
+        
         //steel wall thickness calculation. Needs bounces for it to work properly.
-        public double CalculateSteelWallThickness()
+        public List<double> CalculateSteelWallThickness()
         {
             //check if number of bounces (nob) is more than one.
-            uint sum = GetSumofBounces();
+            List<uint> sumlist = GetSumofBounces();
 
-            double swt;
-            if (sum > 0)
+            List<double> swt = new List<double>();
+
+            foreach (uint sum in sumlist)
             {
-                swt = 2 * calculateMeterWallThickness();
-            }
-            else
-            {
-                swt = calculateMeterWallThickness();
+                if (sum > 0)
+                {
+                    swt.Add(2 * calculateMeterWallThickness());
+                }
+                else
+                {
+                    swt.Add(calculateMeterWallThickness());
+                }
             }
 
             return swt;
         }
 
-        public double CalculateSteelWallThickness_X2()
-        {
-            return this.CalculateSteelWallThickness() * 2;
+        public List<double> CalculateSteelWallThickness_X2() {
+
+            //check if number of bounces (nob) is more than one.
+            List<double> newswt = new List<double>();
+
+            foreach(double swt in CalculateSteelWallThickness())
+            {
+                newswt.Add(swt * 2);
+            }
+
+            return newswt;
         }
 
         //Calculate the distance between transducers if it's a clamp-on meter.
@@ -613,21 +626,31 @@ namespace LiveUncertainty.classes
         {
             List<double> Zerotdl = new List<double>();
 
-            uint sum = GetSumofBounces();
-            if(sum > 0)
+            List<uint> sumlist = GetSumofBounces();
+
+            foreach (uint sum in sumlist)
             {
-                foreach(double tdlval in CalculateTransducerDistance_Clampmeters())
+                if (sum > 0)
                 {
-                    double value = Math.Atan(((calculateMeterTubeBore() + CalculateSteelWallThickness()) / tdlval));
-                    Zerotdl.Add(value);
+                    foreach (double tdlval in CalculateTransducerDistance_Clampmeters())
+                    {
+                        foreach (double swt in CalculateSteelWallThickness())
+                        {
+                            double value = Math.Atan(((calculateMeterTubeBore() + swt) / tdlval));
+                            Zerotdl.Add(value);
+                        }
+                    }
                 }
-            }
-            else
-            {
-                foreach (double tdlval in CalculateTransducerDistance_Clampmeters())
+                else
                 {
-                    double value = Math.Atan(((calculateMeterTubeBore() + CalculateSteelWallThickness_X2()) / tdlval));
-                    Zerotdl.Add(value);
+                    foreach (double tdlval in CalculateTransducerDistance_Clampmeters())
+                    {
+                        foreach (double swt in CalculateSteelWallThickness_X2())
+                        {
+                            double value = Math.Atan(((calculateMeterTubeBore() + swt) / tdlval));
+                            Zerotdl.Add(value);
+                        }
+                    }
                 }
             }
             return Zerotdl;
