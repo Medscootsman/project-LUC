@@ -33,6 +33,13 @@ namespace LiveUncertainty.classes
         public const double thermalExpansion = 0.000011;
         private const double tmet = 20;
 
+        //deg is defined off sheet so for now it's a made up value.
+        private const double deg = 15;
+
+        //this is the pipework restraint expansion factor.
+        private const double Ftax = 0.25;
+
+        //Associated objects that will be set in the frontend
         public OperatingConditions opconditions;
 
         //Objects you will or may need.
@@ -40,9 +47,10 @@ namespace LiveUncertainty.classes
         public List<Double> pathLengthsL;
         public List<Double> pathXvals;
         public List<Double> pathChords;
+        public List<Double> pathChordsX;
         public List<Double> pathWeightingFactors;
         public List<Double> pathAngles;
-        
+        public List<uint> pathBounces;
 
         
 
@@ -383,6 +391,16 @@ namespace LiveUncertainty.classes
             pathChords.Clear();
             foreach(Path pathobj in paths)
             {
+                pathChords.Add(pathobj.offset);
+            }
+
+        }
+
+        public void AddPathChordsx() //offsets
+        {
+            pathChords.Clear();
+            foreach (Path pathobj in paths)
+            {
                 pathChords.Add(pathobj.offset * (this.calculateMeterTubeBore() / 2));
             }
 
@@ -404,6 +422,16 @@ namespace LiveUncertainty.classes
             {
                 pathXvals.Add(pathobj.x * Math.Pow(10, 3));
             }
+        }
+
+        public void AddNoOfBounces()
+        {
+            pathBounces.Clear();
+            foreach(Path pathobj in paths)
+            {
+                pathBounces.Add(pathobj.Bounces);
+            }
+
         }
 
         //Convert the wet calibration values into SI + Absolute.
@@ -472,6 +500,97 @@ namespace LiveUncertainty.classes
             double ctswr = 1 + coeff * (this.Calibration_Temperature - tmet);
             return ctswr;
         }
+
+        public double CalculateCtsfa()
+        {
+            double ctsfa =  1 + Ftax * coeff * (this.opconditions.OperatingTemperature - tmet);
+            return ctsfa;
+        }
+
+        public double CalculateCtswa()
+        {
+            double ctswa = 1 + Ftax * coeff * (this.opconditions.OperatingTemperature - tmet);
+            return ctswa;
+        }
+
+        public List<double> ReCalculateWeightingFactors() //This is done using the annulus rule.
+        {
+            List<double> Aand_d = new List<double>();
+
+            foreach(double path in this.pathChords)
+            {
+                double recalculatedweightingfactor = Math.PI * ((Math.Pow((this.calculateMeterTubeBore() / 2), 2)) - (Math.Pow(path, 2)));
+
+                Aand_d.Add(recalculatedweightingfactor);
+            }
+            return Aand_d;
+        }
+
+        public List<double> ReCalculateRwd()
+        {
+            List<double> rwd = new List<double>();
+            double sum = 0;
+
+            //get the sum of the ReCalculated Weighting Factors
+
+            foreach(double path in this.ReCalculateWeightingFactors())
+            {
+                sum += path;
+            }
+
+            foreach(double pathval in this.ReCalculateWeightingFactors())
+            {
+
+                double newvalue = pathval / sum;
+                rwd.Add(newvalue);
+            }
+            return rwd;
+        }
+
+        //TODO: Add function that checks boolean once you figure out what it actually is from a proper datasheet.
+
+        //steel wall thickness calculation. Needs bounces for it to work properly.
+        public double CalculateSteelWallThickness()
+        {
+            //check if number of bounces (nob) is more than one.
+            uint sum = 0;
+            foreach (uint val in pathBounces)
+            {
+                sum += val;
+            }
+
+            double swt;
+            if (sum > 0)
+            {
+                swt = 2 * this.calculateMeterWallThickness();
+            }
+            else
+            {
+                swt = this.calculateMeterWallThickness();
+            }
+
+            return swt;
+        }
+
+        public double CalculateSteelWallThickness_X2()
+        {
+            return this.CalculateSteelWallThickness() * 2;
+        }
+
+        //Calculate the distance between transducers if it's a clamp-on meter.
+        public double CalculateTransducerDistance_Clampmeters()
+        {
+            return 0;
+        }
+
+        //only if no of bounces > 0;
+        public double CalculatePathAngle_ClampMeters()
+        {
+            return 0;
+        }
+
+
+
 
 
         

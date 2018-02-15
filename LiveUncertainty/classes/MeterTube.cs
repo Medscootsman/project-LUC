@@ -183,5 +183,19 @@ namespace LiveUncertainty.classes
             }
         }
 
+        public double CalculateActualPipeRoughness() //knew
+        {
+            double knew = this.pipeRoughnessNew / 1000;
+            return knew;
+        }
+
+        public double CalculateScaledPipeRoughness() //Krgh
+        {
+            double krgh = this.pipeRoughness / 1000;
+            return krgh;
+        }
+
+
+
     }
 }
