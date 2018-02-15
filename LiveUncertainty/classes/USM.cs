@@ -45,6 +45,7 @@ namespace LiveUncertainty.classes
         //Objects you will or may need.
         public List<Path> paths;
         public List<Double> pathLengthsL;
+        public List<Double> pathLengths;
         public List<Double> pathXvals;
         public List<Double> pathChords;
         public List<Double> pathChordsX;
@@ -369,15 +370,25 @@ namespace LiveUncertainty.classes
             pathsTotal += 1;
         }
 
-        public void AddPathLengths()
+        public void AddPathLengthsL()
         {
             pathLengthsL.Clear();
             foreach(Path pathobj in paths)
             {
-                pathLengthsL.Add(pathobj.Length);
+                pathLengthsL.Add(pathobj.Length * Math.Pow(10, 3));
             }
         }
-        
+
+        public void AddPathLengths()
+        {
+            pathLengths.Clear();
+            foreach (Path pathobj in paths)
+            {
+                pathLengths.Add(pathobj.Length);
+            }
+        }
+
+
         //0z
         public void AddPathAngles_Degrees()
         {
@@ -655,7 +666,24 @@ namespace LiveUncertainty.classes
 
         public bool checkAnglesHaveValues()
         {
-            bool hasvalues = pathAngles_DegreeMultiplied.Any(x => x > 0);
+            double sum = 0;
+
+            bool hasvalues;
+
+            foreach (double val in pathAngles_DegreeMultiplied)
+            {
+                sum += val;
+            }
+
+            if(sum > 0)
+            {
+                hasvalues = true;
+            }
+            else
+            {
+                hasvalues = false;
+            }
+            
 
             return hasvalues;
         }
@@ -682,38 +710,112 @@ namespace LiveUncertainty.classes
             List<double> chordDry = new List<double>();
             List<double> chords = this.pathChordsX;
             List<uint> noOfBounces = this.pathBounces;
+            List<double> angles = new List<double>();
+            //check if there's values in the path angles
+            if(checkAnglesHaveValues())
+            {
+                angles = pathAngles_DegreeMultiplied;
+            }
+
+            else
+            {
+                angles = CalculatePathAngle_ClampMeters();
+            }
+
             double valuetoadd = 0;
 
-            //loop through each bounce and check if it's 0, 1, or 2. bounces can NEVER be more than 2 so that MUST be validated.
+            //loop through each bounce and check if it's 0, 1, or 2. bounces can NEVER be more than 2 so that MUST be validated. 
 
+            //since foreach hates if you try to loop 2 at once, we made our own. 
             using (var bounce = noOfBounces.GetEnumerator())
             using (var chord = noOfBounces.GetEnumerator())
-                foreach (uint bounce in noOfBounces)
+            using (var radianPathangle = angles.GetEnumerator())
+            {
+                while (chord.MoveNext() && bounce.MoveNext())
                 {
-                    foreach (double chord in chords)
+                    if (bounce.Current == 0 || bounce.Current == 1)
                     {
-                        if (bounce == 0)
-                        {
-                            valuetoadd = 2 * (Math.Sqrt(Math.Pow(this.calculateMeterTubeBore() / 2, 2) - (Math.Pow(chord, 2))));
-                            break;
-                        }
+                        valuetoadd = 2 * (Math.Sqrt(Math.Pow(this.calculateMeterTubeBore() / 2, 2) - (Math.Pow(chord.Current, 2))));
+                    }
+
+                    else if (bounce.Current == 2)
+                    {
+                        valuetoadd = (Math.Cos(radianPathangle.Current / 2)) * this.calculateMeterTubeBore();
                     }
 
                     chordDry.Add(valuetoadd);
                 }
-           
+
+                //When we get around to implementing the database i will need to add code here that does a calculation if the selected usmt meter is "7".
+                //it should be the first if statement
+            }
+
+            return chordDry;
+
+        }
+
+        //This calculate the Axial Path Length.
+
+        public List<double> CalculateAxialPathLength()
+        {
+            List<double> dryX = new List<double>();
+            
+            //check the angles again.
+            List<double> angles = new List<double>();
+
+            if (checkAnglesHaveValues())
+            {
+                angles = pathAngles_DegreeMultiplied;
+            }
+
+            else
+            {
+                angles = CalculatePathAngle_ClampMeters();
+            }
+
+            //get lists for ultrasonic path chords and radian path angles
+            List<double> chordDry = CalculateUltraSonicPathChord();
+
+            using (var chords = chordDry.GetEnumerator())
+            using(var radianpathangles = angles.GetEnumerator())
+            {
+                while(chords.MoveNext() && radianpathangles.MoveNext())
+                {
+                    double dry = chords.Current / Math.Tan(radianpathangles.Current);
+                    dryX.Add(dry);
+                }
+            }
+
+            //Now that you have the dry values, do the full calculation.
+            //define a new list for the new dryvalues.
+            List<double> dryX2 = new List<double>();
+
+            //get sum off pathanglesx
+            double sum = pathLengthsL.Sum(x => x);
+
+            using(var bounces = pathBounces.GetEnumerator())
+            using(var dryval = dryX.GetEnumerator())
+            {
+                while(bounces.MoveNext() && dryval.MoveNext())
+                {
+                    if(bounces.Current > 0 || this.metrologyData == false || sum > 0)
+                    {
+                        double val = dryval.Current * bounces.Current;
+                        dryX2.Add(val);
+                    }
+                    else
+                    {
+                        dryX2.Add(dryval.Current);
+                    }
+                }
+            }
+            return dryX2;
+ 
+        }
 
         }
 
 
-
-
-
-
-        
-
-
-
-
     }
+
 }
