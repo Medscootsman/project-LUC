@@ -49,6 +49,7 @@ namespace LiveUncertainty.classes
         public List<Double> pathChords;
         public List<Double> pathChordsX;
         public List<Double> pathWeightingFactors;
+        public List<Double> pathAngles_DegreeMultiplied;
         public List<Double> pathAngles;
         public List<uint> pathBounces;
 
@@ -368,7 +369,7 @@ namespace LiveUncertainty.classes
             pathsTotal += 1;
         }
 
-        public void addPathLengths()
+        public void AddPathLengths()
         {
             pathLengthsL.Clear();
             foreach(Path pathobj in paths)
@@ -376,13 +377,24 @@ namespace LiveUncertainty.classes
                 pathLengthsL.Add(pathobj.Length);
             }
         }
-
+        
+        //0z
+        public void AddPathAngles_Degrees()
+        {
+            pathAngles_DegreeMultiplied.Clear();
+            foreach(Path pathobj in paths)
+            {
+                pathAngles_DegreeMultiplied.Add(pathobj.Angle * deg);
+            }
+        }
+        
+        //0x
         public void AddPathAngles()
         {
             pathAngles.Clear();
             foreach(Path pathobj in paths)
             {
-                pathAngles.Add(pathobj.Angle * Math.Pow(10, 3));
+                pathAngles.Add(pathobj.Angle);
             }
         }
 
@@ -526,6 +538,7 @@ namespace LiveUncertainty.classes
             return Aand_d;
         }
 
+        //continuation after getting recalculated weighting factors
         public List<double> ReCalculateRwd()
         {
             List<double> rwd = new List<double>();
@@ -548,25 +561,30 @@ namespace LiveUncertainty.classes
         }
 
         //TODO: Add function that checks boolean once you figure out what it actually is from a proper datasheet.
-
-        //steel wall thickness calculation. Needs bounces for it to work properly.
-        public double CalculateSteelWallThickness()
+        public uint GetSumofBounces()
         {
-            //check if number of bounces (nob) is more than one.
             uint sum = 0;
             foreach (uint val in pathBounces)
             {
                 sum += val;
             }
+            return sum;
+        }
+
+        //steel wall thickness calculation. Needs bounces for it to work properly.
+        public double CalculateSteelWallThickness()
+        {
+            //check if number of bounces (nob) is more than one.
+            uint sum = GetSumofBounces();
 
             double swt;
             if (sum > 0)
             {
-                swt = 2 * this.calculateMeterWallThickness();
+                swt = 2 * calculateMeterWallThickness();
             }
             else
             {
-                swt = this.calculateMeterWallThickness();
+                swt = calculateMeterWallThickness();
             }
 
             return swt;
@@ -578,16 +596,65 @@ namespace LiveUncertainty.classes
         }
 
         //Calculate the distance between transducers if it's a clamp-on meter.
-        public double CalculateTransducerDistance_Clampmeters()
+        public List<double> CalculateTransducerDistance_Clampmeters()
         {
-            return 0;
+            List<double> tdl = new List<double>();
+            foreach(double val in pathBounces)
+            {
+                tdl.Add(this.transducerDistance / val + 1); //need to ask why mike adds 1 in his sheet.
+            }
+            return tdl;
+
         }
 
-        //only if no of bounces > 0;
-        public double CalculatePathAngle_ClampMeters()
+
+        //goes with the first IF statement only if no of bounces > 0 otherise multiply the steel wall thickness calculation by two;
+        public List<double> CalculatePathAngle_ClampMeters()
         {
-            return 0;
+            List<double> Zerotdl = new List<double>();
+
+            uint sum = GetSumofBounces();
+            if(sum > 0)
+            {
+                foreach(double tdlval in CalculateTransducerDistance_Clampmeters())
+                {
+                    double value = Math.Atan(((calculateMeterTubeBore() + CalculateSteelWallThickness()) / tdlval));
+                    Zerotdl.Add(value);
+                }
+            }
+            else
+            {
+                foreach (double tdlval in CalculateTransducerDistance_Clampmeters())
+                {
+                    double value = Math.Atan(((calculateMeterTubeBore() + CalculateSteelWallThickness_X2()) / tdlval));
+                    Zerotdl.Add(value);
+                }
+            }
+            return Zerotdl;
         }
+
+        public bool checkAnglesHaveValues()
+        {
+            bool hasvalues = pathAngles_DegreeMultiplied.Any(x => x > 0);
+
+            return hasvalues;
+        }
+
+        //If there is path angles more than 0 we use the clamp on meter result. This is the Path angles (Radians) Calculation.
+        public List<double> SelectPathAngle()
+        {
+            bool hasvalues = checkAnglesHaveValues();
+
+            if(hasvalues)
+            {
+                return CalculatePathAngle_ClampMeters();
+            }
+            else
+            {
+                return this.pathAngles_DegreeMultiplied;
+            }
+        }
+
 
 
 
