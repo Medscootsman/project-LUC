@@ -689,7 +689,7 @@ namespace LiveUncertainty.classes
         }
 
         //If there is path angles more than 0 we use the clamp on meter result. This is the Path angles (Radians) Calculation.
-        public List<double> SelectPathAngle()
+        public List<double> SelectPathAngleRadians()
         {
             bool hasvalues = checkAnglesHaveValues();
 
@@ -813,9 +813,35 @@ namespace LiveUncertainty.classes
  
         }
 
+        public List<double> calculateSteelBeamLength()
+        {
+            double tw = calculateMeterWallThickness();
+
+            List<double> swp = new List<double>();
+            foreach(double path in SelectPathAngleRadians())
+            {
+                double val = tw / Math.Sin(path);
+                swp.Add(val);
+                
+            }
+            return swp;
+        }
+
+        public List<double> calculateSteelAxialLength() { 
+
+            double tw = calculateMeterWallThickness();
+
+            List<double> swx = new List<double>();
+
+            foreach(double path in SelectPathAngleRadians())
+            {
+                double val = tw / Math.Cos(path);
+                swx.Add(val);
+            }
+
+            return swx;
         }
 
 
     }
 
-}
