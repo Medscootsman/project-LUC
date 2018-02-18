@@ -34,7 +34,7 @@ namespace LiveUncertainty.classes
         private const double tmet = 20;
 
         //deg is defined off sheet so for now it's a made up value.
-        private const double deg = 15;
+        private const double deg = 0.12435234;
 
         //this is the pipework restraint expansion factor.
         private const double Ftax = 0.25;
@@ -54,7 +54,7 @@ namespace LiveUncertainty.classes
         public List<Double> pathAngles;
         public List<uint> pathBounces;
 
-        
+
 
 
         public UltraSonicMeter()
@@ -320,7 +320,7 @@ namespace LiveUncertainty.classes
         }
 
         //meter tube bore is calculated by dividing the internal diameter by 1000. (Mathcad reference: dDry)
-        public double calculateMeterTubeBore()
+        public double CalculateMeterTubeBore()
         {
             double dDry = this.internalDiameter / 1000;
             return dDry;
@@ -333,7 +333,7 @@ namespace LiveUncertainty.classes
         {
 
             double tw = 0; //metertubewallthickness
-            if(wallThickness != 0)
+            if (wallThickness != 0)
             {
                 tw = wallThickness / 1000;
             }
@@ -341,7 +341,7 @@ namespace LiveUncertainty.classes
             {
                 //tw is outerDiameter multiplied by 10 to the power of 3 taken away by the metertubebore divided by 2.
 
-                tw = (outerDiameter * Math.Pow(10, 3)) - this.calculateMeterTubeBore() / 2;
+                tw = (outerDiameter * Math.Pow(10, 3)) - this.CalculateMeterTubeBore() / 2;
             }
 
             return tw;
@@ -350,10 +350,10 @@ namespace LiveUncertainty.classes
         public double calculateOuterDiameter()
         {
             double dOut = 0; //true outer diameter.
-            if(outerDiameter != 0)
+            if (outerDiameter != 0)
             {
                 //this is bore plus 2 multiplied by meterwallthickness or tw
-                dOut = calculateMeterTubeBore() + 2 * calculateMeterWallThickness();
+                dOut = CalculateMeterTubeBore() + 2 * calculateMeterWallThickness();
             }
             else
             {
@@ -363,7 +363,7 @@ namespace LiveUncertainty.classes
             return dOut;
         }
 
-        
+
         public void addPath(Path path)
         {
             paths.Add(path);
@@ -373,7 +373,7 @@ namespace LiveUncertainty.classes
         public void AddPathLengthsL()
         {
             pathLengthsL.Clear();
-            foreach(Path pathobj in paths)
+            foreach (Path pathobj in paths)
             {
                 pathLengthsL.Add(pathobj.Length * Math.Pow(10, 3));
             }
@@ -393,17 +393,17 @@ namespace LiveUncertainty.classes
         public void AddPathAngles_Degrees()
         {
             pathAngles_DegreeMultiplied.Clear();
-            foreach(Path pathobj in paths)
+            foreach (Path pathobj in paths)
             {
                 pathAngles_DegreeMultiplied.Add(pathobj.Angle * deg);
             }
         }
-        
+
         //0x
         public void AddPathAngles()
         {
             pathAngles.Clear();
-            foreach(Path pathobj in paths)
+            foreach (Path pathobj in paths)
             {
                 pathAngles.Add(pathobj.Angle);
             }
@@ -412,7 +412,7 @@ namespace LiveUncertainty.classes
         public void AddPathChords() //offsets
         {
             pathChords.Clear();
-            foreach(Path pathobj in paths)
+            foreach (Path pathobj in paths)
             {
                 pathChords.Add(pathobj.offset);
             }
@@ -424,7 +424,7 @@ namespace LiveUncertainty.classes
             pathChords.Clear();
             foreach (Path pathobj in paths)
             {
-                pathChords.Add(pathobj.offset * (this.calculateMeterTubeBore() / 2));
+                pathChords.Add(pathobj.offset * (this.CalculateMeterTubeBore() / 2));
             }
 
         }
@@ -432,7 +432,7 @@ namespace LiveUncertainty.classes
         public void AddPathWeightingFactors()
         {
             pathWeightingFactors.Clear();
-            foreach(Path pathobj in paths)
+            foreach (Path pathobj in paths)
             {
                 pathWeightingFactors.Add(pathobj.weightingFactor);
             }
@@ -441,7 +441,7 @@ namespace LiveUncertainty.classes
         public void AddPathXValues()
         {
             pathXvals.Clear();
-            foreach(Path pathobj in paths)
+            foreach (Path pathobj in paths)
             {
                 pathXvals.Add(pathobj.x * Math.Pow(10, 3));
             }
@@ -450,7 +450,7 @@ namespace LiveUncertainty.classes
         public void AddNoOfBounces()
         {
             pathBounces.Clear();
-            foreach(Path pathobj in paths)
+            foreach (Path pathobj in paths)
             {
                 pathBounces.Add(pathobj.Bounces);
             }
@@ -459,7 +459,7 @@ namespace LiveUncertainty.classes
 
         //Convert the wet calibration values into SI + Absolute.
 
-        public double CalculateSIAbsoluteCalibratedPressure() 
+        public double CalculateSIAbsoluteCalibratedPressure()
         {
             double correctedCalPressure = this.Callibration_Pressure * Math.Pow(10, 5);
             return correctedCalPressure;
@@ -483,7 +483,7 @@ namespace LiveUncertainty.classes
             //Pull the values you will need. This makes for cleaner code.
             double dOutSquared = Math.Pow(this.calculateOuterDiameter(), 2);
 
-            double dDrySquared = Math.Pow(this.calculateMeterTubeBore(), 2);
+            double dDrySquared = Math.Pow(this.CalculateMeterTubeBore(), 2);
 
             double FBs = 1 / elasticity * (((1.3 * dOutSquared) - (0.4 * dDrySquared)) /
                                           (dOutSquared - dDrySquared));
@@ -502,8 +502,8 @@ namespace LiveUncertainty.classes
 
             return cpsf;
         }
-        
-        
+
+
         public double CalculateCpsw()
         {
             double cpsw = 1 + this.CalculateRadicalPressureCorrection() * (this.CalculateSIAbsoluteCalibratedPressure() - 1);
@@ -526,7 +526,7 @@ namespace LiveUncertainty.classes
 
         public double CalculateCtsfa()
         {
-            double ctsfa =  1 + Ftax * coeff * (this.opconditions.OperatingTemperature - tmet);
+            double ctsfa = 1 + Ftax * coeff * (this.opconditions.OperatingTemperature - tmet);
             return ctsfa;
         }
 
@@ -540,9 +540,9 @@ namespace LiveUncertainty.classes
         {
             List<double> Aand_d = new List<double>();
 
-            foreach(double path in this.pathChords)
+            foreach (double path in this.pathChords)
             {
-                double recalculatedweightingfactor = Math.PI * ((Math.Pow((this.calculateMeterTubeBore() / 2), 2)) - (Math.Pow(path, 2)));
+                double recalculatedweightingfactor = Math.PI * ((Math.Pow((this.CalculateMeterTubeBore() / 2), 2)) - (Math.Pow(path, 2)));
 
                 Aand_d.Add(recalculatedweightingfactor);
             }
@@ -557,12 +557,12 @@ namespace LiveUncertainty.classes
 
             //get the sum of the ReCalculated Weighting Factors
 
-            foreach(double path in this.ReCalculateWeightingFactors())
+            foreach (double path in this.ReCalculateWeightingFactors())
             {
                 sum += path;
             }
 
-            foreach(double pathval in this.ReCalculateWeightingFactors())
+            foreach (double pathval in this.ReCalculateWeightingFactors())
             {
 
                 double newvalue = pathval / sum;
@@ -582,7 +582,7 @@ namespace LiveUncertainty.classes
             }
             return sum;
         }
-        
+
         //steel wall thickness calculation. Needs bounces for it to work properly.
         public List<double> CalculateSteelWallThickness()
         {
@@ -606,12 +606,13 @@ namespace LiveUncertainty.classes
             return swt;
         }
 
-        public List<double> CalculateSteelWallThickness_X2() {
+        public List<double> CalculateSteelWallThickness_X2()
+        {
 
             //check if number of bounces (nob) is more than one.
             List<double> newswt = new List<double>();
 
-            foreach(double swt in CalculateSteelWallThickness())
+            foreach (double swt in CalculateSteelWallThickness())
             {
                 newswt.Add(swt * 2);
             }
@@ -623,7 +624,7 @@ namespace LiveUncertainty.classes
         public List<double> CalculateTransducerDistance_Clampmeters()
         {
             List<double> tdl = new List<double>();
-            foreach(double val in pathBounces)
+            foreach (double val in pathBounces)
             {
                 tdl.Add(this.transducerDistance / val + 1); //need to ask why mike adds 1 in his sheet.
             }
@@ -648,17 +649,17 @@ namespace LiveUncertainty.classes
                     if (sum.Current > 0)
                     {
 
-                        double value = Math.Atan(((calculateMeterTubeBore() + swt.Current) / tdval.Current));
+                        double value = Math.Atan(((CalculateMeterTubeBore() + swt.Current) / tdval.Current));
                         Zerotdl.Add(value);
 
 
                     }
                     else
                     {
-                        double value = Math.Atan(((calculateMeterTubeBore() + swt.Current) / tdval.Current));
+                        double value = Math.Atan(((CalculateMeterTubeBore() + swt.Current) / tdval.Current));
                         Zerotdl.Add(value);
                     }
-                    
+
                 }
             }
             return Zerotdl;
@@ -675,7 +676,7 @@ namespace LiveUncertainty.classes
                 sum += val;
             }
 
-            if(sum > 0)
+            if (sum > 0)
             {
                 hasvalues = true;
             }
@@ -683,7 +684,7 @@ namespace LiveUncertainty.classes
             {
                 hasvalues = false;
             }
-            
+
 
             return hasvalues;
         }
@@ -693,7 +694,7 @@ namespace LiveUncertainty.classes
         {
             bool hasvalues = checkAnglesHaveValues();
 
-            if(hasvalues)
+            if (hasvalues)
             {
                 return CalculatePathAngle_ClampMeters();
             }
@@ -712,7 +713,7 @@ namespace LiveUncertainty.classes
             List<uint> noOfBounces = this.pathBounces;
             List<double> angles = new List<double>();
             //check if there's values in the path angles
-            if(checkAnglesHaveValues())
+            if (checkAnglesHaveValues())
             {
                 angles = pathAngles_DegreeMultiplied;
             }
@@ -735,12 +736,12 @@ namespace LiveUncertainty.classes
                 {
                     if (bounce.Current == 0 || bounce.Current == 1)
                     {
-                        valuetoadd = 2 * (Math.Sqrt(Math.Pow(this.calculateMeterTubeBore() / 2, 2) - (Math.Pow(chord.Current, 2))));
+                        valuetoadd = 2 * (Math.Sqrt(Math.Pow(this.CalculateMeterTubeBore() / 2, 2) - (Math.Pow(chord.Current, 2))));
                     }
 
                     else if (bounce.Current == 2)
                     {
-                        valuetoadd = (Math.Cos(radianPathangle.Current / 2)) * this.calculateMeterTubeBore();
+                        valuetoadd = (Math.Cos(radianPathangle.Current / 2)) * this.CalculateMeterTubeBore();
                     }
 
                     chordDry.Add(valuetoadd);
@@ -759,7 +760,7 @@ namespace LiveUncertainty.classes
         public List<double> CalculateAxialPathLength()
         {
             List<double> dryX = new List<double>();
-            
+
             //check the angles again.
             List<double> angles = new List<double>();
 
@@ -777,9 +778,9 @@ namespace LiveUncertainty.classes
             List<double> chordDry = CalculateUltraSonicPathChord();
 
             using (var chords = chordDry.GetEnumerator())
-            using(var radianpathangles = angles.GetEnumerator())
+            using (var radianpathangles = angles.GetEnumerator())
             {
-                while(chords.MoveNext() && radianpathangles.MoveNext())
+                while (chords.MoveNext() && radianpathangles.MoveNext())
                 {
                     double dry = chords.Current / Math.Tan(radianpathangles.Current);
                     dryX.Add(dry);
@@ -793,14 +794,14 @@ namespace LiveUncertainty.classes
             //get sum off pathanglesx
             double sum = pathLengthsL.Sum(x => x);
 
-            using(var bounces = pathBounces.GetEnumerator())
-            using(var dryval = dryX.GetEnumerator())
+            using (var bounces = pathBounces.GetEnumerator())
+            using (var dryval = dryX.GetEnumerator())
             {
-                while(bounces.MoveNext() && dryval.MoveNext())
+                while (bounces.MoveNext() && dryval.MoveNext())
                 {
-                    if(bounces.Current > 0 || this.metrologyData == false || sum > 0)
+                    if (bounces.Current > 0 || this.metrologyData == false || sum > 0)
                     {
-                        double val = dryval.Current * bounces.Current;
+                        double val = dryval.Current * bounces.Current + 1;
                         dryX2.Add(val);
                     }
                     else
@@ -810,7 +811,7 @@ namespace LiveUncertainty.classes
                 }
             }
             return dryX2;
- 
+
         }
 
         public List<double> calculateSteelBeamLength()
@@ -818,22 +819,23 @@ namespace LiveUncertainty.classes
             double tw = calculateMeterWallThickness();
 
             List<double> swp = new List<double>();
-            foreach(double path in SelectPathAngleRadians())
+            foreach (double path in SelectPathAngleRadians())
             {
                 double val = tw / Math.Sin(path);
                 swp.Add(val);
-                
+
             }
             return swp;
         }
 
-        public List<double> calculateSteelAxialLength() { 
+        public List<double> CalculateSteelAxialLength()
+        {
 
             double tw = calculateMeterWallThickness();
 
             List<double> swx = new List<double>();
 
-            foreach(double path in SelectPathAngleRadians())
+            foreach (double path in SelectPathAngleRadians())
             {
                 double val = tw / Math.Cos(path);
                 swx.Add(val);
@@ -842,6 +844,123 @@ namespace LiveUncertainty.classes
             return swx;
         }
 
+        public List<double> CalculateFluidPathLength()
+        {
+            //part 1 metertube bore divided the the sin value of the path angle.
+
+            double dDry = CalculateMeterTubeBore();
+
+            List<double> fpl = new List<double>();
+
+            foreach(double path in SelectPathAngleRadians())
+            {
+                double val = dDry / Math.Sin(path);
+                fpl.Add(val);
+            }
+
+            //Part 2: fpl multiplied the the nop.
+
+            List<double> newFPL = new List<double>();
+
+            using(var fpl1 = fpl.GetEnumerator())
+            using(var nob = pathBounces.GetEnumerator())
+            {
+                while(fpl1.MoveNext() && nob.MoveNext())
+                {
+                    double val = fpl1.Current * (nob.Current + 1);
+                    newFPL.Add(val);
+                }
+
+            }
+
+            return newFPL;
+        }
+
+        public List<double> Calculateb90() //Calculate Path Length for Panametrics Bias 90 Flare Gas meter
+        {
+            return null;
+        }
+
+        public List<double> CalculatePathLength() //1dry
+        {
+            List<double> _1Dry = new List<double>();
+
+            //get the required lists
+            List<uint> bounces = pathBounces;
+            List<double> swt = CalculateSteelWallThickness();
+            List<double> tdl = CalculateTransducerDistance_Clampmeters();
+            double dDry = CalculateMeterTubeBore();
+            List<double> swp = calculateSteelBeamLength();
+            List<double> Ldryz = pathLengthsL;
+            List<double> fpl = CalculateFluidPathLength();
+
+            //set up an enumerator for each.
+            using (var Bounces = bounces.GetEnumerator())
+            using (var Tdl = tdl.GetEnumerator())
+            using (var Swp = swp.GetEnumerator())
+            using (var Swt = swt.GetEnumerator())
+            using (var ldryz = pathLengthsL.GetEnumerator())
+            using (var FPL = fpl.GetEnumerator())
+            {
+                while (Bounces.MoveNext() && Tdl.MoveNext() && Swp.MoveNext() && ldryz.MoveNext() && Swt.MoveNext() && FPL.MoveNext())
+                {
+                    double val = 0;
+
+                    if (this.transducerDistance > 0)
+                    {
+                        val = Math.Sqrt
+                            (
+                            Math.Pow((Tdl.Current * Bounces.Current + 1), 2) + Math.Pow((dDry + Swt.Current * Bounces.Current + 1), 2)
+                            );
+                        _1Dry.Add(val);
+                    }
+
+                    else if (metrologyData == false)
+                    {
+                        val = FPL.Current + 2 * Swp.Current;
+
+                        _1Dry.Add(val);
+                    }
+
+                    else
+                    {
+                        val = ldryz.Current / Bounces.Current + 1;
+                        _1Dry.Add(val);
+                    }
+                }
+            }
+            // Now multiply it by the number of bounces + 1 depending on the conditions.
+            List<double> new1dry = new List<double>();
+            using (var oneDry = _1Dry.GetEnumerator())
+            using (var bounces2 = pathBounces.GetEnumerator())
+            {
+                while (bounces2.MoveNext() && oneDry.MoveNext())
+                {
+                    double val = 0;
+                    if (bounces2.Current > 0 || metrologyData == false)
+                    {
+                        val = oneDry.Current * bounces2.Current + 1;
+                        new1dry.Add(val);
+                    }
+
+                    else
+                    {
+                        new1dry.Add(oneDry.Current);
+                    }
+                }
+                    
+            }
+
+            return new1dry;
+
+        }
+
+        public double CalculateDf()
+        {
+            double Df = CalculateMeterTubeBore() * CalculateCtsfr() * CalculateCpsf();
+
+            return Df;
+        }
 
     }
-
+}
