@@ -1191,5 +1191,11 @@ namespace LiveUncertainty.classes
                 return returnval;
             }
         }
+
+        public double CalculateRelativeDensity()
+        {
+            return opconditions.BaseDensity / 1.22541;
+        }
+
     }
 }

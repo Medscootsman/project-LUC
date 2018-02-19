@@ -384,7 +384,7 @@ namespace LiveUncertainty.classes
         {
             get
             {
-                sum =  Air + CarbonDioxide + CarbonMonoxide + Decane + Ethane + Heptane + Helium + Hexane + HexanePlus + IsoBuntane + Methane + Methanol + NButane + NeoPentane + Octane + Propane + NPentane;
+                sum = Air + CarbonDioxide + CarbonMonoxide + Decane + Ethane + Heptane + Helium + Hexane + HexanePlus + IsoBuntane + Methane + Methanol + NButane + NeoPentane + Octane + Propane + NPentane + Water + Oxygen + HydrogenSulfide + Nonane;
 
                 return sum;
             }
@@ -412,6 +412,10 @@ namespace LiveUncertainty.classes
                 vals.Add(octane);
                 vals.Add(propane);
                 vals.Add(NPentane);
+                vals.Add(Water);
+                vals.Add(Oxygen);
+                vals.Add(HydrogenSulfide);
+                vals.Add(Nonane);
 
                 return vals;
             }
@@ -427,7 +431,7 @@ namespace LiveUncertainty.classes
         public List<double> CalculateXi() //used in some methods.
         {
             //get a list of all gas compositions.
-            List<double> Xi = new List<double>;
+            List<double> Xi = new List<double>();
 
             foreach(double val in Gases)
             {
