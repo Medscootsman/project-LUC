@@ -390,11 +390,53 @@ namespace LiveUncertainty.classes
             }
         }
 
+        public List<double> Gases
+        {
+            get
+            {
+                List<double> vals = new List<double>();
+                vals.Add(air);
+                vals.Add(carbonDioxide);
+                vals.Add(carbonMonoxide);
+                vals.Add(decane);
+                vals.Add(ethane);
+                vals.Add(heptane);
+                vals.Add(helium);
+                vals.Add(hexane);
+                vals.Add(hexanePlus);
+                vals.Add(isoButane);
+                vals.Add(methane);
+                vals.Add(methanol);
+                vals.Add(nButane);
+                vals.Add(neoPentane);
+                vals.Add(octane);
+                vals.Add(propane);
+                vals.Add(NPentane);
+
+                return vals;
+            }
+        }
+
         //divide the total by 100 to see if it equals 1, if it doesn't then it is not at 100;
-        public double checkTotal()
+        public double CheckTotal()
         {
             double chk = this.Sum / 100;
             return chk;
+        }
+
+        public List<double> CalculateXi() //used in some methods.
+        {
+            //get a list of all gas compositions.
+            List<double> Xi = new List<double>;
+
+            foreach(double val in Gases)
+            {
+                double vauel = val / Sum;
+                Xi.Add(val);
+            }
+
+            return Xi;
+
         }
 
 

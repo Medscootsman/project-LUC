@@ -28,6 +28,8 @@ namespace LiveUncertainty.classes
         public double fluidPathTolerance;
         public double meterDiameterTolerance;
 
+        //Most static variables are kept on this class.
+
         protected double elasticity = 210 * Math.Pow(10, 9); // known as Yym on the mathcad sheet. supposed to be constant.
         private double coeff = 1.2 * Math.Pow(10, 5); //Coeff. of Linear Exp. (/°C)
         public const double thermalExpansion = 0.000011;
@@ -39,8 +41,14 @@ namespace LiveUncertainty.classes
         //this is the pipework restraint expansion factor.
         private const double Ftax = 0.25;
 
+        //Universal Gas Constant
+        private double Ro = 8.314510 * Math.Pow(10, 3);
+
+        //
+
         //Associated objects that will be set in the frontend
         public OperatingConditions opconditions;
+        public GasComposition gascomp;
 
         //Objects you will or may need.
         public List<Path> paths;
@@ -852,7 +860,7 @@ namespace LiveUncertainty.classes
 
             List<double> fpl = new List<double>();
 
-            foreach(double path in SelectPathAngleRadians())
+            foreach (double path in SelectPathAngleRadians())
             {
                 double val = dDry / Math.Sin(path);
                 fpl.Add(val);
@@ -862,10 +870,10 @@ namespace LiveUncertainty.classes
 
             List<double> newFPL = new List<double>();
 
-            using(var fpl1 = fpl.GetEnumerator())
-            using(var nob = pathBounces.GetEnumerator())
+            using (var fpl1 = fpl.GetEnumerator())
+            using (var nob = pathBounces.GetEnumerator())
             {
-                while(fpl1.MoveNext() && nob.MoveNext())
+                while (fpl1.MoveNext() && nob.MoveNext())
                 {
                     double val = fpl1.Current * (nob.Current + 1);
                     newFPL.Add(val);
@@ -948,7 +956,7 @@ namespace LiveUncertainty.classes
                         new1dry.Add(oneDry.Current);
                     }
                 }
-                    
+
             }
 
             return new1dry;
@@ -969,7 +977,7 @@ namespace LiveUncertainty.classes
 
             double Ctsfa = CalculateCtsfa();
 
-            foreach(double val in Xdry)
+            foreach (double val in Xdry)
             {
                 double xf = val * Ctsfa;
 
@@ -1008,7 +1016,7 @@ namespace LiveUncertainty.classes
             using (var _XDry = XDry.GetEnumerator())
             using (var _pathradians = pathradians.GetEnumerator())
             {
-                while(_XDry.MoveNext() && _pathradians.MoveNext())
+                while (_XDry.MoveNext() && _pathradians.MoveNext())
                 {
                     double val = _XDry.Current / Math.Cos(_pathradians.Current);
                     fpl.Add(val);
@@ -1019,7 +1027,7 @@ namespace LiveUncertainty.classes
             using (var ldry = LDry.GetEnumerator())
             using (var FPL = fpl.GetEnumerator())
             {
-                while(ldry.MoveNext() && FPL.MoveNext())
+                while (ldry.MoveNext() && FPL.MoveNext())
                 {
                     double val = (ldry.Current - FPL.Current) / 2;
                     bay.Add(val);
@@ -1037,7 +1045,7 @@ namespace LiveUncertainty.classes
             using (var path = pathradians.GetEnumerator())
             using (var xdry = XDry.GetEnumerator())
             {
-                while(xdry.MoveNext() && path.MoveNext())
+                while (xdry.MoveNext() && path.MoveNext())
                 {
                     double val = Math.Tan(path.Current) * xdry.Current;
                     chordwidth.Add(val);
@@ -1054,7 +1062,7 @@ namespace LiveUncertainty.classes
             double Ctsfr = CalculateCtsfr();
             double Cpsf = CalculateCpsf();
 
-            foreach(double chord in chordwidth)
+            foreach (double chord in chordwidth)
             {
                 double val = chord * Ctsfr * Cpsf;
                 ChordF.Add(val);
@@ -1062,14 +1070,14 @@ namespace LiveUncertainty.classes
             return ChordF;
         }
 
-        public List<double> CalculateChordWet()
+        public List<double> CalculateChordWet() //ChordWet
         {
             List<double> chordWet = new List<double>();
             List<double> chordWidth = CalculateChordWidthDry();
             double Ctswr = CalculateCtswr();
             double Cpsw = CalculateCpsw();
 
-            foreach(double chord in chordWidth)
+            foreach (double chord in chordWidth)
             {
                 double val = chord * Ctswr * Cpsw;
             }
@@ -1077,18 +1085,111 @@ namespace LiveUncertainty.classes
             return chordWet;
         }
 
-        public List<double> CalculatePathAngleAfterPressure() //0f
+        public List<double> CalculatePathAngleAfterPressure() //0f This is in RADIANS.
         {
-            List<double> 0f
+            List<double> zeroF = new List<double>();
+            List<double> chordf = CalculateChordWidthf();
+            List<double> Xf = CalculateXf();
+
+            // chord divided by xf
+            using (var chord = chordf.GetEnumerator())
+            using (var xf = Xf.GetEnumerator())
+            {
+                while (chord.MoveNext() && xf.MoveNext())
+                {
+                    var val = Math.Atan(chord.Current / xf.Current);
+                    zeroF.Add(val);
+                }
+            }
+            return zeroF;
         }
+
+        public List<double> CalculatePathAngleTemperature() // 0Wet
+        {
+            List<double> Zerowet = new List<double>();
+            List<double> chordwet = CalculateChordWet();
+            List<double> xwet = CalculateXwet();
+
+            using (var Chord = chordwet.GetEnumerator())
+            using (var Xwet = xwet.GetEnumerator())
+            {
+                while(Chord.MoveNext() && Xwet.MoveNext())
+                {
+                    double val = Math.Atan(Chord.Current / Xwet.Current);
+                    Zerowet.Add(val);
+                }
+            }
+
+            return Zerowet;
+        } 
+
         public List<double> CalculatePathLengthPostPressure() //Lf, I assume.
         {
             List<double> Lf = new List<double>();
 
             List<double> Xf = CalculateXf();
 
+            List<double> ZeroF = CalculatePathAngleAfterPressure();
 
+            List<double> Bay = CalculateBay();
+
+            using (var _Xf = Xf.GetEnumerator())
+            using (var _ZeroF = ZeroF.GetEnumerator())
+            using (var _Bay = Bay.GetEnumerator())
+            {
+                while(_Xf.MoveNext() && _ZeroF.MoveNext() && _Bay.MoveNext())
+                {
+                    double val = (_Xf.Current / Math.Cos(_ZeroF.Current)) + 2 * _Bay.Current;
+                    Lf.Add(val);
+                }
+            }
+            return Lf;
         }
 
+        public List<double> PathLengthTemperatureCorrected()
+        {
+            List<double> Lwet = new List<double>();
+
+            List<double> Xf = CalculateXf();
+
+            List<double> ZeroWet = CalculatePathAngleTemperature();
+
+            List<double> Bay = CalculateBay();
+
+            using (var _Xf = Xf.GetEnumerator())
+            using (var _ZeroWet = ZeroWet.GetEnumerator())
+            using (var _Bay = Bay.GetEnumerator())
+            {
+                while (_Xf.MoveNext() && _ZeroWet.MoveNext() && _Bay.MoveNext())
+                {
+                    double val = (_Xf.Current / Math.Cos(_ZeroWet.Current)) + 2 * _Bay.Current;
+                    Lwet.Add(val);
+                }
+            }
+            return Lwet;
+        }
+
+
+        public double CalculateBaseCompressibility()
+        {
+            if (opconditions.baseCompressibility != null)
+            {
+                return opconditions.baseCompressibility;
+            }
+            else
+            {
+                //get the sum of xi
+                double sum = 0;
+                foreach(double val in gascomp.CalculateXi())
+                {
+                    double newsum = Math.Pow(val, 2);
+                    sum += newsum;
+                }
+
+                double returnval = 1 - sum;
+
+                return returnval;
+            }
+        }
     }
 }

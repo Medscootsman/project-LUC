@@ -17,6 +17,12 @@ namespace LiveUncertainty.classes
         public bool ptz_calc;
         public double maxMassFlow;
         public double maxGOVFlow;
+        public double kappa;
+        public double viscosity;
+        public double zCompressibility;
+        public double baseCompressibility;
+        public double moleWeight;
+
         public Int16 measurementType;
 
         public OperatingConditions()
@@ -191,11 +197,24 @@ namespace LiveUncertainty.classes
         public double CalculateSIAbsoluteOperatingPressureConverted() //Pf Capitalized
         {
             //add 1.01325 to the value.
-            double correctedOpPressure = this.CalculateSIAboluteOperatingPressure() + 1.01325;
+            double correctedOpPressure = this.CalculateSIAbsoluteOperatingPressure() + 1.01325;
 
             return correctedOpPressure;
         }
-        
+
+        public double Base_compressibility
+        {
+            get
+            {
+                return baseCompressibility;
+            }
+
+            set
+            {
+                baseCompressibility = value;
+            }
+        }
+
 
     }
 }
