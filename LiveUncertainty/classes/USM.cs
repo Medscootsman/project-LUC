@@ -962,5 +962,133 @@ namespace LiveUncertainty.classes
             return Df;
         }
 
+        public List<double> CalculateXf()
+        {
+            List<double> Xf = new List<double>();
+            List<double> Xdry = CalculateAxialPathLength();
+
+            double Ctsfa = CalculateCtsfa();
+
+            foreach(double val in Xdry)
+            {
+                double xf = val * Ctsfa;
+
+                Xf.Add(xf);
+            }
+
+            return Xf;
+        }
+
+        public List<double> CalculateXwet()
+        {
+            List<double> Xwet = new List<double>();
+            List<double> Xdry = CalculateAxialPathLength();
+
+            double Ctswa = CalculateCtswa();
+
+            foreach (double val in Xdry)
+            {
+                double xf = val * Ctswa;
+
+                Xwet.Add(xf);
+            }
+
+            return Xwet;
+        }
+
+        public List<double> CalculateBay()
+        {
+            List<double> fpl = new List<double>();
+            List<double> bay = new List<double>();
+
+            List<double> XDry = CalculateAxialPathLength();
+            List<double> LDry = CalculatePathLength();
+            List<double> pathradians = SelectPathAngleRadians();
+
+            using (var _XDry = XDry.GetEnumerator())
+            using (var _pathradians = pathradians.GetEnumerator())
+            {
+                while(_XDry.MoveNext() && _pathradians.MoveNext())
+                {
+                    double val = _XDry.Current / Math.Cos(_pathradians.Current);
+                    fpl.Add(val);
+                }
+            }
+
+            //calculate bay
+            using (var ldry = LDry.GetEnumerator())
+            using (var FPL = fpl.GetEnumerator())
+            {
+                while(ldry.MoveNext() && FPL.MoveNext())
+                {
+                    double val = (ldry.Current - FPL.Current) / 2;
+                    bay.Add(val);
+                }
+            }
+            return bay;
+        }
+
+        public List<double> CalculateChordWidthDry()
+        {
+            List<double> chordwidth = new List<double>();
+            List<double> pathradians = SelectPathAngleRadians();
+            List<double> XDry = CalculateAxialPathLength();
+
+            using (var path = pathradians.GetEnumerator())
+            using (var xdry = XDry.GetEnumerator())
+            {
+                while(xdry.MoveNext() && path.MoveNext())
+                {
+                    double val = Math.Tan(path.Current) * xdry.Current;
+                    chordwidth.Add(val);
+                }
+            }
+
+            return chordwidth;
+        }
+
+        public List<double> CalculateChordWidthf()
+        {
+            List<double> ChordF = new List<double>();
+            List<double> chordwidth = CalculateChordWidthDry();
+            double Ctsfr = CalculateCtsfr();
+            double Cpsf = CalculateCpsf();
+
+            foreach(double chord in chordwidth)
+            {
+                double val = chord * Ctsfr * Cpsf;
+                ChordF.Add(val);
+            }
+            return ChordF;
+        }
+
+        public List<double> CalculateChordWet()
+        {
+            List<double> chordWet = new List<double>();
+            List<double> chordWidth = CalculateChordWidthDry();
+            double Ctswr = CalculateCtswr();
+            double Cpsw = CalculateCpsw();
+
+            foreach(double chord in chordWidth)
+            {
+                double val = chord * Ctswr * Cpsw;
+            }
+
+            return chordWet;
+        }
+
+        public List<double> CalculatePathAngleAfterPressure() //0f
+        {
+            List<double> 0f
+        }
+        public List<double> CalculatePathLengthPostPressure() //Lf, I assume.
+        {
+            List<double> Lf = new List<double>();
+
+            List<double> Xf = CalculateXf();
+
+
+        }
+
     }
 }
