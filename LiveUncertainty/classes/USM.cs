@@ -28,6 +28,7 @@ namespace LiveUncertainty.classes
         public double fluidPathTolerance;
         public double meterDiameterTolerance;
 
+        public string rho;
         //Most static variables are kept on this class.
 
         protected double elasticity = 210 * Math.Pow(10, 9); // known as Yym on the mathcad sheet. supposed to be constant.
@@ -35,8 +36,8 @@ namespace LiveUncertainty.classes
         public const double thermalExpansion = 0.000011;
         private const double tmet = 20;
 
-        //deg is defined off sheet so for now it's a made up value.
-        private const double deg = 0.12435234;
+        //deg is 0.017
+        private const double deg = 0.017;
 
         //this is the pipework restraint expansion factor.
         private const double Ftax = 0.25;
@@ -1172,7 +1173,7 @@ namespace LiveUncertainty.classes
 
         public double CalculateBaseCompressibility()
         {
-            if (opconditions.baseCompressibility != null)
+            if (GetSumofBounces()[0] == 0) //replace with an rho check in the near future.
             {
                 return opconditions.baseCompressibility;
             }
@@ -1180,10 +1181,14 @@ namespace LiveUncertainty.classes
             {
                 //get the sum of xi
                 double sum = 0;
-                foreach(double val in gascomp.CalculateXi())
+                using (var xienum = gascomp.CalculateXi().GetEnumerator()) 
+                using (var gasenum = gascomp.Gases.GetEnumerator())
                 {
-                    double newsum = Math.Pow(val, 2);
-                    sum += newsum;
+                    while (xienum.MoveNext() && gasenum.MoveNext())
+                    {
+                        double newsum = Math.Pow(xienum.Current * gasenum.Current.SqrtB, 2);
+                        sum += newsum;
+                    }
                 }
 
                 double returnval = 1 - sum;
@@ -1192,10 +1197,41 @@ namespace LiveUncertainty.classes
             }
         }
 
+        public double CalculateRelativeMolarMass() //MW mathcad reference.
+        {
+            double relativemolarmass = 0;
+
+            using (var xienum = gascomp.CalculateXi().GetEnumerator())
+            using (var gasenum = gascomp.Gases.GetEnumerator())
+            {
+                while(xienum.MoveNext() && gasenum.MoveNext())
+                {
+                    relativemolarmass += xienum.Current * gasenum.Current.MolWeight;
+                }
+            }
+            return relativemolarmass;
+        }
+
+        public double CalculateBaseDensity()
+        {
+            double Pref = opconditions.CalculateSIAbsoluteOperatingPressureConverted();
+            double MW = CalculateRelativeMolarMass();
+            double Tref = opconditions.CalculateSIAbsoluteReferenceTemperature();
+            double zb = CalculateBaseCompressibility();
+            double ro = this.Ro;
+
+            double basedensity = (Pref * MW) / (zb * ro * Tref);
+
+            return basedensity;
+
+        }   
+
         public double CalculateRelativeDensity()
         {
-            return opconditions.BaseDensity / 1.22541;
+            return CalculateBaseDensity() / 1.22541;
         }
+
+
 
     }
 }

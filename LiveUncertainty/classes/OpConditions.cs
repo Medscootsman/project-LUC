@@ -215,6 +215,9 @@ namespace LiveUncertainty.classes
             }
         }
 
-
+        public double CalculatePM()
+        {
+            return this.OperatingPressure + 1.01325;
+        }
     }
 }

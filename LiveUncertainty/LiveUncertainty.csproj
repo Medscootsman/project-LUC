@@ -262,6 +262,7 @@
     </Compile>
     <Compile Include="classes\Analysers.cs" />
     <Compile Include="classes\FlowComputer.cs" />
+    <Compile Include="classes\gas.cs" />
     <Compile Include="classes\OpConditions.cs" />
     <Compile Include="classes\GasComposition.cs" />
     <Compile Include="classes\MeterTube.cs" />

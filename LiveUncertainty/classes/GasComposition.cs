@@ -11,28 +11,7 @@ namespace LiveUncertainty.classes
     public class GasComposition
 
     {
-        public double methane;
-        public double ethane;
-        public double propane;
-        public double nButane;
-        public double isoButane;
-        public double nPentane;
-        public double neoPentane;
-        public double hexane;
-        public double heptane;
-        public double octane;
-        public double nonane;
-        public double decane;
-        public double nitrogen;
-        public double carbonDioxide;
-        public double air;
-        public double hydrogenSulfide;
-        public double carbonMonoxide;
-        public double helium;
-        public double oxygen;
-        public double water;
-        public double methanol;
-        public double hexanePlus;
+        public List<Gas> gases;
         public double sum;
 
         //Molecular Weights (constants)
@@ -97,329 +76,36 @@ namespace LiveUncertainty.classes
             //
         }
 
-        public double Methane
+        public void AddGas(Gas gas)
         {
-            get
-            {
-                return methane;
-            }
-
-            set
-            {
-                methane = value;
-            }
+            gases.Add(gas);
         }
 
-        public double Ethane
+        public List<Gas> Gases
         {
             get
             {
-                return ethane;
-            }
-            set
-            {
-                ethane = value;
-            }
-        }
-
-        public double Propane
-        {
-            get
-            {
-                return propane;
+                return gases;
             }
 
-            set
-            {
-                propane = value;
-            }
-        }
-
-        public double NButane
-        {
-            get
-            {
-                return nButane;
-            }
-
-            set
-            {
-                nButane = value;
-            }
-        }
-
-        public double IsoBuntane
-        {
-            get
-            {
-                return isoButane;
-            }
-            set
-            {
-                isoButane = value;
-            }
-        }
-
-        public double NPentane
-        {
-            get
-            {
-                return nPentane;
-            }
-
-            set
-            {
-                nPentane = value;
-            }
-        }
-
-        public double NeoPentane
-        {
-            get
-            {
-                return neoPentane;
-            }
-
-            set
-            {
-                neoPentane = value;
-            }
-        }
-
-        public double Hexane
-        {
-            get
-            {
-                return hexane;
-            }
-
-            set
-            {
-                hexane = value;
-            }
-        }
-        
-        public double Heptane
-        {
-            get
-            {
-                return heptane;
-            }
-
-            set
-            {
-                heptane = value;
-            }
-        }
-
-        public double Octane
-        {
-            get
-            {
-                return octane;
-            }
-
-            set
-            {
-                octane = value;
-            }
-        }
-
-        public double Nonane
-        {
-            get
-            {
-                return nonane;
-            }
-            
-            set
-            {
-                nonane = value;
-            }
-        }
-
-        public double Decane
-        {
-            get
-            {
-                return decane;
-            }
-            set
-            {
-                decane = value;
-            }
-        }
-
-        public double Nitrogen
-        {
-            get
-            {
-                return nitrogen;
-            }
-            set
-            {
-                nitrogen = value;
-            }
-        }
-
-        public double CarbonDioxide
-        {
-            get
-            {
-                return carbonDioxide;
-            }
-
-            set
-            {
-                carbonDioxide = value;
-            }
-        }
-
-        public double Air
-        {
-            get
-            {
-                return air;
-            }
-
-            set
-            {
-                air = value;
-            }
-            
-        }
-
-        public double HydrogenSulfide
-        {
-            get
-            {
-                return hydrogenSulfide;
-            }
-
-            set
-            {
-                hydrogenSulfide = value;
-            }
-        }
-
-        public double CarbonMonoxide
-        {
-            get
-            {
-                return carbonMonoxide;
-            }
-
-            set
-            {
-                carbonMonoxide = value;
-            }
-        }
-
-        public double Helium
-        {
-            get
-            {
-                return helium;
-            }
-
-            set
-            {
-                helium = value;
-            }
-        }
-
-        public double Oxygen
-        {
-            get
-            {
-                return oxygen;
-            }
-
-            set
-            {
-                oxygen = value;
-            }
-        }
-
-        public double Water
-        {
-            get
-            {
-                return water;
-            }
-
-            set
-            {
-                water = value;
-            }
-        }
-
-        public double Methanol
-        {
-            get
-            {
-                return methanol;
-            }
-
-            set
-            {
-                methanol = value;
-            }
-        }
-
-        public double HexanePlus
-        {
-            get
-            {
-                return hexanePlus;
-            }
-
-            set
-            {
-                hexanePlus = value;
-            }
         }
 
         public double Sum
         {
             get
             {
-                sum = Air + CarbonDioxide + CarbonMonoxide + Decane + Ethane + Heptane + Helium + Hexane + HexanePlus + IsoBuntane + Methane + Methanol + NButane + NeoPentane + Octane + Propane + NPentane + Water + Oxygen + HydrogenSulfide + Nonane;
+                using(var gas = gases.GetEnumerator())
+                {
+                    while(gas.MoveNext())
+                    {
+                        sum += gas.Current.Composition;
+                    }
+                }
 
                 return sum;
             }
         }
 
-        public List<double> Gases
-        {
-            get
-            {
-                List<double> vals = new List<double>();
-                vals.Add(air);
-                vals.Add(carbonDioxide);
-                vals.Add(carbonMonoxide);
-                vals.Add(decane);
-                vals.Add(ethane);
-                vals.Add(heptane);
-                vals.Add(helium);
-                vals.Add(hexane);
-                vals.Add(hexanePlus);
-                vals.Add(isoButane);
-                vals.Add(methane);
-                vals.Add(methanol);
-                vals.Add(nButane);
-                vals.Add(neoPentane);
-                vals.Add(octane);
-                vals.Add(propane);
-                vals.Add(NPentane);
-                vals.Add(Water);
-                vals.Add(Oxygen);
-                vals.Add(HydrogenSulfide);
-                vals.Add(Nonane);
-
-                return vals;
-            }
-        }
 
         //divide the total by 100 to see if it equals 1, if it doesn't then it is not at 100;
         public double CheckTotal()
@@ -433,15 +119,40 @@ namespace LiveUncertainty.classes
             //get a list of all gas compositions.
             List<double> Xi = new List<double>();
 
-            foreach(double val in Gases)
+            foreach(Gas gas in Gases)
             {
-                double vauel = val / Sum;
-                Xi.Add(val);
+                double value = gas.Composition / Sum;
+                Xi.Add(value);
             }
 
             return Xi;
 
         }
+
+        public double CalculateCHI()
+        {
+            double chi = 0;
+
+            foreach(double xi in CalculateXi())
+            {
+                chi += xi;
+            }
+
+            return chi;
+        }
+
+        public double getFraction() //fraction of gas comp.
+        {
+            double fraction = 0;
+            foreach (Gas gas in gases)
+            {
+                fraction += gas.Composition / sum;
+            }
+
+            return fraction;
+        }
+
+
 
 
 
