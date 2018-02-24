@@ -180,6 +180,7 @@
       <HintPath>..\packages\Rx-PlatformServices.2.2.5\lib\net45\System.Reactive.PlatformServices.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Security.Cryptography.Algorithms, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.0\lib\net461\System.Security.Cryptography.Algorithms.dll</HintPath>
     </Reference>
@@ -260,6 +261,11 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="classes\EntityModels\AGA8.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AGA8.edmx</DependentUpon>
+    </Compile>
     <Compile Include="classes\Analysers.cs" />
     <Compile Include="classes\FlowComputer.cs" />
     <Compile Include="classes\gas.cs" />
@@ -312,6 +318,13 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EntityDeploy Include="classes\EntityModels\AGA8.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>AGA8.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="classes\EntityModels\AGA8.edmx.diagram">
+      <DependentUpon>AGA8.edmx</DependentUpon>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
