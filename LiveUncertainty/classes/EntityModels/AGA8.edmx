@@ -4,49 +4,119 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl" Namespace="AGA8Table4.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005">
-        <EntityContainer Name="AGA8Table4TargetContainer" >
-        </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+    <Schema Namespace="AGA8Table4.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="AGA8Table4StoreContainer">
+    <EntitySet Name="Table5" EntityType="AGA8Table4.Store.Table5" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Table4" EntityType="AGA8Table4.Store.Table4" store:Type="Tables" Schema="dbo" />
+  </EntityContainer>
+  <EntityType Name="Table5">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Gasid" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Mr" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Ea" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Ka" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Qa" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Fs" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="S" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Table4">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="a" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="b" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="c" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="k" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="u" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="g" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="q" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="f" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="s" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="w" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Gasid" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+</Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="AGA8Table4" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
         <EntityContainer Name="AGA8Table4Container" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Table5" EntityType="AGA8Table4.Table5" />
           <EntitySet Name="Table4" EntityType="AGA8Table4.Table4" />
-          <EntitySet Name="Table5A" EntityType="AGA8Table4.Table5A" />
-          <EntitySet Name="Table5B" EntityType="AGA8Table4.Table5B" />
         </EntityContainer>
+        <EntityType Name="Table5">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Gasid" Type="String" Nullable="false" />
+          <Property Name="Mr" Type="String" Nullable="false" />
+          <Property Name="Ea" Type="String" Nullable="false" />
+          <Property Name="Ka" Type="String" Nullable="false" />
+          <Property Name="Qa" Type="String" Nullable="false" />
+          <Property Name="Fs" Type="String" Nullable="false" />
+          <Property Name="S" Type="String" Nullable="false" />
+        </EntityType>
         <EntityType Name="Table4">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Property1" Type="String" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Table5A">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-        </EntityType>
-        <EntityType Name="Table5B">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="a" Type="String" Nullable="false" />
+          <Property Name="b" Type="String" Nullable="false" />
+          <Property Name="c" Type="String" Nullable="false" />
+          <Property Name="k" Type="String" Nullable="false" />
+          <Property Name="u" Type="String" Nullable="false" />
+          <Property Name="g" Type="String" Nullable="false" />
+          <Property Name="q" Type="String" Nullable="false" />
+          <Property Name="f" Type="String" Nullable="false" />
+          <Property Name="s" Type="String" Nullable="false" />
+          <Property Name="w" Type="String" Nullable="false" />
+          <Property Name="Gasid" Type="String" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-      <Mapping xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs" Space="C-S">
-        <Alias Key="Model" Value="AGA8Table4" />
-        <Alias Key="Target" Value="AGA8Table4.Store" />
-        <EntityContainerMapping CdmEntityContainer="AGA8Table4Container" StorageEntityContainer="AGA8Table4TargetContainer">
-        </EntityContainerMapping>
-      </Mapping>
-    </edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="AGA8Table4StoreContainer" CdmEntityContainer="AGA8Table4Container">
+    <EntitySetMapping Name="Table5">
+      <EntityTypeMapping TypeName="IsTypeOf(AGA8Table4.Table5)">
+        <MappingFragment StoreEntitySet="Table5">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Gasid" ColumnName="Gasid" />
+          <ScalarProperty Name="Mr" ColumnName="Mr" />
+          <ScalarProperty Name="Ea" ColumnName="Ea" />
+          <ScalarProperty Name="Ka" ColumnName="Ka" />
+          <ScalarProperty Name="Qa" ColumnName="Qa" />
+          <ScalarProperty Name="Fs" ColumnName="Fs" />
+          <ScalarProperty Name="S" ColumnName="S" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Table4">
+      <EntityTypeMapping TypeName="IsTypeOf(AGA8Table4.Table4)">
+        <MappingFragment StoreEntitySet="Table4">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="a" ColumnName="a" />
+          <ScalarProperty Name="b" ColumnName="b" />
+          <ScalarProperty Name="c" ColumnName="c" />
+          <ScalarProperty Name="k" ColumnName="k" />
+          <ScalarProperty Name="u" ColumnName="u" />
+          <ScalarProperty Name="g" ColumnName="g" />
+          <ScalarProperty Name="q" ColumnName="q" />
+          <ScalarProperty Name="f" ColumnName="f" />
+          <ScalarProperty Name="s" ColumnName="s" />
+          <ScalarProperty Name="w" ColumnName="w" />
+          <ScalarProperty Name="Gasid" ColumnName="Gasid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
@@ -60,6 +130,7 @@
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="True" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
       </DesignerInfoPropertySet>
     </edmx:Options>
     <!-- Diagram content (shape and connector positions) -->

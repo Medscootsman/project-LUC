@@ -261,12 +261,28 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="classes\EntityModels\AGA8.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AGA8.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="classes\EntityModels\AGA8.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AGA8.tt</DependentUpon>
+    </Compile>
     <Compile Include="classes\EntityModels\AGA8.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>AGA8.edmx</DependentUpon>
     </Compile>
     <Compile Include="classes\Analysers.cs" />
+    <Compile Include="classes\EntityModels\Table4.cs">
+      <DependentUpon>AGA8.tt</DependentUpon>
+    </Compile>
+    <Compile Include="classes\EntityModels\Table5.cs">
+      <DependentUpon>AGA8.tt</DependentUpon>
+    </Compile>
     <Compile Include="classes\FlowComputer.cs" />
     <Compile Include="classes\gas.cs" />
     <Compile Include="classes\OpConditions.cs" />
@@ -341,12 +357,25 @@
     <Resource Include="Themes\Metro\HowToApplyTheme.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="classes\EntityModels\AGA8.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>AGA8.Context.cs</LastGenOutput>
+      <DependentUpon>AGA8.edmx</DependentUpon>
+    </Content>
+    <Content Include="classes\EntityModels\AGA8.edmx.sql" />
+    <Content Include="classes\EntityModels\AGA8.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>AGA8.cs</LastGenOutput>
+      <DependentUpon>AGA8.edmx</DependentUpon>
+    </Content>
     <Content Include="sharpdx_direct3d11_1_effects_arm.dll" />
     <Content Include="sharpdx_direct3d11_1_effects_x64.dll" />
     <Content Include="sharpdx_direct3d11_1_effects_x86.dll" />
     <Content Include="x64\d3dcompiler_47.dll" />
     <Content Include="x86\d3dcompiler_47.dll" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
