@@ -1,5 +1,8 @@
-﻿using System;
+﻿using EO.Internal;
+using LiveUncertainty.classes.EntityModels;
+using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -150,6 +153,24 @@ namespace LiveUncertainty.classes
             }
 
             return fraction;
+        }
+
+        public List<double> getGaValues() //AGA8 Ga values 
+        {
+            List<double> Ga = new List<double>();
+
+            AGA8Table4Container data = new AGA8Table4Container();
+
+            var tables = (from a in data.Table5 select a);
+
+            foreach(Table5 entry in tables)
+            {
+                Ga.Add(double.Parse(entry.Ga));
+            }
+
+            return Ga;
+
+
         }
 
 

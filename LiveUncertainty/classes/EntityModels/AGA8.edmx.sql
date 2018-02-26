@@ -2,12 +2,13 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 02/25/2018 17:22:44
--- Generated from EDMX file: C:\Users\Murray Lyne\source\repos\project LUC\LiveUncertainty\classes\EntityModels\AGA8.edmx
+-- Date Created: 02/26/2018 17:19:53
+-- Generated from EDMX file: C:\Users\User\Source\Repos\project-LUC\LiveUncertainty\classes\EntityModels\AGA8.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
 GO
+USE [Uncertainty];
 GO
 IF SCHEMA_ID(N'dbo') IS NULL EXECUTE(N'CREATE SCHEMA [dbo]');
 GO
@@ -21,6 +22,12 @@ GO
 -- Dropping existing tables
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[Table4]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Table4];
+GO
+IF OBJECT_ID(N'[dbo].[Table5]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Table5];
+GO
 
 -- --------------------------------------------------
 -- Creating all tables
@@ -34,8 +41,10 @@ CREATE TABLE [dbo].[Table5] (
     [Ea] nvarchar(max)  NOT NULL,
     [Ka] nvarchar(max)  NOT NULL,
     [Qa] nvarchar(max)  NOT NULL,
-    [Fs] nvarchar(max)  NOT NULL,
-    [S] nvarchar(max)  NOT NULL
+    [S] nvarchar(max)  NULL,
+    [Ga] nvarchar(max)  NOT NULL,
+    [Fa] nvarchar(max)  NOT NULL,
+    [W] nvarchar(max)  NULL
 );
 GO
 

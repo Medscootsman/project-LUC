@@ -20,7 +20,9 @@ namespace LiveUncertainty.classes.EntityModels
         public string Ea { get; set; }
         public string Ka { get; set; }
         public string Qa { get; set; }
-        public string Fs { get; set; }
         public string S { get; set; }
+        public string Ga { get; set; }
+        public string Fa { get; set; }
+        public string W { get; set; }
     }
 }
