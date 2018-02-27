@@ -128,8 +128,72 @@ namespace LiveUncertainty.classes
                 Xi.Add(value);
             }
 
+           
+
             return Xi;
 
+        }
+
+        public double[] GetOrganizedGasList() //Xcng
+        { 
+
+            double[] sortedList = new double[21] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,};
+
+            //Loop through the list and return a fixed array
+            
+            //To help with readability, the mathcad position is used in the index but it is corrected by 1
+
+            foreach(Gas gas in gases)
+            {
+                switch(gas.Name)
+                {
+                    case "Methane":
+                        sortedList[1-1] = gas.Composition;
+                        break;
+
+                    case "Ethane":
+                        sortedList[4-1] = gas.Composition;
+                        break;
+
+                    case "Propane":
+                        sortedList[5-1] = gas.Composition;
+                        break;
+
+                    case "n-Butane":
+                        sortedList[12-1] = gas.Composition;
+                        break;
+
+                    case "iso Butane":
+                        sortedList[11-1] = gas.Composition;
+                        break;
+
+                    case "n-Pentane":
+                        sortedList[14-1] = gas.Composition;
+                        break;
+
+                    case "iso Pentane":
+                        sortedList[13-1] = gas.Composition;
+                        break;
+
+                    case "Hexane":
+                        sortedList[15-1] = gas.Composition;
+                        break;
+
+                    case "Heptane":
+                        sortedList[16-1] = gas.Composition;
+                        break;
+
+                    case "Octane":
+                        sortedList[17-1] = gas.Composition;
+                        break;
+
+                    case "Nonane":
+                        sortedList[18 - 1] = gas.Composition;
+                        break;
+                        sortedList[18] = gas.Composition;
+                        break;
+                }
+            }
         }
 
         public double CalculateCHI()
