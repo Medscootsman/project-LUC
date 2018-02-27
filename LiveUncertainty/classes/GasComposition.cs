@@ -190,10 +190,46 @@ namespace LiveUncertainty.classes
                     case "Nonane":
                         sortedList[18 - 1] = gas.Composition;
                         break;
-                        sortedList[18] = gas.Composition;
+
+                    case "Decane":
+                        sortedList[19 - 1] = gas.Composition;
                         break;
+
+                    case "Hydrogen":
+                        sortedList[8 - 1] = gas.Composition;
+                        break;
+
+                    case "Hydrogen Sulfide":
+                        sortedList[7 - 1] = gas.Composition;
+                        break;
+
+                    case "Carbon Monoxide":
+                        sortedList[9 - 1] = gas.Composition;
+                        break;
+
+                    case "Helium":
+                        sortedList[20 - 1] = gas.Composition;
+                        break;
+
+                    case "Nitrogen":
+                        sortedList[2 - 1] = gas.Composition;
+                        break;
+
+                    case "Oxygen":
+                        sortedList[10 - 1] = gas.Composition;
+                        break;
+
+                    case "Carbon Dioxide":
+                        sortedList[3 - 1] = gas.Composition;
+                        break;
+
+                    case "Water":
+                        sortedList[6 - 1] = gas.Composition;
+                        break;     
                 }
             }
+
+            return sortedList;
         }
 
         public double CalculateCHI()
@@ -235,6 +271,13 @@ namespace LiveUncertainty.classes
             return Ga;
 
 
+        }
+
+        public List<double> getKaValues() //AGA8 Ka values
+        {
+            List<double> Ka = new List<double>();
+
+            return Ka;
         }
 
 
