@@ -6,18 +6,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LiveUncertainty"
         mc:Ignorable="d"
-        Title="LUC" Height="400" Width="400">
-    <Grid Margin="0,0,0,330" Height="Auto">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="31*"/>
-            <ColumnDefinition Width="361*"/>
-        </Grid.ColumnDefinitions>
+        Title="LUC" Height="400" Width="620">
+    <Grid Margin="0,0,0,330" Height="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <DockPanel Grid.ColumnSpan="2">
-            <Menu DockPanel.Dock="Top" Height="91">
+            <Menu DockPanel.Dock="Top" Height="39">
                 <MenuItem Header="_File">
                     <MenuItem Header="_Load Profile"></MenuItem>
                     <MenuItem Header="_Save current Profile"></MenuItem>
-                    <MenuItem Header="_Create New Profile" Name="create_profile" Click="MenuItem_Click"></MenuItem>
+                    <MenuItem Header="_Create New Profile" Name="create_profile" Click="CreateProfile_click"></MenuItem>
                     <MenuItem Header="_Settings"></MenuItem>
                     <MenuItem Header="_Exit"></MenuItem>
                 </MenuItem>
@@ -30,30 +26,52 @@
                     <MenuItem Header="_Quickstart"></MenuItem>
                     <MenuItem Header="_Terminology Guide"></MenuItem>
                 </MenuItem>
+                <MenuItem Header="_Tools">
+                    <MenuItem Header="_Change Layout"></MenuItem>
+                </MenuItem>
 
             </Menu>
         </DockPanel>
-        <lvc:CartesianChart Series="{Binding Collection}" LegendLocation="Right" Margin="-1,19,1,-155" Grid.Row="2" RenderTransformOrigin="0.5,0.5" Grid.ColumnSpan="2">
-            <lvc:CartesianChart.AxisY>
-                <lvc:Axis Title="Relative Expanded Uncertainty"></lvc:Axis>
-            </lvc:CartesianChart.AxisY>
-            <lvc:CartesianChart.AxisX>
-                <lvc:Axis Title="Flow Rate (m/s)"></lvc:Axis>
-            </lvc:CartesianChart.AxisX>
-            <lvc:CartesianChart.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform AngleX="-1.169"/>
-                    <RotateTransform/>
-                    <TranslateTransform X="-0.98"/>
-                </TransformGroup>
-            </lvc:CartesianChart.RenderTransform>
-        </lvc:CartesianChart>
+        <Grid>
+            <lvc:CartesianChart Series="{Binding Collection}" LegendLocation="Right" Margin="1,41,3,-178" Grid.Row="1" VerticalAlignment="Stretch">
+                <lvc:CartesianChart.AxisY>
+                    <lvc:Axis Title="Relative Expanded Uncertainty"></lvc:Axis>
+                </lvc:CartesianChart.AxisY>
+                <lvc:CartesianChart.AxisX>
+                    <lvc:Axis Title="Flow Rate (m/s)"></lvc:Axis>
+                </lvc:CartesianChart.AxisX>
+                <lvc:CartesianChart.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform AngleX="-1.169"/>
+                        <RotateTransform/>
+                        <TranslateTransform X="-0.98"/>
+                    </TransformGroup>
+                </lvc:CartesianChart.RenderTransform>
+            </lvc:CartesianChart>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+        </Grid>
 
-        <Grid HorizontalAlignment="Left" Height="330" Margin="0,19,0,-330" VerticalAlignment="Top" Width="392" Grid.ColumnSpan="2" Grid.Row="1"/>
+        <Grid MaxHeight="1000" Width="Auto">
+            <Label x:Name="labelInfo" Content="Meter Information&#xD;&#xA;" Grid.ColumnSpan="2" Margin="20,229,198,-234"/>
+            <Label x:Name="labelOpConditions" Content="Operating Conditions&#xA;" Grid.ColumnSpan="2" Margin="20,229,193,-234" Grid.Column="1"/>
+            <Label x:Name="labelUncertianty" Content="Uncertainty Readings" Margin="20,229,2,-234" Grid.Column="2"/>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+        </Grid>
         <Grid.RowDefinitions>
-            <RowDefinition MaxHeight="25"/>
+            <RowDefinition MaxHeight="20" MinHeight="20"/>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
+
     </Grid>
 </Window>
