@@ -16,13 +16,13 @@ using System.Windows.Shapes;
 using LiveCharts;
 using LiveCharts.Wpf;
 using LiveUncertainty.classes;
-
+using MahApps.Metro.Controls;
 namespace LiveUncertainty
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : MetroWindow
     {
         public MainWindow()
         {
@@ -54,6 +54,13 @@ namespace LiveUncertainty
         private void CreateProfile_click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void btn_Play_Click(object sender, RoutedEventArgs e)
+        {
+            //switch the image.
+
+           
         }
     }
 }
