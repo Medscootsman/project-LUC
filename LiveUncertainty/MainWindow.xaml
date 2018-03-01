@@ -8,13 +8,38 @@
         xmlns:local="clr-namespace:LiveUncertainty"
         xmlns:Custom="http://metro.mahapps.com/winfx/xaml/controls" x:Class="LiveUncertainty.MainWindow"
         mc:Ignorable="d"
+        BorderBrush="Aquamarine"
+        BorderThickness="1"
+        WindowStartupLocation="CenterScreen"
+        GlowBrush="{DynamicResource AccentColorBrush}"
+        ResizeMode="CanResizeWithGrip"
         Title="LUC" Height="459" Width="1017">
+
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/Icons.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
     <Controls:MetroWindow.RightWindowCommands>
         <Controls:WindowCommands>
             <Button Content="Settings"></Button>
             <Button Content="Change Layout"></Button>
+            <Button Content="Quickstart"></Button>
         </Controls:WindowCommands>
     </Controls:MetroWindow.RightWindowCommands>
+
+    <Controls:MetroWindow.LeftWindowCommands>
+        <Controls:WindowCommands>
+            <Button Content="New Profile"/>
+            <Button Content="Save Profile"/>
+            <Button Content="Load Profile"/>
+            
+        </Controls:WindowCommands>
+    </Controls:MetroWindow.LeftWindowCommands>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -92,9 +117,22 @@
         <Label x:Name="Lbl_control" Grid.Row="2" Grid.Column="4" FontSize="15" FontWeight="Medium" FontFamily="Verdana" Margin="10,5,9,93" HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="182" Content="Control Graph"/>
         <Label Grid.Row="2" Grid.Column="3" FontSize="15" FontWeight="Medium" FontFamily="Verdana" Margin="61,10,67,88" HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="74" Content="Analyse"/>
 
-        <Button x:Name="btn_Play" Content="" Style="{DynamicResource MetroCircleButtonStyle}" Grid.Column="4" HorizontalAlignment="Center" Click="btn_Play_Click"  Margin="27,38,117,0" Grid.Row="2" VerticalAlignment="Top" Width="57" Height="51" FontFamily="Verdana" Custom:TextBoxHelper.IsClearTextButtonBehaviorEnabled="True" Custom:ControlsHelper.ContentCharacterCasing="Lower" ClickMode="Press">
-        </Button>
-        <Button x:Name="btn_Reset" Content="Reset" Style="{DynamicResource MetroCircleButtonStyle}" Grid.Column="4" HorizontalAlignment="Left" Margin="117,39,0,0" Grid.Row="2" VerticalAlignment="Top" Width="84" Height="27" FontFamily="Verdana"/>
-        <Button x:Name="btn_StartAnalyser" Content="Start" Grid.Column="3" HorizontalAlignment="Center" Margin="51,40,67,0" Grid.Row="2" VerticalAlignment="Top" Width="84" Height="27" FontFamily="Verdana"/>
+        <ToggleButton x:Name="btn_Play" ToolTip="Play" Content="" Style="{DynamicResource MetroCircleToggleButtonStyle}" Grid.Column="4" HorizontalAlignment="Center" Click="btn_Play_Click"  Margin="19,38,138,0" Grid.Row="2" VerticalAlignment="Top" Width="44" Height="36" FontFamily="Verdana" Custom:ControlsHelper.ContentCharacterCasing="Lower" ClickMode="Press" RenderTransformOrigin="0.227,0.528" HorizontalContentAlignment="Left">
+            <ToggleButton.Background>
+                <VisualBrush Visual="{StaticResource appbar_control_play}"></VisualBrush>
+            </ToggleButton.Background>
+        </ToggleButton>
+        <ToggleButton x:Name="btn_Reset" ToolTip="Reset" Content="" Style="{DynamicResource MetroCircleToggleButtonStyle}" Grid.Column="4" HorizontalAlignment="Center" Margin="115,38,34,57" Grid.Row="2" VerticalAlignment="Top" Width="52" Height="36" FontFamily="Verdana">
+            <ToggleButton.Background>
+                <VisualBrush Visual="{StaticResource appbar_reset}"></VisualBrush>
+            </ToggleButton.Background>
+        </ToggleButton>
+
+        <ToggleButton x:Name="btn_Pause" ToolTip="Pause" Content="" Style="{DynamicResource MetroCircleToggleButtonStyle}" Grid.Column="4" HorizontalAlignment="Center" Margin="68,38,86,57" Grid.Row="2" VerticalAlignment="Top" Width="47" Height="36" FontFamily="Verdana">
+            <ToggleButton.Background>
+                <VisualBrush Visual="{StaticResource appbar_control_pause}"></VisualBrush>
+            </ToggleButton.Background>
+        </ToggleButton>
+        <Button x:Name="btn_StartAnalyser" Style="{StaticResource AccentedSquareButtonStyle}" Content="Start" Grid.Column="3" HorizontalAlignment="Center" Margin="51,40,67,0" Grid.Row="2" VerticalAlignment="Top" Width="84" Height="27" FontFamily="Verdana"/>
     </Grid>
 </Controls:MetroWindow>
