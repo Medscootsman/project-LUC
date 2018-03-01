@@ -6,10 +6,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LiveUncertainty"
         mc:Ignorable="d"
-        Title="LUC" Height="400" Width="620">
-    <Grid Margin="0,0,0,330" Height="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-        <DockPanel Grid.ColumnSpan="2">
-            <Menu DockPanel.Dock="Top" Height="39">
+        Title="LUC" Height="459" Width="620">
+    <Grid>
+        <DockPanel VerticalAlignment="Top" HorizontalAlignment="Stretch" Grid.Row="1" Grid.ColumnSpan="3">
+            <Menu DockPanel.Dock="Top" Height="20">
                 <MenuItem Header="_File">
                     <MenuItem Header="_Load Profile"></MenuItem>
                     <MenuItem Header="_Save current Profile"></MenuItem>
@@ -32,46 +32,32 @@
 
             </Menu>
         </DockPanel>
-        <Grid>
-            <lvc:CartesianChart Series="{Binding Collection}" LegendLocation="Right" Margin="1,41,3,-178" Grid.Row="1" VerticalAlignment="Stretch">
-                <lvc:CartesianChart.AxisY>
-                    <lvc:Axis Title="Relative Expanded Uncertainty"></lvc:Axis>
-                </lvc:CartesianChart.AxisY>
-                <lvc:CartesianChart.AxisX>
-                    <lvc:Axis Title="Flow Rate (m/s)"></lvc:Axis>
-                </lvc:CartesianChart.AxisX>
-                <lvc:CartesianChart.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform AngleX="-1.169"/>
-                        <RotateTransform/>
-                        <TranslateTransform X="-0.98"/>
-                    </TransformGroup>
-                </lvc:CartesianChart.RenderTransform>
-            </lvc:CartesianChart>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"></RowDefinition>
-            </Grid.RowDefinitions>
-        </Grid>
+        <!-- Graph -->
+        <lvc:CartesianChart Series="{Binding Collection}" LegendLocation="Right" Grid.ColumnSpan="3" Margin="15,50,15,10" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="1">
+            <lvc:CartesianChart.AxisY>
+                <lvc:Axis Title="Relative Expanded Uncertainty"></lvc:Axis>
+            </lvc:CartesianChart.AxisY>
+            <lvc:CartesianChart.AxisX>
+                <lvc:Axis Title="Flow Rate (m/s)"></lvc:Axis>
+            </lvc:CartesianChart.AxisX>
+        </lvc:CartesianChart>
 
-        <Grid MaxHeight="1000" Width="Auto">
-            <Label x:Name="labelInfo" Content="Meter Information&#xD;&#xA;" Grid.ColumnSpan="2" Margin="20,229,198,-234"/>
-            <Label x:Name="labelOpConditions" Content="Operating Conditions&#xA;" Grid.ColumnSpan="2" Margin="20,229,193,-234" Grid.Column="1"/>
-            <Label x:Name="labelUncertianty" Content="Uncertainty Readings" Margin="20,229,2,-234" Grid.Column="2"/>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
+        <!-- Labels that will be used for Displaying Data -->
 
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-        </Grid>
+        <Label Grid.Row="2" FontSize="14" FontWeight="Medium" FontFamily="Verdana" Margin="10,10,10,67" HorizontalAlignment="Center" VerticalAlignment="Stretch">Meter Info</Label>
+        <Label Grid.Row="2" Grid.Column="2" FontSize="14" FontWeight="Medium" FontFamily="Verdana" Margin="10,10,10,67" HorizontalAlignment="Center" VerticalAlignment="Stretch">Operating Conditions</Label>
+        <Label Grid.Row="2" Grid.Column="1" FontSize="14" FontWeight="Medium" FontFamily="Verdana" Margin="24,10,10,67" HorizontalAlignment="Center" VerticalAlignment="Stretch">Uncertainty Values</Label>
         <Grid.RowDefinitions>
-            <RowDefinition MaxHeight="20" MinHeight="20"/>
-            <RowDefinition></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="184*"></RowDefinition>
+            <RowDefinition Height="113*"></RowDefinition>
+            <RowDefinition Height="72*"/>
         </Grid.RowDefinitions>
 
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
     </Grid>
 </Window>
