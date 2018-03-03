@@ -1,18 +1,36 @@
-﻿<Window x:Class="LiveUncertainty.Window1"
+﻿<Controls:MetroWindow x:Class="LiveUncertainty.Window1"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LiveUncertainty"
+        xmlns:Custom="http://metro.mahapps.com/winfx/xaml/controls"
         mc:Ignorable="d"
-        Title="Window1" Height="300" Width="394">
-    <Grid Margin="0,0,-55,0">
+        Title="Window1" Height="380.953" Width="763.046" HorizontalAlignment="Center">
+    <Grid Margin="0,0,2,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="3*"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
         <Label x:Name="lblTitle" Content="Create your profile" FontFamily="Verdana" FontWeight="Bold"  HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="33" Width="146"/>
-        <ProgressBar HorizontalAlignment="Left" Height="25" Margin="237,12,0,0" VerticalAlignment="Top" Width="150"/>
-        <Label x:Name="lblProgress" Content="Progress" FontFamily="Verdana" FontSize="10"  HorizontalAlignment="Left" Margin="175,12,0,0" VerticalAlignment="Top" Height="25" Width="57"/>
-        <Label x:Name="lblSectionName" Content="Meter Information&#xD;&#xA;" HorizontalAlignment="Left" Margin="21,48,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.026,-0.038" Height="30" Width="118"/>
-        <Label x:Name="lblSectionAt" Content="Section:" HorizontalAlignment="Left" Margin="246,238,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lblSectionTotal" Content="1/7" HorizontalAlignment="Left" Margin="298,238,0,0" VerticalAlignment="Top"/>
+        <ProgressBar HorizontalAlignment="Center" Height="25" Margin="64,18,10,31" Width="249" Grid.Column="2" Grid.ColumnSpan="2"/>
+        <Label x:Name="lblProgress" Content="Progress" FontFamily="Verdana" FontSize="10" Margin="0,18,103,31" Height="25" Width="57" Grid.Column="2" HorizontalAlignment="Right"/>
+
+
+        <Label x:Name="lblSectionName" Content="Meter Information&#xD;&#xA;" HorizontalAlignment="Left" Margin="10,39,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.026,-0.038" Height="30" Width="118" Grid.Row="1"/>
+        <Label x:Name="lblSectionAt" Content="Section:" HorizontalAlignment="Left" Margin="219.841,238,0,0" VerticalAlignment="Top" Grid.Column="1"/>
+        <Label x:Name="lblSectionTotal" Content="1/7" HorizontalAlignment="Left" Margin="271.841,238,0,0" VerticalAlignment="Top" Grid.Column="1"/>
+        <Label x:Name="label" Content="Section: 1/7" Grid.Column="3" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+        <Label x:Name="lblSectionName_Copy" Content="Current Section&#xA;" HorizontalAlignment="Left" Margin="10,9,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.026,-0.038" Height="30" Width="118" Grid.Row="1"/>
 
     </Grid>
-</Window>
+</Controls:MetroWindow>
