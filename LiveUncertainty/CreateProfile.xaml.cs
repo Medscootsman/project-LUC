@@ -1,6 +1,7 @@
 ﻿using MahApps.Metro.Controls;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,11 +19,36 @@ namespace LiveUncertainty
     /// <summary>
     /// Interaction logic for Window1.xaml
     /// </summary>
-    public partial class Window1 : MetroWindow
+    public partial class ProfileCreate : MetroWindow
     {
-        public Window1()
+        public ProfileCreate()
         {
             InitializeComponent();
+        }
+
+        private void Cancel_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        void ProfileCreate_Closing(object sender, CancelEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show(
+                "Are you sure you want to close this window? Any unsaved progress will be lost!", //Message
+                "Warning!", //Caption
+                MessageBoxButton.YesNoCancel,
+                MessageBoxImage.Warning
+                );
+
+            if (result == MessageBoxResult.No || result == MessageBoxResult.Cancel)
+            {
+                e.Cancel = true;
+            }
+
+            else
+            {
+                e.Cancel = false;
+            }
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿<Controls:MetroWindow x:Class="LiveUncertainty.Window1"
+﻿<Controls:MetroWindow x:Class="LiveUncertainty.ProfileCreate"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -8,8 +8,18 @@
         xmlns:local="clr-namespace:LiveUncertainty"
         xmlns:Custom="http://metro.mahapps.com/winfx/xaml/controls"
         mc:Ignorable="d"
-        Title="Window1" Height="380.953" Width="763.046" HorizontalAlignment="Center">
-    <Grid Margin="0,0,2,0">
+        WindowState="Maximized"
+        Closing="ProfileCreate_Closing"
+        Title="Create your profile" Height="884" Width="1038" HorizontalAlignment="Center">
+
+    <Controls:MetroWindow.RightWindowCommands>
+        <Controls:WindowCommands>
+            <Controls:WindowCommands>
+                <Button Content="Cancel" Click="Cancel_Click"></Button>
+            </Controls:WindowCommands>
+        </Controls:WindowCommands>
+    </Controls:MetroWindow.RightWindowCommands>
+    <Grid Margin="10,0,2,0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
@@ -17,20 +27,141 @@
             <ColumnDefinition Width="1*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="75"></RowDefinition>
             <RowDefinition Height="3*"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <Label x:Name="lblTitle" Content="Create your profile" FontFamily="Verdana" FontWeight="Bold"  HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="33" Width="146"/>
-        <ProgressBar HorizontalAlignment="Center" Height="25" Margin="64,18,10,31" Width="249" Grid.Column="2" Grid.ColumnSpan="2"/>
-        <Label x:Name="lblProgress" Content="Progress" FontFamily="Verdana" FontSize="10" Margin="0,18,103,31" Height="25" Width="57" Grid.Column="2" HorizontalAlignment="Right"/>
-
-
-        <Label x:Name="lblSectionName" Content="Meter Information&#xD;&#xA;" HorizontalAlignment="Left" Margin="10,39,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.026,-0.038" Height="30" Width="118" Grid.Row="1"/>
+        <Label x:Name="lblTitle" Content="Create your profile" FontFamily="Verdana"  HorizontalAlignment="Left" Margin="0,10,0,0" VerticalAlignment="Top" Height="55" Width="237" FontSize="24"/>
+        <ProgressBar HorizontalAlignment="Center" Height="Auto" Margin="215,10,10,23" Width="249" Grid.Column="2" Grid.ColumnSpan="2"/>
+        <Label x:Name="lblProgress" Content="Progress" FontFamily="Verdana" FontSize="10" Margin="0,18,27,32" Width="57" Grid.Column="2" HorizontalAlignment="Right" RenderTransformOrigin="0.544,-0.88"/>
         <Label x:Name="lblSectionAt" Content="Section:" HorizontalAlignment="Left" Margin="219.841,238,0,0" VerticalAlignment="Top" Grid.Column="1"/>
         <Label x:Name="lblSectionTotal" Content="1/7" HorizontalAlignment="Left" Margin="271.841,238,0,0" VerticalAlignment="Top" Grid.Column="1"/>
-        <Label x:Name="label" Content="Section: 1/7" Grid.Column="3" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Grid.Row="1"/>
-        <Label x:Name="lblSectionName_Copy" Content="Current Section&#xA;" HorizontalAlignment="Left" Margin="10,9,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.026,-0.038" Height="30" Width="118" Grid.Row="1"/>
 
+        <!-- Buttons-->
+        <Button x:Name="btn_Cancel" Content="Save and Load" Style="{StaticResource AccentedSquareButtonStyle}" HorizontalAlignment="Center" Margin="39,10,38,74" Grid.Row="2" Width="160" Grid.Column="3" Height="42"/>
+        <Button x:Name="btn_Save" Content="Save" Style="{StaticResource AccentedSquareButtonStyle}" HorizontalAlignment="Center" Margin="39,10,38,74" Grid.Row="2" Width="160" Grid.Column="1" Height="42"/>
+        <Button x:Name="btn_Load" Content="Cancel" Style="{StaticResource AccentedSquareButtonStyle}" HorizontalAlignment="Center" Margin="35,10,42,74" Grid.Row="2" Width="160" Grid.Column="2" Height="42" IsCancel="True"/>
+
+        <Custom:MetroAnimatedSingleRowTabControl x:Name="tabControl" Grid.ColumnSpan="4" HorizontalAlignment="Stretch" Height="367" Margin="0,2,5,0" Grid.Row="1" VerticalAlignment="Top">
+            <TabItem Header="USM">
+                <TabPanel Margin="0,0,0,-195">
+                    <StackPanel Orientation="Vertical" Margin="0,0,-123,-212" HorizontalAlignment="Left" Width="543">
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_USMTag" Content="Tag Number:" HorizontalAlignment="Left" Width="160"/>
+                            <TextBox Custom:TextBoxHelper.Watermark="The USM's tag number." Width="200" x:Name="txtbox_Tag_USM"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_calFrequency" HorizontalAlignment="Right" Width="160">Calibration Frequency</Label>
+                            <TextBox Custom:TextBoxHelper.Watermark="Can be a fraction of a month." Width="200" x:Name="txtbox_calFrequency"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_nomDiameter" HorizontalAlignment="Right" Width="160">Nominal Diameter</Label>
+                            <TextBox Controls:TextBoxHelper.Watermark="The meter tube's nominal diameter" Width="204" Name="txtbox_nomDiameter"></TextBox>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Width="550" Margin="0,5,0,5" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_InternalDiameter" HorizontalAlignment="Right" Width="160">Internal Diameter</Label>
+                            <TextBox Controls:TextBoxHelper.Watermark="The meter tube's internal diameter" Width="200" Name="txtbox_InternalDiameter"></TextBox>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Width="550" Margin="0,5,0,5" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_outerDiameter" HorizontalAlignment="Right" Width="160" Content="Outer Diameter"/>
+                            <TextBox Controls:TextBoxHelper.Watermark="The meter tube's outer diameter" Width="200" Name="txtbox_OuterDiameter"></TextBox>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Width="550" Margin="0,5,0,5" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_boreDiameter" HorizontalAlignment="Right" Width="160" Content="Bore Diameter"/>
+                            <TextBox Controls:TextBoxHelper.Watermark="The meter tube's bore diameter" Width="200" Name="txtbox_boreDiameter"></TextBox>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Width="550" Margin="0,5,0,5" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_WallThickness" HorizontalAlignment="Right" Width="160" Content="Wall Thickness"/>
+                            <TextBox Controls:TextBoxHelper.Watermark="Thickness of the wall" Width="200" Name="txtbox_WallThickness"></TextBox>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Width="550" Margin="0,5,0,5" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_metrologyTolerance" HorizontalAlignment="Right" Width="160" Content="Metrology Tolerance"/>
+                            <TextBox Width="200" Name="txtbox_metrologyTolerance"></TextBox>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Width="550" Margin="0,5,0,5" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_transducerDistance" HorizontalAlignment="Right" Width="160" Content="Transducer Distance"/>
+                            <TextBox Width="200" Name="txtbox_transducerDistance"></TextBox>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Width="550" Margin="0,5,0,5" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_pathLengthTolerance" HorizontalAlignment="Right" Width="160" Content="Path Length Tolerance"/>
+                            <TextBox Width="200" Name="txtbox_pathLengthTolerance"></TextBox>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Width="550" Margin="0,5,0,5" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_meterDiameterTolerance" HorizontalAlignment="Right" Width="160" Content="Meter Diameter Tolerance"/>
+                            <TextBox Width="200" Name="txtbox_meterDiameterTolerance"></TextBox>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Width="550" Margin="0,5,0,5" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_calLabUncertainty" HorizontalAlignment="Right" Width="160" Content="Calibration Lab Uncertainty"/>
+                            <TextBox Width="200" Name="txtbox_calLabUncertainty"></TextBox>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Width="550" Margin="0,5,0,5" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_calTemperature" HorizontalAlignment="Right" Width="160" Content="Calibration Temperature"/>
+                            <TextBox Width="200" Name="txtbox_calTemperature"></TextBox>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Width="550" Margin="0,5,0,5" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_calPressure" HorizontalAlignment="Right" Width="160" Content="Calibration Pressure"/>
+                            <TextBox Width="200" Name="txtbox_calPressure"></TextBox>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Vertical" Margin="-76,0,76,0" HorizontalAlignment="Right" VerticalAlignment="Stretch" Width="314">
+
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_Model" Content="Meter Model :" HorizontalAlignment="Left" Width="100"/>
+                            <ComboBox ToolTip="This chooses the installed USM Meter model" Width="201" x:Name="drop_Models">
+                                <ComboBoxItem Content="Example"/>
+                            </ComboBox>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_SignalOutput" Content="Signal Output" HorizontalAlignment="Left" Width="100"></Label>
+                            <ComboBox ToolTip="Output signal format." Width="201" x:Name="drop_SigOutput">
+                                <ComboBoxItem Content="Example"/>
+                            </ComboBox>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_wetCalibration" Content="Web Calibration?" HorizontalAlignment="Left" Width="100"></Label>
+                            <ComboBox Width="201" x:Name="drop_wetCalibration">
+                                <ComboBoxItem Content="Yes"/>
+                                <ComboBoxItem Content="No"/>
+                            </ComboBox>
+                        </StackPanel>
+                    </StackPanel>
+
+                </TabPanel>
+            </TabItem>
+
+            <TabItem Header="Operating Conditons">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+            <TabItem Header="Pressure">
+
+            </TabItem>
+            <TabItem Header="Temperature">
+
+            </TabItem>
+
+            <TabItem Header="Flow Computer">
+
+            </TabItem>
+
+            <TabItem Header="Analysers">
+
+            </TabItem>
+        </Custom:MetroAnimatedSingleRowTabControl>
     </Grid>
 </Controls:MetroWindow>

@@ -10,10 +10,11 @@
         mc:Ignorable="d"
         BorderBrush="Aquamarine"
         BorderThickness="1"
-        WindowStartupLocation="CenterScreen"
+        WindowStartupLocation="CenterScreen" WindowState="Maximized"
         GlowBrush="{DynamicResource AccentColorBrush}"
         ResizeMode="CanResizeWithGrip"
-        Title="LUC" Height="459" Width="1017">
+        Closing="MetroWindow_Closing"
+        Title="Live Uncertainty Tool" Height="459" Width="1017">
 
 
     <Window.Resources>
@@ -34,7 +35,7 @@
 
     <Controls:MetroWindow.LeftWindowCommands>
         <Controls:WindowCommands>
-            <Button Content="New Profile"/>
+            <Button Content="New Profile" Click="ProfileCreate_click"/>
             <Button Content="Save Profile"/>
             <Button Content="Load Profile"/>
             
@@ -60,7 +61,7 @@
                 <MenuItem Header="_File" Height="Auto">
                     <MenuItem Header="_Load Profile"/>
                     <MenuItem Header="_Save current Profile"/>
-                    <MenuItem Header="_Create New Profile" x:Name="create_profile" Click="CreateProfile_click"/>
+                    <MenuItem Header="_Create New Profile" x:Name="create_profile" Click="ProfileCreate_click"/>
                     <MenuItem Header="_Settings"/>
                     <MenuItem Header="_Exit"/>
                 </MenuItem>
@@ -75,6 +76,7 @@
                 </MenuItem>
                 <MenuItem Header="_Tools" Height="Auto">
                     <MenuItem Header="_Change Layout"/>
+                    <MenuItem Header="_Give feedback" Click="Feedback_Click"/>
                 </MenuItem>
 
             </Menu>
@@ -133,6 +135,7 @@
                 <VisualBrush Visual="{StaticResource appbar_control_pause}"></VisualBrush>
             </ToggleButton.Background>
         </ToggleButton>
+        
         <Button x:Name="btn_StartAnalyser" Style="{StaticResource AccentedSquareButtonStyle}" Content="Start" Grid.Column="3" HorizontalAlignment="Center" Margin="51,40,67,0" Grid.Row="2" VerticalAlignment="Top" Width="84" Height="27" FontFamily="Verdana"/>
     </Grid>
 </Controls:MetroWindow>

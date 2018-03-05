@@ -5,10 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 namespace LiveUncertainty.classes
 {
+    //<summary>
+        //USM Meter Object.
+    //</summary>
     public class UltraSonicMeter
     {
         protected Int64 manufacturer_id;
         protected Int64 model_id;
+        private string model_name;
+        private string manufacturer_name;
+        private string tag;
         public Int16 pathsTotal;
         public Int16 signal_output;
         public double calFrequency; //calibration frequency.
@@ -51,7 +57,7 @@ namespace LiveUncertainty.classes
         public OperatingConditions opconditions;
         public GasComposition gascomp;
 
-        //Objects you will or may need.
+        //these are used for calculating the chords and getting arrays, etcc.
         public List<Path> paths;
         public List<Double> pathLengthsL;
         public List<Double> pathLengths;
@@ -68,6 +74,45 @@ namespace LiveUncertainty.classes
 
         public UltraSonicMeter()
         {
+
+        }
+
+        public string Tag
+        {
+            get
+            {
+                return tag;
+            }
+
+            set
+            {
+                tag = value;
+            }
+        }
+        public string Name
+        {
+            get
+            {
+                return model_name;
+            }
+
+            set
+            {
+                model_name = value;
+            }
+        }
+
+        public string Manufacturer
+        {
+            get
+            {
+                return manufacturer_name;
+            }
+
+            set
+            {
+                manufacturer_name = value;
+            }
         }
 
         protected Int64 ManufacturerID
@@ -315,7 +360,7 @@ namespace LiveUncertainty.classes
             }
         }
 
-        public OperatingConditions OperatingConditionsObject
+        public OperatingConditions OperatingConditions
         {
             get
             {
