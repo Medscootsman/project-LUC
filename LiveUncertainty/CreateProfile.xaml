@@ -10,7 +10,7 @@
         mc:Ignorable="d"
         WindowState="Maximized"
         Closing="ProfileCreate_Closing"
-        Title="Create your profile" Height="884" Width="1038" HorizontalAlignment="Center">
+        Title="Create your profile" Height="884" Width="1608.1" HorizontalAlignment="Center">
 
     <Controls:MetroWindow.RightWindowCommands>
         <Controls:WindowCommands>
@@ -414,7 +414,7 @@
         </Custom:MetroAnimatedSingleRowTabControl>
         
         <!--Profile name -->
-        <TextBox x:Name="txtbox_ProfileName" Grid.Column="1" Custom:TextBoxHelper.Watermark="A name to ID your profile" HorizontalAlignment="Right" Height="23" Margin="0,26,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="160"/>
+        <TextBox x:Name="txtbox_ProfileName" Grid.Column="1" Custom:TextBoxHelper.Watermark="A name to ID your profile" HorizontalAlignment="Stretch" Height="23" Margin="95,26,0,0" TextWrapping="Wrap"  VerticalAlignment="Top"/>
         <Label x:Name="lbl_profilename" Content="Profile Name" Grid.Column="1" HorizontalAlignment="Left" Margin="10,26,0,0" VerticalAlignment="Top" Width="85"/>
     </Grid>
 </Controls:MetroWindow>

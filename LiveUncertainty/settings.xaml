@@ -1,0 +1,38 @@
+﻿<Controls:MetroWindow
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LiveUncertainty"
+        xmlns:Custom="http://metro.mahapps.com/winfx/xaml/controls" x:Class="LiveUncertainty.settings"
+        Title="settings" Height="337.113" Width="300"
+        ResizeMode="NoResize"
+    >
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <TextBox x:Name="textBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="5,10,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Center" Width="176" Grid.ColumnSpan="2" Grid.Row="1"/>
+        <Label x:Name="label" Content="Personalization" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.648,2.322" FontSize="20" Grid.ColumnSpan="2" Width="196"/>
+        <Label x:Name="label1" Content="Name" HorizontalAlignment="Right" Margin="0,23,10,13" Grid.Row="1" VerticalAlignment="Center"/>
+        <Label x:Name="lbl_Initials" Content="Initials" HorizontalAlignment="Right" Margin="0,10,10,25" Grid.Row="2" VerticalAlignment="Center" RenderTransformOrigin="0.461,2.391"/>
+        <ComboBox x:Name="comboBox" Grid.ColumnSpan="2" Grid.Column="1" HorizontalAlignment="Left" Margin="5,10,0,0" Grid.Row="3" VerticalAlignment="Top" Width="176"/>
+        <Label x:Name="lbl_Theme" Content="choose theme" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="3" VerticalAlignment="Top" RenderTransformOrigin="-0.451,0.016"/>
+        <Label x:Name="Choose_font" Content="Choose font" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="4" VerticalAlignment="Top" Width="78"/>
+        <TextBox x:Name="txtbox_Initials_Copy" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="5,11,0,24" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Center" Width="176" Grid.ColumnSpan="2" Grid.Row="2"/>
+        <ComboBox x:Name="drop_fonts" Grid.ColumnSpan="2" Grid.Column="1" HorizontalAlignment="Left" Margin="5,10,0,0" Grid.Row="4" VerticalAlignment="Top" Width="176"/>
+    </Grid>
+</Controls:MetroWindow>
