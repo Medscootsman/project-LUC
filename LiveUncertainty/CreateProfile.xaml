@@ -146,17 +146,175 @@
             </TabItem>
 
             <TabItem Header="Operating Conditons">
-                <Grid Background="#FFE5E5E5"/>
-            </TabItem>
-            <TabItem Header="Pressure">
+                <TabPanel>
+                    <StackPanel Orientation="Vertical" Margin="0,0,-123,-212" HorizontalAlignment="Left" Width="543">
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_opPressure" Content="Pressure" HorizontalAlignment="Left" Width="150"/>
+                            <TextBox x:Name="txtbox_opPressure" Custom:TextBoxHelper.Watermark="The pressure of the system" Width="200" />
+                        </StackPanel>
 
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_opTemperature" Content="Temperature" HorizontalAlignment="Left" Width="150"/>
+                            <TextBox x:Name="txtbox_opTemperature" Custom:TextBoxHelper.Watermark="The temperature of the system" Width="200" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_opDensity" Content="Density" HorizontalAlignment="Left" Width="150"/>
+                            <TextBox x:Name="txtbox_opDensity" Custom:TextBoxHelper.Watermark="The density of the system" Width="200" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_refPressure" Content="Reference Pressure" HorizontalAlignment="Left" Width="150"/>
+                            <TextBox x:Name="txtbox_refPressure" Custom:TextBoxHelper.Watermark="Used as a reference" Width="200" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_refTemperature" Content="Reference Temperature" HorizontalAlignment="Left" Width="150"/>
+                            <ComboBox x:Name="drop_refTemperature" Width="200">
+                                <ComboBoxItem Selector.IsSelected="True">0</ComboBoxItem>
+                                <ComboBoxItem>15</ComboBoxItem>
+                                <ComboBoxItem>20</ComboBoxItem>
+                            </ComboBox>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_maxMassFlow" Content="Maximum Mass Flow" HorizontalAlignment="Left" Width="150"/>
+                            <TextBox x:Name="txtbox_maxMassFlow" Custom:TextBoxHelper.Watermark="The maximum flow of the meter" Width="200" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_maxGOVFlow" Content="Maximum GOV Flow" HorizontalAlignment="Left" Width="150"/>
+                            <TextBox x:Name="txtbox_maxGOVFlow" Custom:TextBoxHelper.Watermark="The maximum flow of the meter" Width="200" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_baseCompressibility" Content="Base Compressibility" HorizontalAlignment="Left" Width="150"/>
+                            <TextBox x:Name="txtbox_baseCompressibility" Custom:TextBoxHelper.Watermark="Compressiblity" Width="200" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_moleWeight" Content="Molecular Weight" HorizontalAlignment="Left" Width="150"/>
+                            <TextBox x:Name="txtbox_moleWeight" Custom:TextBoxHelper.Watermark="Weight of each molecule" Width="200" />
+                        </StackPanel>
+                    </StackPanel>
+                </TabPanel>
+            </TabItem>
+            
+            <TabItem Header="Pressure">
+                <TabPanel>
+                    <StackPanel Orientation="Vertical" Margin="0,0,-123,-212" HorizontalAlignment="Left" Width="543">
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_model_pressure" Content="Model" HorizontalAlignment="Left" Width="150"/>
+                            <ComboBox x:Name="drop_pressureModel" Width="200">
+                                <ComboBoxItem>No Pressure Transmitter present</ComboBoxItem>
+                            </ComboBox>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_tagNum_Pressure" Content="Tag Number" HorizontalAlignment="Left" Width="150"/>
+                            <TextBox x:Name="txtbox_tagNum_Pressure" Custom:TextBoxHelper.Watermark="Tag Number of the pressure model" Width="200" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_range_Pressure" Content="Calibrated Span" HorizontalAlignment="Left" Width="150"/>
+                            <TextBox x:Name="txtbox_range_Pressure" Custom:TextBoxHelper.Watermark="Calibrated span" Width="200" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_URL_Pressure" Content="Upper Range Limit" HorizontalAlignment="Left" Width="150"/>
+                            <TextBox x:Name="txtbox_URL_Pressure" Custom:TextBoxHelper.Watermark="Upper Range Limit" Width="200" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_SigOutput_Pressure" Content="Signal Output" HorizontalAlignment="Left" Width="150"/>
+                            <ComboBox x:Name="drop_SigOutput_Pressure" Width="200">
+                                <ComboBoxItem>4-20Ma</ComboBoxItem>
+                                <ComboBoxItem>HART</ComboBoxItem>
+                            </ComboBox>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_CalFreq_Pressure" Content="Calibration Frequency" HorizontalAlignment="Left" Width="150"/>
+                            <TextBox x:Name="txtbox_CalFreq_Pressure" Custom:TextBoxHelper.Watermark="Calibration Frequency of the transmitter" Width="200" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_ReCertFreq_Pressure" Content="Recertification Frequency" HorizontalAlignment="Left" Width="150"/>
+                            <TextBox x:Name="txtbox_ReCertFreq_Presure" Custom:TextBoxHelper.Watermark="Recertification Frequency of the transmitter" Width="200" />
+                        </StackPanel>
+                    </StackPanel>
+                </TabPanel>
             </TabItem>
             <TabItem Header="Temperature">
+                <TabPanel>
+                    <StackPanel Orientation="Vertical" Margin="0,0,-123,-212" HorizontalAlignment="Left" Width="543">
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_model_temperature" Content="Model" HorizontalAlignment="Left" Width="150"/>
+                            <ComboBox x:Name="drop_temperatureModel" Width="200">
+                                <ComboBoxItem>No Temperature Transmitter present</ComboBoxItem>
+                            </ComboBox>
+                        </StackPanel>
 
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_tagNum_Temperature" Content="Tag Number" HorizontalAlignment="Left" Width="150"/>
+                            <TextBox x:Name="txtbox_tagNum_Temperature" Custom:TextBoxHelper.Watermark="Tag Number of the pressure model" Width="200" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_range_temperature" Content="Calibrated Span" HorizontalAlignment="Left" Width="150"/>
+                            <TextBox x:Name="txtbox_range_temperature" Custom:TextBoxHelper.Watermark="Calibrated span" Width="200" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_URL_temperature" Content="Upper Range Limit" HorizontalAlignment="Left" Width="150"/>
+                            <TextBox x:Name="txtbox_URL_temperature" Custom:TextBoxHelper.Watermark="Upper Range Limit" Width="200" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_SigOutput_temperature" Content="Signal Output" HorizontalAlignment="Left" Width="150"/>
+                            <ComboBox x:Name="drop_SigOutput_temperature" Width="200">
+                                <ComboBoxItem>4-20Ma</ComboBoxItem>
+                                <ComboBoxItem>HART</ComboBoxItem>
+                            </ComboBox>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_CalFreq_temperature" Content="Calibration Frequency" HorizontalAlignment="Left" Width="150"/>
+                            <TextBox x:Name="txtbox_CalFreq_temperature" Custom:TextBoxHelper.Watermark="Calibration Frequency of the transmitter" Width="200" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_ReCertFreq_temperature" Content="Recertification Frequency" HorizontalAlignment="Left" Width="150"/>
+                            <TextBox x:Name="txtbox_ReCertFreq_temperature" Custom:TextBoxHelper.Watermark="Recertification Frequency of the transmitter" Width="200" />
+                        </StackPanel>
+                    </StackPanel>
+                </TabPanel>
             </TabItem>
 
             <TabItem Header="Flow Computer">
+                <StackPanel Orientation="Vertical" Margin="0,0,-123,-212" HorizontalAlignment="Left" Width="543">
+                    <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
+                        <Label x:Name="lbl" Content="Molecular Weight" HorizontalAlignment="Left" Width="150"/>
+                        <ComboBox x:Name="drop_FlowModel" Width="200">
+                            <ComboBoxItem>No Temperature Transmitter present</ComboBoxItem>
+                        </ComboBox>
+                    </StackPanel>
 
+                    <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
+                        <Label x:Name="lbl_tagNum_Temperature" Content="Tag Number" HorizontalAlignment="Left" Width="150"/>
+                        <TextBox x:Name="txtbox_tagNum_Temperature" Custom:TextBoxHelper.Watermark="Tag Number of the pressure model" Width="200" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
+                        <Label x:Name="lbl_range_temperature" Content="Calibrated Span" HorizontalAlignment="Left" Width="150"/>
+                        <TextBox x:Name="txtbox_range_temperature" Custom:TextBoxHelper.Watermark="Calibrated span" Width="200" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
+                        <Label x:Name="lbl_URL_temperature" Content="Upper Range Limit" HorizontalAlignment="Left" Width="150"/>
+                        <TextBox x:Name="txtbox_URL_temperature" Custom:TextBoxHelper.Watermark="Upper Range Limit" Width="200" />
+                    </StackPanel>
+                </StackPanel>
             </TabItem>
 
             <TabItem Header="Analysers">

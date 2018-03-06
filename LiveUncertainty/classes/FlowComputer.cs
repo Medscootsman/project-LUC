@@ -10,8 +10,12 @@ namespace LiveUncertainty.classes
     {
         public string tagNo;
         public string manufacturer;
+        public int manufactuerID;
+        public string model;
+        public string modelID;
         public string type;
-        public double calUncertainty;
+        public int typeID;
+        public double calUncertainty; //Calculation Uncertainty
         public FlowComputer()
         {
             //constructor logic tbc

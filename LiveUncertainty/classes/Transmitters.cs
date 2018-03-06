@@ -9,18 +9,31 @@ namespace LiveUncertainty.classes
 
     public abstract class Transmitter
     {
+        public int id;
         public String tagNum;
-        public Double range;
+        public Double range; //also known as the calibrated span
         public Double URL; //Upper Range Limit
         public String manufacturer;
         public String model;
         public Int16 signalOutput;
         public Double cal_frequency; //Calibration Frequency In Months
-        public Double reCalibrationFreq; //Recalibration Frequency.
+        public Double reCertFreq; //Recertification Frequency.
         public Transmitter()
         {
         }
+        
+        public int ID
+        {
+            get
+            {
+                return id;
+            }
 
+            set
+            {
+                id = value;
+            }
+        }
         public String Tag_Num
         {
             get
@@ -116,12 +129,12 @@ namespace LiveUncertainty.classes
         {
             get
             {
-                return reCalibrationFreq;
+                return reCertFreq;
             }
 
             set
             {
-                reCalibrationFreq = value;
+                reCertFreq = value;
             }
         }
 
