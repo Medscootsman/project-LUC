@@ -301,17 +301,17 @@
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
-                        <Label x:Name="lbl_tagNum_Temperature" Content="Tag Number" HorizontalAlignment="Left" Width="150"/>
-                        <TextBox x:Name="txtbox_tagNum_Temperature" Custom:TextBoxHelper.Watermark="Tag Number of the pressure model" Width="200" />
+                        <Label x:Name="lbl_flowcomp_tagNo" Content="Tag Number" HorizontalAlignment="Left" Width="150"/>
+                        <TextBox x:Name="txtbox_tagNo_Flowcomp" Custom:TextBoxHelper.Watermark="Tag Number of the pressure model" Width="200" />
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
-                        <Label x:Name="lbl_range_temperature" Content="Calibrated Span" HorizontalAlignment="Left" Width="150"/>
-                        <TextBox x:Name="txtbox_range_temperature" Custom:TextBoxHelper.Watermark="Calibrated span" Width="200" />
+                        <Label x:Name="lbl_Type_flowcomp" Content="Flowcomp type" HorizontalAlignment="Left" Width="150"/>
+                        <TextBox x:Name="drop_Type" Custom:TextBoxHelper.Watermark="Calibrated span" Width="200" />
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
-                        <Label x:Name="lbl_URL_temperature" Content="Upper Range Limit" HorizontalAlignment="Left" Width="150"/>
+                        <Label x:Name="lbl_calcUncertainty_flowcomp" Content="Calculation Uncertainty" HorizontalAlignment="Left" Width="150"/>
                         <TextBox x:Name="txtbox_URL_temperature" Custom:TextBoxHelper.Watermark="Upper Range Limit" Width="200" />
                     </StackPanel>
                 </StackPanel>
