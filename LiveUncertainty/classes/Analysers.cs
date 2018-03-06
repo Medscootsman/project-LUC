@@ -6,12 +6,14 @@ using System.Threading.Tasks;
 
 namespace LiveUncertainty.classes
 {
-    class Analyser
+    public abstract class Analyser
     {
         public int analyserID;
         public string tagNum;
-        public double range;
+        public double range; //Calibrated span
         public string manufacturer;
+        public int manufacturerID;
+        public int modelID;
         public string model;
         public string sigOutput; //signal output
         public double calFrequency; //calibration frequency
@@ -22,6 +24,23 @@ namespace LiveUncertainty.classes
             //
             // TODO: Add constructor logic here
             //
+        }
+
+        public int ManufactuerID
+        {
+            get
+            {
+                return manufacturerID;
+            }
+        }
+
+        public int ModelID
+        {
+            get
+            {
+                return modelID;
+            }
+            
         }
 
         public string TagNum

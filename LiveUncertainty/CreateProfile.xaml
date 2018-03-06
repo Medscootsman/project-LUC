@@ -42,7 +42,8 @@
         <Button x:Name="btn_Save" Content="Save" Style="{StaticResource AccentedSquareButtonStyle}" HorizontalAlignment="Center" Margin="39,10,38,74" Grid.Row="2" Width="160" Grid.Column="1" Height="42"/>
         <Button x:Name="btn_Load" Content="Cancel" Style="{StaticResource AccentedSquareButtonStyle}" HorizontalAlignment="Center" Margin="35,10,42,74" Grid.Row="2" Width="160" Grid.Column="2" Height="42" IsCancel="True"/>
 
-        <Custom:MetroAnimatedSingleRowTabControl x:Name="tabControl" Grid.ColumnSpan="4" HorizontalAlignment="Stretch" Height="367" Margin="0,2,5,0" Grid.Row="1" VerticalAlignment="Top">
+        <!--tab system -->
+        <Custom:MetroAnimatedSingleRowTabControl x:Name="tabControl" Custom:TabControlHelper.UnderlineMouseOverSelectedBrush="Aquamarine" Custom:TabControlHelper.Transition="Left" Grid.ColumnSpan="4" HorizontalAlignment="Stretch" Height="367" Margin="0,2,5,0" Grid.Row="1" VerticalAlignment="Top">
             <TabItem Header="USM">
                 <TabPanel Margin="0,0,0,-195">
                     <StackPanel Orientation="Vertical" Margin="0,0,-123,-212" HorizontalAlignment="Left" Width="543">
@@ -199,7 +200,7 @@
                     </StackPanel>
                 </TabPanel>
             </TabItem>
-            
+
             <TabItem Header="Pressure">
                 <TabPanel>
                     <StackPanel Orientation="Vertical" Margin="0,0,-123,-212" HorizontalAlignment="Left" Width="543">
@@ -245,7 +246,8 @@
                     </StackPanel>
                 </TabPanel>
             </TabItem>
-            <TabItem Header="Temperature">
+
+            <TabItem Header="Temperature" HorizontalAlignment="Left" Width="160">
                 <TabPanel>
                     <StackPanel Orientation="Vertical" Margin="0,0,-123,-212" HorizontalAlignment="Left" Width="543">
                         <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
@@ -312,14 +314,107 @@
 
                     <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
                         <Label x:Name="lbl_calcUncertainty_flowcomp" Content="Calculation Uncertainty" HorizontalAlignment="Left" Width="150"/>
-                        <TextBox x:Name="txtbox_URL_temperature" Custom:TextBoxHelper.Watermark="Upper Range Limit" Width="200" />
+                        <TextBox x:Name="txtbox_calcUncertainty_flowcomp" Custom:TextBoxHelper.Watermark="Uncertainty of the flow reading" Width="200" />
                     </StackPanel>
                 </StackPanel>
             </TabItem>
 
             <TabItem Header="Analysers">
+                <TabPanel>
+                    <Controls:MetroAnimatedSingleRowTabControl>
+                        <TabItem Header="Densitometer" Controls:ControlsHelper.HeaderFontSize="15">
+                            <TabPanel>
+                                <StackPanel Orientation="Vertical" Margin="0,0,-123,-212" HorizontalAlignment="Left" Width="543">
+                                    <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="543" HorizontalAlignment="Left">
+                                        <Label x:Name="lbl_model" Content="Model" HorizontalAlignment="Left" Width="150"/>
+                                        <ComboBox x:Name="drop_Model_Densitometer" Width="200">
 
+                                        </ComboBox>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="543" HorizontalAlignment="Left">
+                                        <Label x:Name="lbl_TagNo_Densitometer" Content="Tag Number" HorizontalAlignment="Left" Width="150"/>
+                                        <TextBox x:Name="txtbox_TagNo_Densitometer" Custom:TextBoxHelper.Watermark="The tag number" Width="200" />
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="543" HorizontalAlignment="Left">
+                                        <Label x:Name="lbl_CalSpan_Densitometer" Content="Calibrated Span" HorizontalAlignment="Left" Width="150"/>
+                                        <TextBox x:Name="txtbox_CalSpan_Densitometer" Custom:TextBoxHelper.Watermark="The calibrated span" Width="200" />
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="543" HorizontalAlignment="Left">
+                                        <Label x:Name="lbl_calFreq_Densitometer" Content="Calibration Frequency" HorizontalAlignment="Left" Width="150"/>
+                                        <TextBox x:Name="txtbox_calfreq_Densitometer" Custom:TextBoxHelper.Watermark="How frequently it's calibrated" Width="200" />
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="543" HorizontalAlignment="Left">
+                                        <Label x:Name="lbl_RecertTolerance_Densitometer3" Content="Recertifcation Tolerance" HorizontalAlignment="Left" Width="150"/>
+                                        <TextBox x:Name="txtbox_RecertTolerance_Densitometer" Custom:TextBoxHelper.Watermark="Recalibration tolerance" Width="200" />
+                                    </StackPanel>
+                                </StackPanel>
+                            </TabPanel>
+                        </TabItem>
+
+                        <TabItem Header="Cromatograph" FontSize="12" Controls:ControlsHelper.HeaderFontSize="15">
+                            <TabPanel>
+                                <StackPanel Orientation="Vertical" Margin="0,0,-123,-212" HorizontalAlignment="Left" Width="543">
+                                    <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="543" HorizontalAlignment="Left">
+                                        <Label x:Name="lbl_model_Cromatograph" Content="Model" HorizontalAlignment="Left" Width="150"/>
+                                        <ComboBox x:Name="drop_Model_Cromatograph" Width="200">
+
+                                        </ComboBox>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="543" HorizontalAlignment="Left">
+                                        <Label x:Name="lbl_TagNo_Cromatograph" Content="Tag Number" HorizontalAlignment="Left" Width="150"/>
+                                        <TextBox x:Name="txtbox_TagNo_Cromatograph" Custom:TextBoxHelper.Watermark="The tag number" Width="200" />
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="543" HorizontalAlignment="Left">
+                                        <Label x:Name="lbl_CalSpan_Cromatograph" Content="Calibrated Span" HorizontalAlignment="Left" Width="150"/>
+                                        <TextBox x:Name="txtbox_CalSpan_Cromatograph" Custom:TextBoxHelper.Watermark="The calibrated span" Width="200" />
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="543" HorizontalAlignment="Left">
+                                        <Label x:Name="lbl_calFreq_Cromatograph" Content="Calibration Frequency" HorizontalAlignment="Left" Width="150"/>
+                                        <TextBox x:Name="txtbox_calfreq_Cromatograph" Custom:TextBoxHelper.Watermark="How frequently it's calibrated" Width="200" />
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="543" HorizontalAlignment="Left">
+                                        <Label x:Name="lbl_RecertTolerance_Cromatograph" Content="Recertifcation Tolerance" HorizontalAlignment="Left" Width="150"/>
+                                        <TextBox x:Name="txtbox_RecertTolerance_Cromatograph" Custom:TextBoxHelper.Watermark="Recalibration tolerance" Width="200" />
+                                    </StackPanel>
+                                </StackPanel>
+                            </TabPanel>
+                        </TabItem>
+
+                        <TabItem Header="RD_Analyser" FontSize="12" Controls:ControlsHelper.HeaderFontSize="15">
+                            <TabPanel>
+                                <StackPanel Orientation="Vertical" Margin="0,0,-123,-212" HorizontalAlignment="Left" Width="543">
+                                    <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="543" HorizontalAlignment="Left">
+                                        <Label x:Name="lbl_model_RDAnalyser" Content="Model" HorizontalAlignment="Left" Width="150"/>
+                                        <ComboBox x:Name="drop_Model_RDAnalyser" Width="200">
+
+                                        </ComboBox>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="543" HorizontalAlignment="Left">
+                                        <Label x:Name="lbl_TagNo_RDAnalyser" Content="Tag Number" HorizontalAlignment="Left" Width="150"/>
+                                        <TextBox x:Name="txtbox_TagNo_RDAnalyser" Custom:TextBoxHelper.Watermark="The tag number" Width="200" />
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="543" HorizontalAlignment="Left">
+                                        <Label x:Name="lbl_CalSpan_RDAnalyser" Content="Calibrated Span" HorizontalAlignment="Left" Width="150"/>
+                                        <TextBox x:Name="txtbox_CalSpan_RDAnalyser" Custom:TextBoxHelper.Watermark="The calibrated span" Width="200" />
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="543" HorizontalAlignment="Left">
+                                        <Label x:Name="lbl_calFreq_RDAnalyser" Content="Calibration Frequency" HorizontalAlignment="Left" Width="150"/>
+                                        <TextBox x:Name="txtbox_calfreq_RDAnalyser" Custom:TextBoxHelper.Watermark="How frequently it's calibrated" Width="200" />
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="543" HorizontalAlignment="Left">
+                                        <Label x:Name="lbl_RecertTolerance_RDAnalyser" Content="Recertifcation Tolerance" HorizontalAlignment="Left" Width="150"/>
+                                        <TextBox x:Name="txtbox_RecertTolerance_RDAnalyser" Custom:TextBoxHelper.Watermark="Recalibration tolerance" Width="200" />
+                                    </StackPanel>
+                                </StackPanel>
+                            </TabPanel>
+                        </TabItem>
+                    </Controls:MetroAnimatedSingleRowTabControl>
+                </TabPanel>
             </TabItem>
         </Custom:MetroAnimatedSingleRowTabControl>
+        
+        <!--Profile name -->
+        <TextBox x:Name="txtbox_ProfileName" Grid.Column="1" Custom:TextBoxHelper.Watermark="A name to ID your profile" HorizontalAlignment="Right" Height="23" Margin="0,26,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="160"/>
+        <Label x:Name="lbl_profilename" Content="Profile Name" Grid.Column="1" HorizontalAlignment="Left" Margin="10,26,0,0" VerticalAlignment="Top" Width="85"/>
     </Grid>
 </Controls:MetroWindow>
