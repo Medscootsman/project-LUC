@@ -27,8 +27,7 @@
 
     <Controls:MetroWindow.RightWindowCommands>
         <Controls:WindowCommands>
-            <Button Content="Settings"></Button>
-            <Button Content="Change Layout"></Button>
+            <Button Content="Settings" Click="settings_open_click"></Button>
             <Button Content="Quickstart"></Button>
         </Controls:WindowCommands>
     </Controls:MetroWindow.RightWindowCommands>
@@ -36,7 +35,6 @@
     <Controls:MetroWindow.LeftWindowCommands>
         <Controls:WindowCommands>
             <Button Content="New Profile" Click="ProfileCreate_click"/>
-            <Button Content="Save Profile"/>
             <Button Content="Load Profile"/>
             
         </Controls:WindowCommands>
@@ -63,7 +61,7 @@
                     <MenuItem Header="_Load Profile"/>
                     <MenuItem Header="_Save current Profile"/>
                     <MenuItem Header="_Create New Profile" x:Name="create_profile" Click="ProfileCreate_click"/>
-                    <MenuItem Header="_Settings"/>
+                    <MenuItem Header="_Settings" Click="settings_open_click"/>
                     <MenuItem Header="_Exit"/>
                 </MenuItem>
                 <MenuItem Header="_Edit" Height="Auto">

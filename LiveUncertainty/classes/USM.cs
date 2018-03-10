@@ -37,7 +37,7 @@ namespace LiveUncertainty.classes
         public string rho;
         //Most static variables are kept on this class.
 
-        protected double elasticity = 210 * Math.Pow(10, 9); // known as Yym on the mathcad sheet. supposed to be constant.
+        protected double elasticity = 210 * Math.Pow(10, 9); // Mod of elasticity
         private double coeff = 1.2 * Math.Pow(10, 5); //Coeff. of Linear Exp. (/°C)
         public const double thermalExpansion = 0.000011;
         private const double tmet = 20;
@@ -51,11 +51,11 @@ namespace LiveUncertainty.classes
         //Universal Gas Constant
         private double Ro = 8.314510 * Math.Pow(10, 3);
 
-        //
-
-        //Associated objects that will be set in the frontend
+        //Associated objects that will be taken in the frontend
         public OperatingConditions opconditions;
         public GasComposition gascomp;
+        public PressureTransmitter pressure;
+        public TemperatureTransmitter temperature;
 
         //these are used for calculating the chords and getting arrays, etcc.
         public List<Path> paths;
@@ -65,8 +65,8 @@ namespace LiveUncertainty.classes
         public List<Double> pathChords;
         public List<Double> pathChordsX;
         public List<Double> pathWeightingFactors;
-        public List<Double> pathAngles_DegreeMultiplied;
         public List<Double> pathAngles;
+        public List<Double> pathAngles_DegreeMultiplied;
         public List<uint> pathBounces;
 
 
@@ -594,9 +594,9 @@ namespace LiveUncertainty.classes
         {
             List<double> Aand_d = new List<double>();
 
-            foreach (double path in this.pathChords)
+            foreach (double chord in this.pathChords)
             {
-                double recalculatedweightingfactor = Math.PI * ((Math.Pow((this.CalculateMeterTubeBore() / 2), 2)) - (Math.Pow(path, 2)));
+                double recalculatedweightingfactor = Math.PI * ((Math.Pow((this.CalculateMeterTubeBore() / 2), 2)) - (Math.Pow(chord, 2)));
 
                 Aand_d.Add(recalculatedweightingfactor);
             }
@@ -1275,6 +1275,40 @@ namespace LiveUncertainty.classes
         {
             return CalculateBaseDensity() / 1.22541;
         }
+
+        public List<double> CalculateIndividualPathVelocities()
+        {
+            List<double> IPV = new List<double>();
+
+            using (var weightingfactorenum = pathWeightingFactors.GetEnumerator())
+            using (var IVenum = OperatingConditions.CalculateViv().GetEnumerator())
+            {
+                while(weightingfactorenum.MoveNext() && IVenum.MoveNext())
+                {
+                    double val = weightingfactorenum.Current * IVenum.Current;
+
+                    IPV.Add(val);
+                }
+            }
+
+            return IPV;
+        }
+
+        public List<double> CalcualateActualGrossObservedFlowRate()
+        {
+            List<double> gov = new List<double>();
+
+            foreach(double val in OperatingConditions.CalculateViv())
+            {
+                double addedval = val * (Math.PI * Math.Pow(CalculateMeterTubeBore(), 2)) / 4;
+
+                gov.Add(addedval);
+            }
+
+            return gov;
+        }
+
+
 
 
 

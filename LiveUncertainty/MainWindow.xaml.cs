@@ -91,5 +91,11 @@ namespace LiveUncertainty
         {
             System.Diagnostics.Process.Start("https://docs.google.com/forms/d/1ypplB3Ii4ga1W71xXTvZiCW4hEXJgOOZNVKJ6uuAxNs/edit?usp=sharing");
         }
+
+        private void settings_open_click(object sender, RoutedEventArgs e)
+        {
+            settings settingswindow = new settings();
+            settingswindow.ShowDialog();
+        }
     }
 }

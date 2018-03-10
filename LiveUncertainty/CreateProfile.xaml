@@ -179,13 +179,8 @@
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
-                            <Label x:Name="lbl_maxMassFlow" Content="Maximum Mass Flow" HorizontalAlignment="Left" Width="150"/>
-                            <TextBox x:Name="txtbox_maxMassFlow" Custom:TextBoxHelper.Watermark="The maximum flow of the meter" Width="200" />
-                        </StackPanel>
-
-                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
-                            <Label x:Name="lbl_maxGOVFlow" Content="Maximum GOV Flow" HorizontalAlignment="Left" Width="150"/>
-                            <TextBox x:Name="txtbox_maxGOVFlow" Custom:TextBoxHelper.Watermark="The maximum flow of the meter" Width="200" />
+                            <Label x:Name="lbl_maxMassFlow" Content="Maximum Fluid Velocity" HorizontalAlignment="Left" Width="150"/>
+                            <TextBox x:Name="txtbox_maxFluidFlow" Custom:TextBoxHelper.Watermark="The maximum flow of the meter" Width="200" />
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
@@ -412,7 +407,7 @@
                 </TabPanel>
             </TabItem>
         </Custom:MetroAnimatedSingleRowTabControl>
-        
+
         <!--Profile name -->
         <TextBox x:Name="txtbox_ProfileName" Grid.Column="1" Custom:TextBoxHelper.Watermark="A name to ID your profile" HorizontalAlignment="Stretch" Height="23" Margin="95,26,0,0" TextWrapping="Wrap"  VerticalAlignment="Top"/>
         <Label x:Name="lbl_profilename" Content="Profile Name" Grid.Column="1" HorizontalAlignment="Left" Margin="10,26,0,0" VerticalAlignment="Top" Width="85"/>

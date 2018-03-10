@@ -260,6 +260,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="classes\user.cs" />
     <Compile Include="CreateProfile.xaml.cs">
       <DependentUpon>CreateProfile.xaml</DependentUpon>
     </Compile>
