@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 namespace LiveUncertainty.classes
 {
     //<summary>
-        //USM Meter Object.
+    //USM Meter Object.
     //</summary>
     public class UltraSonicMeter
     {
@@ -69,7 +69,36 @@ namespace LiveUncertainty.classes
         public List<Double> pathAngles_DegreeMultiplied;
         public List<uint> pathBounces;
 
+        //Uncertainty values that can be changed.
 
+        //Uncertainty in electronics due to ambient temperature variation
+        double electronicsStabilityUncertainty = 0.01;
+
+        //Stability Of Timing Circuit Resolution
+        double stabilityOfTime = 4 * Math.Pow(10, 9);
+
+        //Meter Uncertainty from mathematical model.
+        double meterUncertainty_mathmodel = 0.04;
+
+        //Meter Uncertainty from long term drift.
+        double meterUncertainty_longtermdrift = 0.1;
+
+        //Resolution of the meter tube bore. (Ddry)
+        public double metertubeboreResolution_mm = 0.058;
+
+        double metertubeboreResolution = 0.058 * Math.Pow(10, -3);
+
+        //Path legnth uncertainty (Ldry)
+        double pathlengthResolution = 0.058 * Math.Pow(10, -3);
+
+        //Axial Path Length Uncertainty (xDry)
+        double axialPathResolution = 0.058 * Math.Pow(10, -3);
+
+        //Assumed depth 
+        double innersurfacedepth = 0;
+        
+
+        
 
 
         public UltraSonicMeter()
@@ -131,7 +160,7 @@ namespace LiveUncertainty.classes
             }
         }
 
-        protected Int16 Paths
+        protected Int16 PathsTotal
         {
             get
             {
@@ -141,6 +170,14 @@ namespace LiveUncertainty.classes
             set
             {
                 pathsTotal = value;
+            }
+        }
+
+        protected List<Path> Paths
+        {
+            get
+            {
+                return paths;
             }
         }
 
@@ -1159,7 +1196,7 @@ namespace LiveUncertainty.classes
             using (var Chord = chordwet.GetEnumerator())
             using (var Xwet = xwet.GetEnumerator())
             {
-                while(Chord.MoveNext() && Xwet.MoveNext())
+                while (Chord.MoveNext() && Xwet.MoveNext())
                 {
                     double val = Math.Atan(Chord.Current / Xwet.Current);
                     Zerowet.Add(val);
@@ -1167,7 +1204,7 @@ namespace LiveUncertainty.classes
             }
 
             return Zerowet;
-        } 
+        }
 
         public List<double> CalculatePathLengthPostPressure() //Lf, I assume.
         {
@@ -1183,7 +1220,7 @@ namespace LiveUncertainty.classes
             using (var _ZeroF = ZeroF.GetEnumerator())
             using (var _Bay = Bay.GetEnumerator())
             {
-                while(_Xf.MoveNext() && _ZeroF.MoveNext() && _Bay.MoveNext())
+                while (_Xf.MoveNext() && _ZeroF.MoveNext() && _Bay.MoveNext())
                 {
                     double val = (_Xf.Current / Math.Cos(_ZeroF.Current)) + 2 * _Bay.Current;
                     Lf.Add(val);
@@ -1226,7 +1263,7 @@ namespace LiveUncertainty.classes
             {
                 //get the sum of xi
                 double sum = 0;
-                using (var xienum = gascomp.CalculateXi().GetEnumerator()) 
+                using (var xienum = gascomp.CalculateXi().GetEnumerator())
                 using (var gasenum = gascomp.Gases.GetEnumerator())
                 {
                     while (xienum.MoveNext() && gasenum.MoveNext())
@@ -1249,7 +1286,7 @@ namespace LiveUncertainty.classes
             using (var xienum = gascomp.CalculateXi().GetEnumerator())
             using (var gasenum = gascomp.Gases.GetEnumerator())
             {
-                while(xienum.MoveNext() && gasenum.MoveNext())
+                while (xienum.MoveNext() && gasenum.MoveNext())
                 {
                     relativemolarmass += xienum.Current * gasenum.Current.MolWeight;
                 }
@@ -1269,7 +1306,7 @@ namespace LiveUncertainty.classes
 
             return basedensity;
 
-        }   
+        }
 
         public double CalculateRelativeDensity()
         {
@@ -1283,7 +1320,7 @@ namespace LiveUncertainty.classes
             using (var weightingfactorenum = pathWeightingFactors.GetEnumerator())
             using (var IVenum = OperatingConditions.CalculateViv().GetEnumerator())
             {
-                while(weightingfactorenum.MoveNext() && IVenum.MoveNext())
+                while (weightingfactorenum.MoveNext() && IVenum.MoveNext())
                 {
                     double val = weightingfactorenum.Current * IVenum.Current;
 
@@ -1294,11 +1331,11 @@ namespace LiveUncertainty.classes
             return IPV;
         }
 
-        public List<double> CalcualateActualGrossObservedFlowRate()
+        public List<double> CalculateActualGrossObservedFlowRate()
         {
             List<double> gov = new List<double>();
 
-            foreach(double val in OperatingConditions.CalculateViv())
+            foreach (double val in OperatingConditions.CalculateViv())
             {
                 double addedval = val * (Math.PI * Math.Pow(CalculateMeterTubeBore(), 2)) / 4;
 
@@ -1308,9 +1345,216 @@ namespace LiveUncertainty.classes
             return gov;
         }
 
+        private List<double> CalculateGrossObservedFlowRateInTonnes()
+        {
+            List<double> gov = new List<double>();
+
+            foreach (double val in CalculateActualGrossObservedFlowRate())
+            {
+                double returnval = val * 3600;
+                gov.Add(returnval);
+            }
+
+            return gov;
+        }
+
+        public List<double> CalculateGrossObservedFlowRateInMetrics()
+        {
+            List<double> gov = new List<double>();
+
+            foreach (double val in CalculateGrossObservedFlowRateInTonnes())
+            {
+                double returnval = val * this.OperatingConditions.OperatingPressure / 1000;
+
+                gov.Add(returnval);
+            }
+
+            return gov;
+        }
+        /// <summary>
+        /// This is known as qsv.h in mathcad.
+        /// </summary>
+        /// <returns></returns>
+
+        public List<double> CalculateGrossObservedMassFlowInMassFlow()
+        {
+            List<double> gov = new List<double>();
+
+            foreach (double val in CalculateGrossObservedFlowRateInMetrics())
+            {
+                double returnval = val * Math.Pow(10, 3) / this.OperatingConditions.BaseDensity;
+                gov.Add(returnval);
+            }
+
+            return gov;
+        }
+
+        public List<double> CalculateGrossObservedMassFlowMMSCFD()
+        {
+            List<double> gov = new List<double>();
+
+            foreach (double val in CalculateGrossObservedMassFlowInMassFlow())
+            {
+                double returnval = val * 35.3147 * (24 / Math.Pow(10, 6));
+                gov.Add(returnval);
+            }
+
+            return gov;
+        }
+
+        public List<double> CalculateTransitTimesDownwards()
+        {
+            //define a list that is as long as the amount of steps.
+            List<double> Dwn = new List<double>();
+
+            //enumerators for our pathvalues.
+            var Lfenum = this.pathLengths.GetEnumerator();
+            var Xfenum = this.CalculateXf().GetEnumerator();
+            var vivenum = this.OperatingConditions.CalculateViv().GetEnumerator();
+            //get the size of the viv list
+            int vivSize = OperatingConditions.CalculateViv().Count;
+
+
+            //get the maximum number
+
+            while (vivenum.MoveNext())
+            {
+                while (Lfenum.MoveNext() && Xfenum.MoveNext())
+                {
+                    double val = Lfenum.Current / (OperatingConditions.CalculateVelocityofSound() + vivenum.Current * (Lfenum.Current / Xfenum.Current));
+                    Dwn.Add(val);
+                }
+            }
+
+
+            return Dwn;
+
+        }
+
+        public List<double> CalculateTransitTimeUpwards()
+        {
+            //define a list that is as long as the amount of steps.
+            List<double> Tup = new List<double>();
+
+            //enumerators for our pathvalues.
+            var Lfenum = this.pathLengths.GetEnumerator();
+            var Xfenum = this.CalculateXf().GetEnumerator();
+            var vivenum = this.OperatingConditions.CalculateViv().GetEnumerator();
+            //get the size of the viv list
+            int vivSize = OperatingConditions.CalculateViv().Count;
+
+
+            //get the maximum number
+
+            while (vivenum.MoveNext())
+            {
+                while (Lfenum.MoveNext() && Xfenum.MoveNext())
+                {
+                    double val = Lfenum.Current / (OperatingConditions.CalculateVelocityofSound() - vivenum.Current * (Lfenum.Current / Xfenum.Current));
+                    Tup.Add(val);
+                }
+            }
+
+
+            return Tup;
+        }
+
+        /// <summary>
+        /// gets the difference betweens the transit times.
+        /// </summary>
+        /// <returns></returns>
+        public List<double> CalculateTransitTimeDifference()
+        {
+            List<double> tDiff = new List<double>();
+
+            var tupenum = CalculateTransitTimeUpwards().GetEnumerator();
+
+            var tdwnenum = CalculateTransitTimesDownwards().GetEnumerator();
+
+            while(tupenum.MoveNext() && tdwnenum.MoveNext())
+            {
+                var value = tupenum.Current - tdwnenum.Current;
+                tDiff.Add(value);
+            }
+
+            return tDiff;
+        }
+
+        //Some Uncertainties are calculated here
+
+        /// <summary>
+        /// Calculates the uncertainty of the meter tube bore.
+        /// </summary>
+        /// <returns></returns>
+        public double CalculateMeterTubeBoreUncertainty()
+        {
+            return (this.metertubeboreResolution / CalculateMeterTubeBore()) * 100;
+
+        }
+
+        public List<double> CalculatePathLengthUncertainty()
+        {
+            List<double> pathLengthUncertainty = new List<double>();
+
+            foreach(double val in pathLengths)
+            {
+                pathLengthUncertainty.Add((pathlengthResolution / val) * 100);
+            }
+
+            return pathLengthUncertainty;
+        }
+
+        public List<double> CalculateAxialPathLengthUncertainty()
+        {
+            List<double> pathAxialLengthUncertainty = new List<double>();
+
+            foreach (double val in CalculateXf())
+            {
+                pathAxialLengthUncertainty.Add((pathlengthResolution / val) * 100);
+            }
+
+            return pathAxialLengthUncertainty;
+        }
+
+        public double CalculateAssumedDepth()
+        {
+            return innersurfacedepth / 1000;
+        }
+
+        public List<double> CalculateGrossObservedVolumeWithSurfaceDeposition()
+        {
+            List<double> GOVisd = new List<double>();
+            List<double> Viv = OperatingConditions.CalculateViv();
+
+            foreach(double val in Viv)
+            {
+                GOVisd.Add((Math.PI * Math.Pow(CalculateMeterTubeBore() - 2 * CalculateAssumedDepth(), 2)) / 4);
+            }
+
+            return GOVisd;
+            
+        }
+
+        public List<double> CalculateGOVWithSurfaceDespositionUncertainty() //govisdv
+        {
+            List<double> Eisd = new List<double>();
+
+            var qgovivEnum = CalculateGrossObservedFlowRateInTonnes().GetEnumerator();
+
+            var qgovisdEnum = CalculateGrossObservedVolumeWithSurfaceDeposition().GetEnumerator();
+
+            while(qgovisdEnum.MoveNext() && qgovivEnum.MoveNext())
+            {
+                Eisd.Add((qgovivEnum.Current - qgovisdEnum.Current / qgovivEnum.Current) * 100);
+            }
+
+            return Eisd;
+
+        }
+
 
 
 
 
     }
-}
+    }

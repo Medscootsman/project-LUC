@@ -254,7 +254,7 @@ namespace LiveUncertainty.classes
             return this.OperatingPressure + 1.01325;
         }
 
-        public double calculateVelocityofSound()
+        public double CalculateVelocityofSound()
         {
             double Pf = CalculateSIAbsoluteOperatingPressureConverted();
             double pf = CalculateSIAbsoluteOperatingPressure();
