@@ -34,6 +34,9 @@ namespace LiveUncertainty.classes
         public double fluidPathTolerance;
         public double meterDiameterTolerance;
 
+        //metrology temperature
+        public double metrologyTemp;
+
         public string rho;
         //Most static variables are kept on this class.
 
@@ -410,6 +413,14 @@ namespace LiveUncertainty.classes
             }
         }
 
+        public double MetrologyTemperature
+        {
+            get => metrologyTemp;
+
+            set => metrologyTemp = value;
+
+        }
+
         //meter tube bore is calculated by dividing the internal diameter by 1000. (Mathcad reference: dDry)
         public double CalculateMeterTubeBore()
         {
@@ -564,7 +575,7 @@ namespace LiveUncertainty.classes
 
         public double CalculateSIAbsoluteMetrologyTemperature()
         {
-            double correctMetTemperature = 20 + 273.15;
+            double correctMetTemperature = this.metrologyTemp + 273.15;
             return correctMetTemperature;
         }
 
@@ -1550,6 +1561,13 @@ namespace LiveUncertainty.classes
 
             return Eisd;
 
+        }
+
+        public double calculateMetrologyTemperatureUncertainty()
+        {
+            double absoluteTempError = 0.2;
+
+            double tUncertainty = absoluteTempError / CalculateSIAbsoluteCalibratedTemperature() * 100;
         }
 
 
