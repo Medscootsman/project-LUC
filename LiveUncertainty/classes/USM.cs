@@ -1329,18 +1329,23 @@ namespace LiveUncertainty.classes
             return CalculateBaseDensity() / 1.22541;
         }
 
-        public List<double> CalculateIndividualPathVelocities()
+        public List<double> CalculateIndividualPathVelocities() //this might not be done correctly. 
         {
             List<double> IPV = new List<double>();
 
-            using (var weightingfactorenum = pathWeightingFactors.GetEnumerator())
+            var weightingfactorenum = new WeightingFactorEnum(pathWeightingFactors);
             using (var IVenum = OperatingConditions.CalculateViv().GetEnumerator())
             {
-                while (weightingfactorenum.MoveNext() && IVenum.MoveNext())
+                while (weightingfactorenum.MoveNext() && weightingfactorenum.MoveNext())
                 {
                     double val = weightingfactorenum.Current * IVenum.Current;
 
                     IPV.Add(val);
+
+                    if(weightingfactorenum.MoveNext() == false)
+                    {
+                        weightingfactorenum.Reset();
+                    }
                 }
             }
 
@@ -1706,7 +1711,7 @@ namespace LiveUncertainty.classes
 
             FixedUncertainties uncertainties = new FixedUncertainties();
 
-            //List we will be using.
+            //Lists we will be using.
 
             var Elf = CalculateBeamLengthUncertainty().GetEnumerator();
 
@@ -1726,9 +1731,82 @@ namespace LiveUncertainty.classes
 
             double psu = uncertainties.PowerSupplyVariation;
 
+            double drift = CalculateLongTermDrift();
+
+            double fs = uncertainties.FlowProfileCorrectionFactor;
+
+            while(Elf.MoveNext() && Exf.MoveNext() && Erau.MoveNext())
+            {
+                double returnval = Math.Sqrt(
+                                             (Math.Pow(Elf.Current, 2) + Math.Pow(Exf.Current, 2)) + Math.Pow(Erau.Current, 2) +
+                                             (Math.Pow(env, 2) + Math.Pow(usn, 2) + Math.Pow(psu, 2) + Math.Pow(calc, 2)) +
+                                             (Math.Pow(fs, 2) + Math.Pow(pwc, 2) + Math.Pow(drift, 2))
+                                             );
+
+                Evf.Add(returnval);
+
+            }
+
+            return Evf;
+
 
         }
 
+        public List<double>CalculateFluidVelocityUncertainty()
+        {
+            var evm = new List<double>();
+            var uncertainties = new FixedUncertainties();
+
+            var vip = CalculateIndividualPathVelocities().GetEnumerator();
+            var weightingfactors = new WeightingFactorEnum(pathWeightingFactors);
+            var viv = OperatingConditions.CalculateViv().GetEnumerator();
+            var evf = CalculateTotalFlowUncertainty().GetEnumerator();
+
+            double mm = uncertainties.MathModel;
+            
+
+            while(vip.MoveNext() && weightingfactors.MoveNext() && viv.MoveNext() && evf.MoveNext())
+            {
+                double returnval = Math.Sqrt(
+                    Math.Pow((weightingfactors.Current * vip.Current / viv.Current), 2) * (Math.Pow(mm, 2) + Math.Pow(evf.Current, 2))
+                    );
+
+                evm.Add(returnval);
+
+                if(weightingfactors.MoveNext() == false)
+                {
+                    weightingfactors.Reset();
+                }
+            }
+
+            return evm;
+
+        }
+
+        /// <summary>
+        /// Calculates the uncertainty of the meter's Gross Observed Volume.
+        /// </summary>
+        /// <returns>Uncertainty values of the gross observed volume</returns>
+        public List<double> CalculateGOVUncertainty() //AT LONG LAST!!!
+        {
+            var GOVuncertainty = new List<double>();
+
+            var fixedUncertainties = new FixedUncertainties();
+
+            var evmenum = CalculateFluidVelocityUncertainty().GetEnumerator();
+            var edfenum = CalculatePipeDiameterUncertainty().GetEnumerator();
+            double Emf = Math.Pow(fixedUncertainties.FlowCalibrationUncertainty, 2); //do it once rather than many times.
+
+            while(evmenum.MoveNext() && edfenum.MoveNext())
+            {
+                double returnval = Math.Sqrt(Math.Pow(evmenum.Current, 2) + Math.Pow(edfenum.Current, 2) + Emf);
+
+                GOVuncertainty.Add(returnval);
+            }
+
+            return GOVuncertainty;
+
+        }
     
 
 

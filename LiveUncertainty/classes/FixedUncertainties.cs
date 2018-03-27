@@ -9,7 +9,7 @@ namespace LiveUncertainty.classes
     class FixedUncertainties
     {
 
-        protected const double MathematicalModelUncertainty = 0.04;
+        protected const double mathematicalModelUncertainty = 0.04;
 
         protected const double meterElectronicsUncertainty = 0.001;
 
@@ -25,13 +25,18 @@ namespace LiveUncertainty.classes
 
         protected const double psuUncertainty = 0.01;
 
-        protected const double flowcalUncertainty = 0.2;
+        protected const double flowCalibrationUncertainty = 0.2;
 
         protected const double transducerdistanceUncertainty = 0.001;
 
         public FixedUncertainties()
         {
 
+        }
+
+        public double MathModel
+        {
+            get => mathematicalModelUncertainty;
         }
 
         /// <summary>
@@ -69,7 +74,7 @@ namespace LiveUncertainty.classes
 
         public double FlowCalibrationUncertainty
         {
-            get => flowcalUncertainty;
+            get => flowCalibrationUncertainty;
         }
 
         public double TransducerDistance
@@ -81,6 +86,5 @@ namespace LiveUncertainty.classes
         {
             get => meterElectronicsUncertainty;
         }
-        
     }
 }
