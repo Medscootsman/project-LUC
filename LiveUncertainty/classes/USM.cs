@@ -83,8 +83,8 @@ namespace LiveUncertainty.classes
         //Meter Uncertainty from mathematical model.
         double meterUncertainty_mathmodel = 0.04;
 
-        //Meter Uncertainty from long term drift.
-        double meterUncertainty_longtermdrift = 0.1;
+        //Meter Uncertainty from long term drift. (Eydrift)
+        double longtermdrift = 0.1;
 
         //Resolution of the meter tube bore. (Ddry)
         public double metertubeboreResolution_mm = 0.058;
@@ -99,9 +99,9 @@ namespace LiveUncertainty.classes
 
         //Assumed depth 
         double innersurfacedepth = 0;
-        
 
-        
+
+
 
 
         public UltraSonicMeter()
@@ -197,7 +197,7 @@ namespace LiveUncertainty.classes
             }
         }
 
-        protected double Calculation_Frequency
+        protected double Calibration_Frequency
         {
             get
             {
@@ -428,10 +428,15 @@ namespace LiveUncertainty.classes
             return dDry;
         }
 
+        public double CalculateLongTermDrift()
+        {
+            return longtermdrift / 12 * Calibration_Frequency;
+        }
+
         //NOTE: outerdiameter and meterwallthickness can be 0, but 1 has to be filled in at one time.
 
-        //Mathcad reference (tw)
-        public double calculateMeterWallThickness()
+        //Mathcad reference tw
+        public double CalculateMeterWallThickness()
         {
 
             double tw = 0; //metertubewallthickness
@@ -455,7 +460,7 @@ namespace LiveUncertainty.classes
             if (outerDiameter != 0)
             {
                 //this is bore plus 2 multiplied by meterwallthickness or tw
-                dOut = CalculateMeterTubeBore() + 2 * calculateMeterWallThickness();
+                dOut = CalculateMeterTubeBore() + 2 * CalculateMeterWallThickness();
             }
             else
             {
@@ -697,11 +702,11 @@ namespace LiveUncertainty.classes
             {
                 if (sum > 0)
                 {
-                    swt.Add(2 * calculateMeterWallThickness());
+                    swt.Add(2 * CalculateMeterWallThickness());
                 }
                 else
                 {
-                    swt.Add(calculateMeterWallThickness());
+                    swt.Add(CalculateMeterWallThickness());
                 }
             }
 
@@ -918,7 +923,7 @@ namespace LiveUncertainty.classes
 
         public List<double> calculateSteelBeamLength()
         {
-            double tw = calculateMeterWallThickness();
+            double tw = CalculateMeterWallThickness();
 
             List<double> swp = new List<double>();
             foreach (double path in SelectPathAngleRadians())
@@ -933,7 +938,7 @@ namespace LiveUncertainty.classes
         public List<double> CalculateSteelAxialLength()
         {
 
-            double tw = calculateMeterWallThickness();
+            double tw = CalculateMeterWallThickness();
 
             List<double> swx = new List<double>();
 
@@ -1482,7 +1487,7 @@ namespace LiveUncertainty.classes
 
             var tdwnenum = CalculateTransitTimesDownwards().GetEnumerator();
 
-            while(tupenum.MoveNext() && tdwnenum.MoveNext())
+            while (tupenum.MoveNext() && tdwnenum.MoveNext())
             {
                 var value = tupenum.Current - tdwnenum.Current;
                 tDiff.Add(value);
@@ -1494,7 +1499,7 @@ namespace LiveUncertainty.classes
         //Some Uncertainties are calculated here
 
         /// <summary>
-        /// Calculates the uncertainty of the meter tube bore.
+        /// Calculates the uncertainty of the meter tube bore. (EDry)
         /// </summary>
         /// <returns></returns>
         public double CalculateMeterTubeBoreUncertainty()
@@ -1507,13 +1512,18 @@ namespace LiveUncertainty.classes
         {
             List<double> pathLengthUncertainty = new List<double>();
 
-            foreach(double val in pathLengths)
+            foreach (double val in pathLengths) //pathlengths = lf.
             {
                 pathLengthUncertainty.Add((pathlengthResolution / val) * 100);
             }
 
             return pathLengthUncertainty;
         }
+
+        /// <summary>
+        /// Calculates the uncertainty values of the axial paths (Xf)
+        /// </summary>
+        /// <returns></returns>
 
         public List<double> CalculateAxialPathLengthUncertainty()
         {
@@ -1537,13 +1547,13 @@ namespace LiveUncertainty.classes
             List<double> GOVisd = new List<double>();
             List<double> Viv = OperatingConditions.CalculateViv();
 
-            foreach(double val in Viv)
+            foreach (double val in Viv)
             {
                 GOVisd.Add((Math.PI * Math.Pow(CalculateMeterTubeBore() - 2 * CalculateAssumedDepth(), 2)) / 4);
             }
 
             return GOVisd;
-            
+
         }
 
         public List<double> CalculateGOVWithSurfaceDespositionUncertainty() //govisdv
@@ -1554,7 +1564,7 @@ namespace LiveUncertainty.classes
 
             var qgovisdEnum = CalculateGrossObservedVolumeWithSurfaceDeposition().GetEnumerator();
 
-            while(qgovisdEnum.MoveNext() && qgovivEnum.MoveNext())
+            while (qgovisdEnum.MoveNext() && qgovivEnum.MoveNext())
             {
                 Eisd.Add((qgovivEnum.Current - qgovisdEnum.Current / qgovivEnum.Current) * 100);
             }
@@ -1563,16 +1573,167 @@ namespace LiveUncertainty.classes
 
         }
 
-        public double calculateMetrologyTemperatureUncertainty()
+        public double CalculateMetrologyTemperatureUncertainty()
         {
             double absoluteTempError = 0.2;
 
             double tUncertainty = absoluteTempError / CalculateSIAbsoluteCalibratedTemperature() * 100;
+
+            return tUncertainty;
         }
 
+        /// <summary>
+        /// Calculates the pipe diameter uncertain at each gov speed. (Edf)
+        /// </summary>
+        /// <returns></returns>
+
+        public List<double> CalculatePipeDiameterUncertainty()
+        {
+            List<double> PipeDiameterUncertainty = new List<double>();
+
+            double edry = CalculateMeterTubeBoreUncertainty();
+
+            List<double> Eisd = CalculateGOVWithSurfaceDespositionUncertainty();
+
+            foreach (double val in Eisd)
+            {
+                double calculatedval = Math.Sqrt(Math.Pow(edry, 2) + Math.Pow(val, 2));
+
+                PipeDiameterUncertainty.Add(calculatedval);
+            }
+
+            return PipeDiameterUncertainty;
+        }
+
+        public List<double> CalculateAxialBeamTraverseUncertainty()
+        {
+            List<double> Exdry = CalculateAxialPathLengthUncertainty();
+
+            List<double> eXf = new List<double>();
+
+            foreach (double val in Exdry)
+            {
+                double calculatedval = Math.Sqrt(Math.Pow(val, 2));
+
+                eXf.Add(calculatedval);
+            }
+
+            return eXf;
+        }
+
+        public List<double> CalculateBeamLengthUncertainty()
+        {
+            List<double> eLdry = CalculatePathLengthUncertainty();
+            List<double> eLf = new List<double>();
+
+            foreach (double val in eLdry)
+            {
+                double calculatedval = Math.Sqrt(Math.Pow(val, 2));
+
+                eLf.Add(calculatedval);
+            }
+
+            return eLf;
+
+        }
+
+        /// <summary>
+        /// Calculates the uncertainty of transit times.
+        /// </summary>
+        /// <param name="isupstream"> used to determine what transit list to use (downwards/upwards)</param>
+        /// <returns>A list</returns>
+        public List<double> CalculateTransitTimingUncertainty(bool isupstream)
+        {
+            FixedUncertainties fixeduncerts = new FixedUncertainties();
+            List<double> Ef = new List<double>();
+
+            double atv = fixeduncerts.MeterElectronics;
+
+            double cydt = fixeduncerts.TransducerDistance;
+
+            List<double> transitlist = new List<double>();
+            if (isupstream)
+            {
+                transitlist = CalculateTransitTimeUpwards();
+            }
+            else
+            {
+                transitlist = CalculateTransitTimesDownwards();
+            }
+
+            //stability of time divided by each transit time multiplied by 100.
+
+            foreach (double val in transitlist)
+            {
+                double returnval = Math.Sqrt(Math.Pow(stabilityOfTime / val * 100, 2) + Math.Pow(atv, 2) + Math.Pow(cydt, 2));
+                Ef.Add(returnval);
+            }
+
+            return Ef;
+
+        }
+
+        /// <summary>
+        /// Otherwise known as erau on the mathcad sheet.
+        /// </summary>
+        /// <returns></returns>
+
+        public List<double> CalculateTotalTransitTimesUncertainty()
+        {
+            //Enumerator definitions go here.
+            List<double> Erau = new List<double>();
+
+            var transitTimesUpwardsEnum = CalculateTransitTimeUpwards().GetEnumerator();
+            var transitTimesDownwardsEnum = CalculateTransitTimesDownwards().GetEnumerator();
+            var transitTimesUncertaintyDownwardsEnum = CalculateTransitTimingUncertainty(false).GetEnumerator();
+            var transitTimesUncertaintyUpwardsEnum = CalculateTransitTimingUncertainty(true).GetEnumerator();
+
+            while (transitTimesDownwardsEnum.MoveNext() && transitTimesDownwardsEnum.MoveNext() && transitTimesUncertaintyDownwardsEnum.MoveNext() && transitTimesUncertaintyUpwardsEnum.MoveNext())
+            {
+                double val = Math.Sqrt(
+                                        Math.Pow(transitTimesDownwardsEnum.Current / transitTimesUpwardsEnum.Current - transitTimesDownwardsEnum.Current, 2) * (Math.Pow(transitTimesUncertaintyUpwardsEnum.Current, 2))
+                                        + Math.Pow(transitTimesUpwardsEnum.Current / transitTimesUpwardsEnum.Current - transitTimesDownwardsEnum.Current, 2) * (Math.Pow(transitTimesUncertaintyDownwardsEnum.Current, 2))
+                                        );
+                Erau.Add(val);
+            }
+
+            return Erau;
+        }
+
+        public List<double> CalculateTotalFlowUncertainty()
+        {
+            List<double> Evf = new List<double>();
+
+            FixedUncertainties uncertainties = new FixedUncertainties();
+
+            //List we will be using.
+
+            var Elf = CalculateBeamLengthUncertainty().GetEnumerator();
+
+            var Exf = CalculateAxialBeamTraverseUncertainty().GetEnumerator();
+
+            var Erau = CalculateTotalTransitTimesUncertainty().GetEnumerator();
+
+            //Fixed values we will be using.
+
+            double env = uncertainties.FlowCalibrationUncertainty;
+
+            double usn = uncertainties.NoiseInterfence;
+
+            double pwc = uncertainties.Distortion;
+
+            double calc = uncertainties.ComputerCalculation;
+
+            double psu = uncertainties.PowerSupplyVariation;
+
+
+        }
+
+    
+
 
 
 
 
     }
-    }
+}
