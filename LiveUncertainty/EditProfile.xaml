@@ -13,7 +13,7 @@
         WindowStartupLocation="CenterScreen" WindowState="Maximized"
         GlowBrush="{DynamicResource AccentColorBrush}"
         ResizeMode="CanResizeWithGrip"
-        Title="EditProfile" Height="451.095" Width="551.825">
+        Title="EditProfile" Height="451.095" Width="571.533">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="141*"/>
@@ -26,10 +26,10 @@
             <RowDefinition Height="86*"></RowDefinition>
         </Grid.RowDefinitions>
         <Label x:Name="label" Content="Edit Your Profile" HorizontalAlignment="Left" FontSize="16" Margin="0,6,0,0" VerticalAlignment="Top" Height="41" Width="131"/>
-        <Button x:Name="button" Style="{StaticResource AccentedSquareButtonStyle}" Content="Load Profile" Grid.Column="2" HorizontalAlignment="Left" Margin="35,10,0,0" VerticalAlignment="Top" Width="82" Height="38"/>
+        <Button x:Name="button" Style="{StaticResource AccentedSquareButtonStyle}" Content="Load Profile" Grid.Column="2" HorizontalAlignment="Left" Margin="58,9,0,0" VerticalAlignment="Top" Width="82" Height="38"/>
         <Label x:Name="label1" Content="Label" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="1" VerticalAlignment="Top" Height="28" Width="50"/>
-        <Button x:Name="button1" Content="Submit" HorizontalAlignment="Left" Margin="10,27,0,0" Grid.Row="2" VerticalAlignment="Top" Width="90" Height="49"/>
-        <Button x:Name="button2" Content="Cancel" Grid.Column="2" HorizontalAlignment="Left" Margin="113,27,0,0" Grid.Row="2" VerticalAlignment="Top" Width="80" Height="49"/>
+        <Button x:Name="button1" Content="Submit" HorizontalAlignment="Left" Margin="0,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="90" Height="49" Grid.Column="2"/>
+        <Button x:Name="button2" Content="Cancel" Grid.Column="2" HorizontalAlignment="Left" Margin="123,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="80" Height="49"/>
 
     </Grid>
 </Controls:MetroWindow>
