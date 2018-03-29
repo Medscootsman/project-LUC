@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LiveUncertainty.classes
 {
-    class testclass
+    class Testclass
     {
     }
 }

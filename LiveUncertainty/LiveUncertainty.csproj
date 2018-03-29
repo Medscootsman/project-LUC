@@ -261,14 +261,23 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="classes\FixedUncertainties.cs" />
+    <Compile Include="classes\testclass.cs" />
     <Compile Include="classes\user.cs" />
+    <Compile Include="classes\WeightingFactorEnum.cs" />
     <Compile Include="CreateProfile.xaml.cs">
       <DependentUpon>CreateProfile.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EditProfile.xaml.cs">
+      <DependentUpon>EditProfile.xaml</DependentUpon>
     </Compile>
     <Compile Include="settings.xaml.cs">
       <DependentUpon>settings.xaml</DependentUpon>
     </Compile>
     <Compile Include="viewmodels\USMViewModel.cs" />
+    <Page Include="EditProfile.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
