@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,31 +9,31 @@ namespace LiveUncertainty.classes
     //<summary>
     //USM Meter Object.
     //</summary>
-    public class UltraSonicMeter
+    public class USM
     {
         protected Int64 manufacturer_id;
         protected Int64 model_id;
         private string model_name;
         private string manufacturer_name;
         private string tag;
-        public Int16 pathsTotal;
-        public Int16 signal_output;
-        public double calFrequency; //calibration frequency.
-        public double nomDiameter; //Nominal Diameter.
-        public double internalDiameter; //Internal Diameter.
-        public double boreDiameter;
-        public double wallThickness;
-        public double outerDiameter;
-        public double metrologyTolerance;
-        public bool wetCalibration;
-        public double calLabUncertainty; //calibration lab uncertainty
-        public double calTemperature; //Calibration Temperature
-        public double calPressure; //Calibration Pressure;
-        public bool metrologyData = true; //Always will be true (for now).
-        public double transducerDistance;
-        public double pathLengthTolerance;
-        public double fluidPathTolerance;
-        public double meterDiameterTolerance;
+        protected Int16 pathsTotal;
+        protected Int16 signal_output;
+        protected double calFrequency; //calibration frequency.
+        protected double nomDiameter; //Nominal Diameter.
+        protected double internalDiameter; //Internal Diameter.
+        protected double boreDiameter;
+        protected double wallThickness;
+        protected double outerDiameter;
+        protected double metrologyTolerance;
+        protected bool wetCalibration;
+        protected double calLabUncertainty; //calibration lab uncertainty
+        protected double calTemperature; //Calibration Temperature
+        protected double calPressure; //Calibration Pressure;
+        protected bool metrologyData = true; //Always will be true (for now).
+        protected double transducerDistance;
+        protected double pathLengthTolerance;
+        protected double fluidPathTolerance;
+        protected double meterDiameterTolerance;
 
         //metrology temperature
         public double metrologyTemp;
@@ -104,8 +105,15 @@ namespace LiveUncertainty.classes
 
 
 
-        public UltraSonicMeter()
+        public USM()
         {
+
+        }
+
+        public void loadFile(FileInfo file)
+        {
+            throw new NotImplementedException();
+            //the idea will be to parse a CSV file but really it's a made up extension. Name TBD.
 
         }
 
@@ -155,7 +163,7 @@ namespace LiveUncertainty.classes
             }
         }
 
-        protected Int64 ModelID
+        public Int64 ModelID
         {
             get
             {
@@ -163,7 +171,7 @@ namespace LiveUncertainty.classes
             }
         }
 
-        protected Int16 PathsTotal
+        public Int16 PathsTotal
         {
             get
             {

@@ -25,6 +25,279 @@
             <RowDefinition Height="275*"></RowDefinition>
             <RowDefinition Height="86*"></RowDefinition>
         </Grid.RowDefinitions>
+
+        <!--tab system -->
+        <Custom:MetroAnimatedSingleRowTabControl x:Name="tabControl" Custom:TabControlHelper.UnderlineMouseOverSelectedBrush="Aquamarine" Custom:TabControlHelper.Transition="Left" Grid.ColumnSpan="4" HorizontalAlignment="Stretch" Height="367" Margin="0,2,5,0" Grid.Row="1" VerticalAlignment="Top">
+            <TabItem Header="USM">
+                <TabPanel Margin="0,0,0,-195">
+                    <StackPanel Orientation="Vertical" Margin="0,0,-123,-212" HorizontalAlignment="Left" Width="543">
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_USMTag" Content="Tag Number:" HorizontalAlignment="Left" Width="160"/>
+                            <TextBox Custom:TextBoxHelper.Watermark="The USM's tag number." Width="200" x:Name="txtbox_Tag_USM"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_calFrequency" HorizontalAlignment="Right" Width="160">Calibration Frequency</Label>
+                            <TextBox Custom:TextBoxHelper.Watermark="Can be a fraction of a month." Width="200" x:Name="txtbox_calFrequency"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_nomDiameter" HorizontalAlignment="Right" Width="160">Nominal Diameter</Label>
+                            <TextBox Controls:TextBoxHelper.Watermark="The meter tube's nominal diameter" Width="204" Name="txtbox_nomDiameter"></TextBox>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Width="550" Margin="0,5,0,5" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_InternalDiameter" HorizontalAlignment="Right" Width="160">Internal Diameter</Label>
+                            <TextBox Controls:TextBoxHelper.Watermark="The meter tube's internal diameter" Width="200" Name="txtbox_InternalDiameter"></TextBox>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Width="550" Margin="0,5,0,5" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_outerDiameter" HorizontalAlignment="Right" Width="160" Content="Outer Diameter"/>
+                            <TextBox Controls:TextBoxHelper.Watermark="The meter tube's outer diameter" Width="200" Name="txtbox_OuterDiameter"></TextBox>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Width="550" Margin="0,5,0,5" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_boreDiameter" HorizontalAlignment="Right" Width="160" Content="Bore Diameter"/>
+                            <TextBox Controls:TextBoxHelper.Watermark="The meter tube's bore diameter" Width="200" Name="txtbox_boreDiameter"></TextBox>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Width="550" Margin="0,5,0,5" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_WallThickness" HorizontalAlignment="Right" Width="160" Content="Wall Thickness"/>
+                            <TextBox Controls:TextBoxHelper.Watermark="Thickness of the wall" Width="200" Name="txtbox_WallThickness"></TextBox>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Width="550" Margin="0,5,0,5" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_metrologyTolerance" HorizontalAlignment="Right" Width="160" Content="Metrology Tolerance"/>
+                            <TextBox Width="200" Name="txtbox_metrologyTolerance"></TextBox>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Width="550" Margin="0,5,0,5" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_transducerDistance" HorizontalAlignment="Right" Width="160" Content="Transducer Distance"/>
+                            <TextBox Width="200" Name="txtbox_transducerDistance"></TextBox>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Width="550" Margin="0,5,0,5" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_pathLengthTolerance" HorizontalAlignment="Right" Width="160" Content="Path Length Tolerance"/>
+                            <TextBox Width="200" Name="txtbox_pathLengthTolerance"></TextBox>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Width="550" Margin="0,5,0,5" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_meterDiameterTolerance" HorizontalAlignment="Right" Width="160" Content="Meter Diameter Tolerance"/>
+                            <TextBox Width="200" Name="txtbox_meterDiameterTolerance"></TextBox>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Width="550" Margin="0,5,0,5" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_calLabUncertainty" HorizontalAlignment="Right" Width="160" Content="Calibration Lab Uncertainty"/>
+                            <TextBox Width="200" Name="txtbox_calLabUncertainty"></TextBox>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Width="550" Margin="0,5,0,5" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_calTemperature" HorizontalAlignment="Right" Width="160" Content="Calibration Temperature"/>
+                            <TextBox Width="200" Name="txtbox_calTemperature"></TextBox>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Width="550" Margin="0,5,0,5" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_calPressure" HorizontalAlignment="Right" Width="160" Content="Calibration Pressure"/>
+                            <TextBox Width="200" Name="txtbox_calPressure"></TextBox>
+                        </StackPanel>
+                    </StackPanel>
+
+                </TabPanel>
+            </TabItem>
+
+            <TabItem Header="Paths">
+                <TabPanel>
+                    <StackPanel Orientation="Vertical" Margin="0,0 -123, -212" HorizontalAlignment="Left" Width="543">
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_NoOfPaths" Content="Number Of paths" HorizontalAlignment="Left" Width="150"/>
+                            <ComboBox Name="drop_Paths" HorizontalAlignment="Left">
+                                <ComboBoxItem>1</ComboBoxItem>
+                                <ComboBoxItem>2</ComboBoxItem>
+                                <ComboBoxItem>3</ComboBoxItem>
+                                <ComboBoxItem>4</ComboBoxItem>
+                                <ComboBoxItem>5</ComboBoxItem>
+                                <ComboBoxItem>6</ComboBoxItem>
+                            </ComboBox>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_PathLengths" FontSize="15" FontStyle="Normal" FontWeight="Bold" Content="Path Lengths" HorizontalAlignment="Left" Width="150"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_PathLengthA" Content="First Path Length" HorizontalAlignment="Left" Width="150"/>
+                            <TextBox x:Name="txtbox_PathLenghA" Custom:TextBoxHelper.Watermark="Length of the first path" Width="200" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_PathLengthB" Content="Second Path Length" HorizontalAlignment="Left" Width="150"/>
+                            <TextBox x:Name="txtbox_PathLenghB" Custom:TextBoxHelper.Watermark="Length of the second path" Width="200" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_PathLengthC" Content="Third Path Length" HorizontalAlignment="Left" Width="150"/>
+                            <TextBox x:Name="txtbox_PathLenghC" Custom:TextBoxHelper.Watermark="Length of the third path" Width="200" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_PathLengthD" Content="Fourth Path Length" HorizontalAlignment="Left" Width="150"/>
+                            <TextBox x:Name="txtbox_PathLenghD" Custom:TextBoxHelper.Watermark="Length of the fourth path" Width="200" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_PathLengthE" Content="Fifth Path Length" HorizontalAlignment="Left" Width="150"/>
+                            <TextBox x:Name="txtbox_PathLenghE" Custom:TextBoxHelper.Watermark="Length of the fifth path" Width="200" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_PathLengthF" Content="Sixth Path Length" HorizontalAlignment="Left" Width="150"/>
+                            <TextBox x:Name="txtbox_PathLenghF" Custom:TextBoxHelper.Watermark="Length of the sixth path" Width="200" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_PathX" FontSize="15" FontStyle="Normal" FontWeight="Bold" Content="Path X dimensions" HorizontalAlignment="Left" Width="150"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_PathX_A" Content="First Path X" HorizontalAlignment="Left" Width="150"/>
+                            <TextBox x:Name="txtbox_PathX_A" Custom:TextBoxHelper.Watermark="X value of the first path" Width="200" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_PathX_B" Content="Second Path X" HorizontalAlignment="Left" Width="150"/>
+                            <TextBox x:Name="txtbox_Path_X_B" Custom:TextBoxHelper.Watermark="X value of the second path" Width="200" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_PathX_C" Content="Third Path X" HorizontalAlignment="Left" Width="150"/>
+                            <TextBox x:Name="txtbox_PathX_C" Custom:TextBoxHelper.Watermark="X value of the third path" Width="200" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_PathX_D" Content="Fourth Path X" HorizontalAlignment="Left" Width="150"/>
+                            <TextBox x:Name="txtbox_PathX_D" Custom:TextBoxHelper.Watermark="X value of the fourth path" Width="200" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_PathX_E" Content="Fifth Path X" HorizontalAlignment="Left" Width="150"/>
+                            <TextBox x:Name="txtbox_PathX_E" Custom:TextBoxHelper.Watermark="X value of the fifth path" Width="200" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_PathX_F" Content="Sixth Path X" HorizontalAlignment="Left" Width="150"/>
+                            <TextBox x:Name="txtbox_PathX_F" Custom:TextBoxHelper.Watermark="X value of the Sixth path" Width="200" />
+                        </StackPanel>
+
+                    </StackPanel>
+
+                    <StackPanel Orientation="Vertical" Margin="-76,0,76,0" HorizontalAlignment="Right" VerticalAlignment="Stretch" Width="314">
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_PathWeightingFactors" FontSize="15" FontStyle="Normal" FontWeight="Bold" Content="Path Weighting Factors" HorizontalAlignment="Left" Width="150"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_PathWeightingFactor_A" Content="First Weighting Factor" HorizontalAlignment="Left" Width="150"/>
+                            <TextBox x:Name="txtbox_WeightingFactor_A" Custom:TextBoxHelper.Watermark="First Weighting Factor" Width="200" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_PathWeightingFactor_B" Content="Second Weighting Factor" HorizontalAlignment="Left" Width="150"/>
+                            <TextBox x:Name="txtbox_WeightingFactor_B" Custom:TextBoxHelper.Watermark="Second Weighting Factor" Width="200" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_PathWeightingFactor_C" Content="Third Weighting Factor" HorizontalAlignment="Left" Width="150"/>
+                            <TextBox x:Name="txtbox_WeightingFactor_C" Custom:TextBoxHelper.Watermark="Third Weighting Factor" Width="200" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_PathWeightingFactor_D" Content="Fourth Weighting Factor" HorizontalAlignment="Left" Width="150"/>
+                            <TextBox x:Name="txtbox_PathWeightingFactor_D" Custom:TextBoxHelper.Watermark="Fourth Weighting Factor" Width="200" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_PathWeightingFactor_E" Content="Fifth Weighting Factor" HorizontalAlignment="Left" Width="150"/>
+                            <TextBox x:Name="txtbox_PathWeightingFactor_E" Custom:TextBoxHelper.Watermark="Fifth Weighting Factor" Width="200" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_PathWeightingFactor_F" Content="Sixth Weighting Factor" HorizontalAlignment="Left" Width="150"/>
+                            <TextBox x:Name="txtbox_PathWeightingFactor_F" Custom:TextBoxHelper.Watermark="Sixth Weighting Factor" Width="200" />
+                        </StackPanel>
+
+                    </StackPanel>
+                </TabPanel>
+            </TabItem>
+
+            <TabItem Header="Operating Conditons">
+                <TabPanel>
+                    <StackPanel Orientation="Vertical" Margin="0,0,-123,-212" HorizontalAlignment="Left" Width="543">
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_opPressure" Content="Pressure" HorizontalAlignment="Left" Width="150"/>
+                            <TextBox x:Name="txtbox_opPressure" Custom:TextBoxHelper.Watermark="The pressure of the system" Width="200" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_opTemperature" Content="Temperature" HorizontalAlignment="Left" Width="150"/>
+                            <TextBox x:Name="txtbox_opTemperature" Custom:TextBoxHelper.Watermark="The temperature of the system" Width="200" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_opDensity" Content="Density" HorizontalAlignment="Left" Width="150"/>
+                            <TextBox x:Name="txtbox_opDensity" Custom:TextBoxHelper.Watermark="The density of the system" Width="200" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_refPressure" Content="Reference Pressure" HorizontalAlignment="Left" Width="150"/>
+                            <TextBox x:Name="txtbox_refPressure" Custom:TextBoxHelper.Watermark="Used as a reference" Width="200" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_refTemperature" Content="Reference Temperature" HorizontalAlignment="Left" Width="150"/>
+                            <ComboBox x:Name="drop_refTemperature" Width="200">
+                                <ComboBoxItem Selector.IsSelected="True">0</ComboBoxItem>
+                                <ComboBoxItem>15</ComboBoxItem>
+                                <ComboBoxItem>20</ComboBoxItem>
+                            </ComboBox>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_maxMassFlow" Content="Maximum Fluid Velocity" HorizontalAlignment="Left" Width="150"/>
+                            <TextBox x:Name="txtbox_maxFluidFlow" Custom:TextBoxHelper.Watermark="The maximum flow of the meter" Width="200" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_baseCompressibility" Content="Base Compressibility" HorizontalAlignment="Left" Width="150"/>
+                            <TextBox x:Name="txtbox_baseCompressibility" Custom:TextBoxHelper.Watermark="Compressiblity" Width="200" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
+                            <Label x:Name="lbl_moleWeight" Content="Molecular Weight" HorizontalAlignment="Left" Width="150"/>
+                            <TextBox x:Name="txtbox_moleWeight" Custom:TextBoxHelper.Watermark="Weight of each molecule" Width="200" />
+                        </StackPanel>
+                    </StackPanel>
+                </TabPanel>
+            </TabItem>
+
+            <TabItem Header="Flow Computer">
+                <StackPanel Orientation="Vertical" Margin="0,0,-123,-212" HorizontalAlignment="Left" Width="543">
+                    <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
+                        <Label x:Name="lbl_flowcomp_tagNo" Content="Tag Number" HorizontalAlignment="Left" Width="150"/>
+                        <TextBox x:Name="txtbox_tagNo_Flowcomp" Custom:TextBoxHelper.Watermark="Tag Number of the pressure model" Width="200" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
+                        <Label x:Name="lbl_Type_flowcomp" Content="Flowcomp type" HorizontalAlignment="Left" Width="150"/>
+                        <TextBox x:Name="drop_Type" Custom:TextBoxHelper.Watermark="Calibrated span" Width="200" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
+                        <Label x:Name="lbl_calcUncertainty_flowcomp" Content="Calculation Uncertainty" HorizontalAlignment="Left" Width="150"/>
+                        <TextBox x:Name="txtbox_calcUncertainty_flowcomp" Custom:TextBoxHelper.Watermark="Uncertainty of the flow reading" Width="200" />
+                    </StackPanel>
+                </StackPanel>
+            </TabItem>
+        </Custom:MetroAnimatedSingleRowTabControl>
+
         <Label x:Name="label" Content="Edit Your Profile" HorizontalAlignment="Left" FontSize="16" Margin="0,6,0,0" VerticalAlignment="Top" Height="41" Width="131"/>
         <Button x:Name="button" Style="{StaticResource AccentedSquareButtonStyle}" Content="Load Profile" Grid.Column="2" HorizontalAlignment="Left" Margin="58,9,0,0" VerticalAlignment="Top" Width="82" Height="38"/>
         <Label x:Name="label1" Content="Label" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="1" VerticalAlignment="Top" Height="28" Width="50"/>

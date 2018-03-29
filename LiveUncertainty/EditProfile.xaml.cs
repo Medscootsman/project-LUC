@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using LiveUncertainty.classes;
 using MahApps.Metro.Controls;
 
 namespace LiveUncertainty
@@ -23,6 +24,12 @@ namespace LiveUncertainty
         public EditProfile()
         {
             InitializeComponent();
+        }
+
+        public EditProfile(USM meter)
+        {
+            InitializeComponent();
+            
         }
     }
 }

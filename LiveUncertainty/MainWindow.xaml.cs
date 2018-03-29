@@ -25,8 +25,11 @@ namespace LiveUncertainty
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
+        public bool loadprofile;
+        public USM meter;
         public MainWindow()
         {
+            loadprofile = false;
             var splash = new SplashScreen("media/splash_placeholder.png");
             splash.Show(false);
             InitializeComponent();
@@ -96,6 +99,31 @@ namespace LiveUncertainty
         {
             settings settingswindow = new settings();
             settingswindow.ShowDialog();
+        }
+
+        public bool Loaded
+        {
+            get => loadprofile;
+            set => loadprofile = value;
+        }
+
+        private void EditProfile_Click(object sender, RoutedEventArgs e)
+        {
+            
+            //Logic for if there's a profile loaded in already should go here
+            if(Loaded)
+            {
+                EditProfile LoadedEditWindow = new EditProfile();
+                
+            }
+
+            else
+            {
+
+                EditProfile EditWindow = new EditProfile();
+                EditWindow.ShowDialog();
+            }
+
         }
     }
 }
