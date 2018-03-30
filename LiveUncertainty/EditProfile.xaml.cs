@@ -57,5 +57,10 @@ namespace LiveUncertainty
                 e.Cancel = false;
             }
         }
+
+        private void submit_Click(object sender, RoutedEventArgs e)
+        {
+            //Create an object and save it into a the file directory.
+        }
     }
 }
