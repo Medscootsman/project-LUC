@@ -101,7 +101,7 @@ namespace LiveUncertainty
             settingswindow.ShowDialog();
         }
 
-        public bool Loaded
+        public bool LoadedProfile
         {
             get => loadprofile;
             set => loadprofile = value;
@@ -111,7 +111,7 @@ namespace LiveUncertainty
         {
             
             //Logic for if there's a profile loaded in already should go here
-            if(Loaded)
+            if(LoadedProfile)
             {
                 EditProfile LoadedEditWindow = new EditProfile();
                 
