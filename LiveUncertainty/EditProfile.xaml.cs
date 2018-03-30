@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,6 +31,31 @@ namespace LiveUncertainty
         {
             InitializeComponent();
             
+        }
+
+        private void Cancel_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        void ProfileEdit_Closing(object sender, CancelEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show(
+                "Are you sure you want to close this window? Any unsaved progress will be lost!", //Message
+                "Warning!", //Caption
+                MessageBoxButton.YesNoCancel,
+                MessageBoxImage.Warning
+                );
+
+            if (result == MessageBoxResult.No || result == MessageBoxResult.Cancel)
+            {
+                e.Cancel = true;
+            }
+
+            else
+            {
+                e.Cancel = false;
+            }
         }
     }
 }

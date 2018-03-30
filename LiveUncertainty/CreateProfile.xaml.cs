@@ -21,6 +21,7 @@ namespace LiveUncertainty
     /// </summary>
     public partial class ProfileCreate : MetroWindow
     {
+
         public ProfileCreate()
         {
             InitializeComponent();

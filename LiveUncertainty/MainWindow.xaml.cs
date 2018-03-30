@@ -17,6 +17,7 @@ using System.Windows.Shapes;
 using LiveCharts;
 using LiveCharts.Wpf;
 using LiveUncertainty.classes;
+using LiveUncertainty.viewmodels;
 using MahApps.Metro.Controls;
 namespace LiveUncertainty
 {
@@ -26,7 +27,7 @@ namespace LiveUncertainty
     public partial class MainWindow : MetroWindow
     {
         public bool loadprofile;
-        public USM meter;
+        public USMViewModel viewmodel; 
         public MainWindow()
         {
             loadprofile = false;
@@ -60,7 +61,7 @@ namespace LiveUncertainty
         }
 
 
-        private void btn_Play_Click(object sender, RoutedEventArgs e)
+        private void Btn_Play_Click(object sender, RoutedEventArgs e)
         {
 
            

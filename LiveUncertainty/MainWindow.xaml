@@ -118,7 +118,7 @@
         <Label x:Name="Lbl_control" Grid.Row="2" Grid.Column="4" FontSize="15" FontWeight="Medium" FontFamily="Verdana" Margin="10,5,9,93" HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="182" Content="Control Graph"/>
         <Label Grid.Row="2" Grid.Column="3" FontSize="15" FontWeight="Medium" FontFamily="Verdana" Margin="61,10,67,88" HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="74" Content="Analyse"/>
 
-        <ToggleButton x:Name="btn_Play" ToolTip="Play" Content="" Style="{DynamicResource MetroCircleToggleButtonStyle}" Grid.Column="4" HorizontalAlignment="Center" Click="btn_Play_Click"  Margin="19,38,138,0" Grid.Row="2" VerticalAlignment="Top" Width="44" Height="36" FontFamily="Verdana" Custom:ControlsHelper.ContentCharacterCasing="Lower" ClickMode="Press" RenderTransformOrigin="0.227,0.528" HorizontalContentAlignment="Left">
+        <ToggleButton x:Name="btn_Play" ToolTip="Play" Content="" Style="{DynamicResource MetroCircleToggleButtonStyle}" Grid.Column="4" HorizontalAlignment="Center"  Margin="19,38,138,0" Grid.Row="2" VerticalAlignment="Top" Width="44" Height="36" FontFamily="Verdana" Custom:ControlsHelper.ContentCharacterCasing="Lower" ClickMode="Press" RenderTransformOrigin="0.227,0.528" HorizontalContentAlignment="Left">
             <ToggleButton.Background>
                 <VisualBrush Visual="{StaticResource appbar_control_play}"></VisualBrush>
             </ToggleButton.Background>
