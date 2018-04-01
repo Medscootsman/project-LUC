@@ -458,7 +458,11 @@ namespace LiveUncertainty.classes
         {
             get => metrologyTemp;
 
-            set => metrologyTemp = value;
+            set
+            {
+                metrologyTemp = value;
+                OnPropertyChanged("MetrologyTemperature");
+            }
 
         }
         #region ErrorHandlers
@@ -486,6 +490,19 @@ namespace LiveUncertainty.classes
                             Error = null;
                             break;
                         }
+
+                    case "MetrologyTemperature":
+                        if (double.IsNaN(MetrologyTemperature) || MetrologyTemperature <= 0)
+                        {
+                            Error = "Metrology Temperature cannot be zero or negative";
+                            break;
+                        }
+                        else
+                        {
+                            Error = null;
+                            break;
+                        }
+
 
                     case "Tag":
                         if (string.IsNullOrWhiteSpace(Tag))

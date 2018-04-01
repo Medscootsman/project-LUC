@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LiveUncertainty.classes
 {
-    public class OperatingConditions : INotifyPropertyChanged
+    public class OperatingConditions : INotifyPropertyChanged, IDataErrorInfo
     {
         public double opPressure;
         public double opTemperature;
@@ -257,6 +257,106 @@ namespace LiveUncertainty.classes
             set
             {
                 baseCompressibility = value;
+            }
+        }
+
+        public string Error
+        {
+            get;
+            private set;
+        }
+
+        string IDataErrorInfo.this[string columnName]
+        {
+            get
+            {
+                switch (columnName)
+                {
+                    case "OperatingPressure":
+                        if (double.IsNaN(OperatingPressure) || OperatingPressure <= 0)
+                        {
+                            Error = "Pressure cannot be zero or negative";
+                            break;
+                        }
+                        else
+                        {
+                            Error = null;
+                            break;
+                        }
+
+                    case "OperatingTemperature":
+                        if (OperatingTemperature <= 0)
+                        {
+                            Error = "Temperature cannot be negative or zero";
+                            break;
+                        }
+                        else
+                        {
+                            Error = null;
+                            break;
+                        }
+                    case "ReferencePressure":
+                        if(ReferencePressure <= 0)
+                        {
+                            Error = "Reference Pressure cannot be negative or zero";
+                            break;
+                        }
+                        else
+                        {
+                            Error = null;
+                            break;
+                        }
+
+                    case "ReferenceTemperature":
+                        if (ReferenceTemperature <= 0)
+                        {
+                            Error = "Reference Temperature cannot be negative or zero";
+                            break;
+                        }
+                        else
+                        {
+                            Error = null;
+                            break;
+                        }
+
+                    case "OperatingDensity":
+                        if (OperatingDensity <= 0)
+                        {
+                            Error = "Density cannot be negative or zero";
+                            break;
+                        }
+                        else
+                        {
+                            Error = null;
+                            break;
+                        }
+                    case "MaxFluidVelocity":
+                        if(MaxFluidVelocity <= 0)
+                        {
+                            Error = "Max Fluid Velocity cannot be negatie or zero";
+                            break;
+                        }
+                        else
+                        {
+                            Error = null;
+                            break;
+                        }
+                    case "Base_compressibility":
+                        if (Base_compressibility <= 0)
+                        {
+                            Error = "Base Compressibility cannot be negatie or zero";
+                            break;
+                        }
+                        else
+                        {
+                            Error = null;
+                            break;
+                        }
+                    default:
+                        Error = null;
+                        break;
+                }
+                return Error;
             }
         }
 

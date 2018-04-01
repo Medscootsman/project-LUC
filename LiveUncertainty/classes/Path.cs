@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel;
 /// <summary>
 /// USM Path. Can only be initialized by a USM object.
 /// </summary>
 /// 
 namespace LiveUncertainty.classes
 {
-    public class Path
+    public class Path : INotifyPropertyChanged, IDataErrorInfo
     {
-        public int path_number;
         public Double length;
         public Double offset; //chords
         public Double x;
@@ -27,22 +27,61 @@ namespace LiveUncertainty.classes
             //
         }
 
-        public int Pathnum
+        public string this[string columnName]
         {
             get
             {
-                return path_number;
-            }
-
-            set
-            {
-                if (value > 6) {
-                    path_number = 6;
-                }
-                else
+                switch(columnName)
                 {
-                    path_number = value;
+                    case "Length":
+                        if(double.IsNaN(Length) || Length < 0)
+                        {
+                            Error = "Length cannot be negative";
+                            break;
+                        }
+                        else
+                        {
+                            Error = null;
+                            break;
+                        }
+
+                    case "Angle":
+                        if (double.IsNaN(Angle) || Angle < 0)
+                        {
+                            Error = "Angle cannot be negative";
+                            break;
+                        }
+                        else
+                        {
+                            Error = null;
+                            break;
+                        }
+
+                    case "X":
+                        if (double.IsNaN(X) || X < 0)
+                        {
+                            Error = "Angle cannot be negative";
+                            break;
+                        }
+                        else
+                        {
+                            Error = null;
+                            break;
+                        }
+
+                    case "Chords":
+                        if (double.IsNaN(Chord) || Chord < 0)
+                        {
+                            Error = "Offset/Chord cannot be negative";
+                            break;
+                        }
+                        else
+                        {
+                            Error = null;
+                            break;
+                        }
                 }
+                return Error;
             }
         }
 
@@ -56,10 +95,11 @@ namespace LiveUncertainty.classes
             set
             {
                 length = value;
+                OnPropertyChanged("Length");
             }
         }
 
-        public double Offset
+        public double Chord
         {
             get
             {
@@ -69,6 +109,7 @@ namespace LiveUncertainty.classes
             set
             {
                 offset = value;
+                OnPropertyChanged("offset");
             }
         }
 
@@ -82,6 +123,7 @@ namespace LiveUncertainty.classes
             set
             {
                 x = value;
+                OnPropertyChanged("x");
             }
         }
 
@@ -95,19 +137,7 @@ namespace LiveUncertainty.classes
             set
             {
                 angle = value;
-            }
-        }
-
-        public bool WeightingFactorUse
-        {
-            get
-            {
-                return weightingFactorUse;
-            }
-
-            set
-            {
-                weightingFactorUse = value;
+                OnPropertyChanged("Angle");
             }
         }
 
@@ -121,6 +151,7 @@ namespace LiveUncertainty.classes
             set
             {
                 weightingFactor = value;
+                OnPropertyChanged("WeightingFactor");
             }
         }
 
@@ -141,9 +172,21 @@ namespace LiveUncertainty.classes
                 else
                 {
                     bounces = value;
+                    OnPropertyChanged("Bounces");
                 }
             }
         }
+    
+        public string Error
+        {
+            get;
+            private set;
+        }
 
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void OnPropertyChanged(string name)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
     }
 }
