@@ -116,7 +116,16 @@ namespace LiveUncertainty.classes
             Tag = "Default";
             OperatingConditions = new OperatingConditions();
             Internal_Diameter = 0;
-            
+
+            this.paths = new List<Path>();
+
+            this.addPath(new Path());
+            this.addPath(new Path());
+            this.addPath(new Path());
+            this.addPath(new Path());
+            this.addPath(new Path());
+            this.addPath(new Path());
+
         }
 
         public void LoadFile(FileInfo file)
@@ -209,7 +218,7 @@ namespace LiveUncertainty.classes
             }
         }
 
-        protected List<Path> Paths
+        public List<Path> Paths
         {
             get
             {
