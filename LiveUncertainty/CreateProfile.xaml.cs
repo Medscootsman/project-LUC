@@ -51,5 +51,10 @@ namespace LiveUncertainty
                 e.Cancel = false;
             }
         }
+
+        private void btn_Save_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

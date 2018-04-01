@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace LiveUncertainty.classes
 {
-    public class OperatingConditions
+    public class OperatingConditions : INotifyPropertyChanged
     {
         public double opPressure;
         public double opTemperature;
@@ -36,9 +37,17 @@ namespace LiveUncertainty.classes
 
         public Int16 measurementType;
 
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public OperatingConditions()
         {
+            OperatingTemperature = 0;
+            OperatingPressure = 0;
+        }
 
+        private void OnPropertyChanged(string name)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
         //getters and setters. All attributes will be assigned this way.
@@ -82,6 +91,7 @@ namespace LiveUncertainty.classes
             set
             {
                 opPressure = value;
+                OnPropertyChanged("Pressure");
             }
         }
 
@@ -95,6 +105,7 @@ namespace LiveUncertainty.classes
             set
             {
                 opTemperature = value;
+                OnPropertyChanged("Temperature");
             }
         }
 

@@ -14,7 +14,7 @@
         GlowBrush="{DynamicResource AccentColorBrush}"
         ResizeMode="CanResizeWithGrip"
         Closing="ProfileEdit_Closing"
-        Title="EditProfile" Height="451.095" Width="796.533">
+        Title="EditProfile" Height="884.095" Width="796.533">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="141*"/>
@@ -22,13 +22,13 @@
             <ColumnDefinition Width="154*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="57*"></RowDefinition>
-            <RowDefinition Height="275*"></RowDefinition>
-            <RowDefinition Height="86*"></RowDefinition>
+            <RowDefinition Height="63*"></RowDefinition>
+            <RowDefinition Height="719*"></RowDefinition>
+            <RowDefinition Height="69*"></RowDefinition>
         </Grid.RowDefinitions>
 
         <!--tab system -->
-        <Custom:MetroAnimatedSingleRowTabControl x:Name="tabControl" Custom:TabControlHelper.UnderlineMouseOverSelectedBrush="Aquamarine" Custom:TabControlHelper.Transition="Left" Grid.ColumnSpan="4" HorizontalAlignment="Stretch" Height="367" Margin="0,2,5,0" Grid.Row="1" VerticalAlignment="Top">
+        <Custom:MetroAnimatedSingleRowTabControl x:Name="tabControl" Custom:TabControlHelper.UnderlineMouseOverSelectedBrush="Aquamarine" Custom:TabControlHelper.Transition="Left" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" Height="367" Margin="0,2,5,0" Grid.Row="1" VerticalAlignment="Top">
             <TabItem Header="USM">
                 <TabPanel Margin="0,0,0,-195">
                     <StackPanel Orientation="Vertical" Margin="0,0,-123,-212" HorizontalAlignment="Left" Width="543">
@@ -200,7 +200,7 @@
                             <TextBox x:Name="txtbox_WeightingFactor_A" Custom:TextBoxHelper.Watermark="First Weighting Factor" Width="200" />
                         </StackPanel>
 
-                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
+                        <StackPanel Orientation="Horizontal" Margin="0,5,-236,5" Width="550" HorizontalAlignment="Left">
                             <Label x:Name="lbl_PathWeightingFactor_B" Content="Second Weighting Factor" HorizontalAlignment="Left" Width="150"/>
                             <TextBox x:Name="txtbox_WeightingFactor_B" Custom:TextBoxHelper.Watermark="Second Weighting Factor" Width="200" />
                         </StackPanel>

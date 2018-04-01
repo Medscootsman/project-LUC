@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LiveUncertainty.classes
 {
-    class FlowComputer
+    public class FlowComputer
     {
         public string tagNo;
         public string manufacturer;

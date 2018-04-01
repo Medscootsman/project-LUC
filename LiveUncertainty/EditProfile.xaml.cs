@@ -27,7 +27,7 @@ namespace LiveUncertainty
             InitializeComponent();
         }
 
-        public EditProfile(USM meter)
+        public EditProfile(UltraSonicMeter meter)
         {
             InitializeComponent();
             

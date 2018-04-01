@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Prism.Mvvm;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -9,7 +11,7 @@ namespace LiveUncertainty.classes
     //<summary>
     //USM Meter Object.
     //</summary>
-    public class USM
+    public class UltraSonicMeter : INotifyPropertyChanged, IDataErrorInfo 
     {
         protected Int64 manufacturer_id;
         protected Int64 model_id;
@@ -60,6 +62,7 @@ namespace LiveUncertainty.classes
         public GasComposition gascomp;
         public PressureTransmitter pressure;
         public TemperatureTransmitter temperature;
+        public FlowComputer flow;
 
         //these are used for calculating the chords and getting arrays, etcc.
         public List<Path> paths;
@@ -101,20 +104,37 @@ namespace LiveUncertainty.classes
         //Assumed depth 
         double innersurfacedepth = 0;
 
+        public event PropertyChangedEventHandler PropertyChanged;
 
-
-
-
-        public USM()
+        private void OnPropertyChanged(string name)
         {
-
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
-        public void loadFile(FileInfo file)
+        public UltraSonicMeter()
+        {
+            Tag = "Default";
+            OperatingConditions = new OperatingConditions();
+            Internal_Diameter = 0;
+            
+        }
+
+        public void LoadFile(FileInfo file)
         {
             throw new NotImplementedException();
             //the idea will be to parse a CSV file but really it's a made up extension. Name TBD.
 
+        }
+
+        public FlowComputer FlowComp
+        {
+            get { return flow; }
+
+            set
+            {
+                flow = value;
+                OnPropertyChanged("Flow Computer");
+            }
         }
 
         public string Tag
@@ -127,6 +147,7 @@ namespace LiveUncertainty.classes
             set
             {
                 tag = value;
+                OnPropertyChanged("tag");
             }
         }
         public string Name
@@ -139,6 +160,7 @@ namespace LiveUncertainty.classes
             set
             {
                 model_name = value;
+                OnPropertyChanged("Name");
             }
         }
 
@@ -152,6 +174,7 @@ namespace LiveUncertainty.classes
             set
             {
                 manufacturer_name = value;
+                OnPropertyChanged("Manufacturer");
             }
         }
 
@@ -181,6 +204,8 @@ namespace LiveUncertainty.classes
             set
             {
                 pathsTotal = value;
+                OnPropertyChanged("PathsTotal");
+
             }
         }
 
@@ -202,6 +227,7 @@ namespace LiveUncertainty.classes
             set
             {
                 signal_output = value;
+                OnPropertyChanged("Signal Output");
             }
         }
 
@@ -215,10 +241,11 @@ namespace LiveUncertainty.classes
             set
             {
                 calFrequency = value;
+                OnPropertyChanged("Calibration Frequency");
             }
         }
 
-        protected double Nominal_Diameter
+        public double Nominal_Diameter
         {
             get
             {
@@ -228,10 +255,11 @@ namespace LiveUncertainty.classes
             set
             {
                 nomDiameter = value;
+                OnPropertyChanged("Nominal Diameter");
             }
         }
 
-        protected double Internal_Diameter
+        public double Internal_Diameter
         {
             get
             {
@@ -241,6 +269,7 @@ namespace LiveUncertainty.classes
             set
             {
                 internalDiameter = value;
+                OnPropertyChanged("Internal/Tube Diameter");
             }
         }
 
@@ -254,6 +283,7 @@ namespace LiveUncertainty.classes
             set
             {
                 boreDiameter = value;
+                OnPropertyChanged("Bore Diameter");
             }
         }
 
@@ -266,6 +296,7 @@ namespace LiveUncertainty.classes
             set
             {
                 wallThickness = value;
+                OnPropertyChanged("Wall Thickness");
             }
         }
 
@@ -278,6 +309,7 @@ namespace LiveUncertainty.classes
             set
             {
                 outerDiameter = value;
+                OnPropertyChanged("Outer Diameter");
             }
         }
 
@@ -418,6 +450,7 @@ namespace LiveUncertainty.classes
             set
             {
                 opconditions = value;
+                OnPropertyChanged("Operating Conditions");
             }
         }
 
@@ -428,8 +461,69 @@ namespace LiveUncertainty.classes
             set => metrologyTemp = value;
 
         }
+        #region ErrorHandlers
 
-        //meter tube bore is calculated by dividing the internal diameter by 1000. (Mathcad reference: dDry)
+        public string Error
+        {
+            get;
+            private set;
+        }
+
+        public string this[string columnName]
+        {
+            get
+           {
+                switch (columnName)
+                {
+                    case "Internal_Diameter":
+                        if(double.IsNaN(Internal_Diameter) || Internal_Diameter <= 0)
+                        {
+                            Error = "Internal Diameter cannot be zero or negative";
+                            break;
+                        }
+                        else
+                        {
+                            Error = null;
+                            break;
+                        }
+
+                    case "Tag":
+                        if (string.IsNullOrWhiteSpace(Tag))
+                        {
+                            Error = "Tag Number cannot be empty";
+                            break;
+                        }
+                        else
+                        {
+                            Error = null;
+                            break;
+                        }
+                    case "Calibration_Frequency":
+                        if (Calibration_Frequency <= 0)
+                        {
+                            Error = "Calibration Frequency cannot be negative or zero";
+                            break;
+                        }
+                        else
+                        {
+                            Error = null;
+                            break;
+                        }
+                    default:
+                        Error = null;
+                        break;
+                }
+                return Error;
+            }
+        }
+        #endregion
+
+        #region Main Calculation Engine
+        /// <summary>
+        ///  meter tube bore is calculated by dividing the internal diameter by 1000. (Mathcad reference: dDry)
+        ///
+        /// </summary>
+        /// <returns></returns>
         public double CalculateMeterTubeBore()
         {
             double dDry = this.internalDiameter / 1000;
@@ -1815,11 +1909,11 @@ namespace LiveUncertainty.classes
             return GOVuncertainty;
 
         }
-    
 
 
 
 
+        #endregion
 
     }
 }
