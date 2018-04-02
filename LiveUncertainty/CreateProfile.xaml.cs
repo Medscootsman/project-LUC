@@ -13,7 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-
+using LiveUncertainty.classes;
 namespace LiveUncertainty
 {
     /// <summary>
@@ -21,6 +21,7 @@ namespace LiveUncertainty
     /// </summary>
     public partial class ProfileCreate : MetroWindow
     {
+        private readonly string Meter = "Meter";
 
         public ProfileCreate()
         {
@@ -54,7 +55,23 @@ namespace LiveUncertainty
 
         private void btn_Save_Click(object sender, RoutedEventArgs e)
         {
+           
+            
+        }
 
+        private void btn_Cancel_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void txtbox_InternalDiameter_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void lbl_Info_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            lbl_Info.Content = "File was successfully saved";
         }
     }
 }

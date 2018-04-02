@@ -5,12 +5,21 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
+using CsvHelper;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Xml.Serialization;
+using System.Reflection;
+using LiveUncertainty.viewmodels.commands;
+using System.Xml;
+using System.Xml.Schema;
+
 namespace LiveUncertainty.classes
 {
     //<summary>
     //USM Meter Object.
     //</summary>
+    [Serializable]
     public class UltraSonicMeter : INotifyPropertyChanged, IDataErrorInfo 
     {
         protected Int64 manufacturer_id;
@@ -58,7 +67,7 @@ namespace LiveUncertainty.classes
         private double Ro = 8.314510 * Math.Pow(10, 3);
 
         //Associated objects that will be taken in the frontend
-        public OperatingConditions opconditions;
+        public OpConditions opconditions;
         public GasComposition gascomp;
         public PressureTransmitter pressure;
         public TemperatureTransmitter temperature;
@@ -104,6 +113,8 @@ namespace LiveUncertainty.classes
         //Assumed depth 
         double innersurfacedepth = 0;
 
+        //Commands
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void OnPropertyChanged(string name)
@@ -114,8 +125,9 @@ namespace LiveUncertainty.classes
         public UltraSonicMeter()
         {
             Tag = "Default";
-            OperatingConditions = new OperatingConditions();
-            Internal_Diameter = 0;
+            OperatingConditions = new OpConditions();
+            Internal_Diameter = 1;
+            save = string.Empty;
 
             this.paths = new List<Path>();
 
@@ -125,7 +137,6 @@ namespace LiveUncertainty.classes
             this.addPath(new Path());
             this.addPath(new Path());
             this.addPath(new Path());
-
         }
 
         public void LoadFile(FileInfo file)
@@ -134,6 +145,51 @@ namespace LiveUncertainty.classes
             //the idea will be to parse a CSV file but really it's a made up extension. Name TBD.
 
         }
+
+        public void SaveFile(bool isNewFile)
+        {
+            if (isNewFile)
+            {
+                //use a save dialog to save the file. here we use CSVHelper to make the csv file process a little easier for us.
+                using (SaveFileDialog dialog = new SaveFileDialog() { Filter = "lsav | LSAV", ValidateNames = true, CheckPathExists = true })
+                {
+                    if(dialog.ShowDialog() == DialogResult.OK)
+                    {
+                        using (var sw = new StreamWriter(dialog.FileName))
+                        {
+                            Type[] types = new Type[] {typeof(OpConditions), typeof(Path), typeof(FlowComputer)  };
+                            var serializer = new XmlSerializer(typeof(UltraSonicMeter));
+                            try
+                            {
+                                serializer.Serialize(sw, this);
+                                sw.Close();
+                                MessageBox.Show("Save Sucessful", "Save Status", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                            catch(Exception e)
+                            {
+                                MessageBox.Show(e.ToString());
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private string save;
+        public string SaveStatus
+        {
+            get
+            {
+                return save;
+            }
+            set
+            {
+                save = value;
+                OnPropertyChanged("SaveStatus");
+            }
+            
+        }
+             
 
         public FlowComputer FlowComp
         {
@@ -449,7 +505,7 @@ namespace LiveUncertainty.classes
             }
         }
 
-        public OperatingConditions OperatingConditions
+        public OpConditions OperatingConditions
         {
             get
             {
@@ -479,7 +535,7 @@ namespace LiveUncertainty.classes
         public string Error
         {
             get;
-            private set;
+            set;
         }
 
         public string this[string columnName]
@@ -1935,6 +1991,7 @@ namespace LiveUncertainty.classes
             return GOVuncertainty;
 
         }
+
 
 
 

@@ -24,6 +24,11 @@ namespace LiveUncertainty.classes
             this.sqrtB = sqrtB;
         }
 
+        public Gas()
+        {
+
+        }
+
         public int id
         {
             get

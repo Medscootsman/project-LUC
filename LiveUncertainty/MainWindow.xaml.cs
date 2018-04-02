@@ -46,6 +46,7 @@ namespace LiveUncertainty
                     PointForeground = Brushes.Blue,
                     
                 }
+                
             };
             DataContext = this;
 
@@ -73,6 +74,7 @@ namespace LiveUncertainty
             this.Visibility = Visibility.Collapsed;
             ProfileCreate profile = new ProfileCreate();
             profile.ShowDialog();
+            //this.DataContext = profile.DataContext;
             this.Visibility = Visibility.Visible;
             
         }
@@ -123,6 +125,7 @@ namespace LiveUncertainty
 
                 EditProfile EditWindow = new EditProfile();
                 EditWindow.ShowDialog();
+                EditWindow.DataContext = this.DataContext;
             }
 
         }

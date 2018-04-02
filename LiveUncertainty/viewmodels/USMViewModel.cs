@@ -12,7 +12,8 @@ namespace LiveUncertainty.viewmodels
 {
     public class USMViewModel : INotifyPropertyChanged
     {
-        public UpdateStringCommand Update { get; set; }
+        public UpdateStringCommand _Update { get; set; }
+        public SaveCommand _SaveCommand { get; set; }
         public UltraSonicMeter meter;
         /// <summary>
         /// Creates a view model for manipulating the object
@@ -22,8 +23,9 @@ namespace LiveUncertainty.viewmodels
 
         public USMViewModel()
         {
-            this.Update = new UpdateStringCommand(this);
+            this._Update = new UpdateStringCommand(this);
             meter = new UltraSonicMeter();
+            this._SaveCommand = new SaveCommand(this);
         }
 
         public bool Updatable
@@ -44,6 +46,13 @@ namespace LiveUncertainty.viewmodels
              
         }
 
+        public void Save()
+        {
+            this.meter.SaveFile(true);
+            this.meter.SaveStatus = "Save Sucessful";
+            OnPropertyChanged("SaveStatus");
+        }
+
         public void UpdateInteger(int i)
         {
 
@@ -52,6 +61,10 @@ namespace LiveUncertainty.viewmodels
         public void UpdateDouble(double dub)
         {
 
+        }
+        public string NotifySucess()
+        {
+            return "Save sucessful";
         }
 
 

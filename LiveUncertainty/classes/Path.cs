@@ -180,7 +180,7 @@ namespace LiveUncertainty.classes
         public string Error
         {
             get;
-            private set;
+            set;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

@@ -311,6 +311,7 @@
     <Compile Include="settings.xaml.cs">
       <DependentUpon>settings.xaml</DependentUpon>
     </Compile>
+    <Compile Include="viewmodels\commands\SaveCommand.cs" />
     <Compile Include="viewmodels\commands\UpdateCommand.cs" />
     <Compile Include="viewmodels\USMViewModel.cs" />
     <Page Include="EditProfile.xaml">

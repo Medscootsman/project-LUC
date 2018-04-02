@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LiveUncertainty.classes
 {
-    public class OperatingConditions : INotifyPropertyChanged, IDataErrorInfo
+    public class OpConditions : INotifyPropertyChanged, IDataErrorInfo
     {
         public double opPressure;
         public double opTemperature;
@@ -39,7 +39,7 @@ namespace LiveUncertainty.classes
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public OperatingConditions()
+        public OpConditions()
         {
             OperatingTemperature = 0;
             OperatingPressure = 0;
@@ -263,7 +263,7 @@ namespace LiveUncertainty.classes
         public string Error
         {
             get;
-            private set;
+            set;
         }
 
         string IDataErrorInfo.this[string columnName]
