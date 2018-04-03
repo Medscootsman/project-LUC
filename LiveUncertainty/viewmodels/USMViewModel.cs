@@ -3,16 +3,20 @@ using LiveUncertainty.viewmodels.commands;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Xml.Serialization;
 
 namespace LiveUncertainty.viewmodels
 {
     public class USMViewModel : INotifyPropertyChanged
     {
         public UpdateStringCommand _Update { get; set; }
+        public LoadCommand _Load { get; set; }
         public SaveCommand _SaveCommand { get; set; }
         public UltraSonicMeter meter;
         /// <summary>
@@ -20,12 +24,18 @@ namespace LiveUncertainty.viewmodels
         /// </summary>
         /// <param name="meter"></param>
         /// 
+        public UltraSonicMeter Meter
+        {
+            get { return meter; }
+            set => meter = value;
 
+        }
         public USMViewModel()
         {
             this._Update = new UpdateStringCommand(this);
             meter = new UltraSonicMeter();
             this._SaveCommand = new SaveCommand(this);
+            this._Load = new LoadCommand(this);
         }
 
         public bool Updatable
@@ -53,19 +63,29 @@ namespace LiveUncertainty.viewmodels
             OnPropertyChanged("SaveStatus");
         }
 
-        public void UpdateInteger(int i)
-        {
-
-        }
-
-        public void UpdateDouble(double dub)
-        {
-
-        }
         public string NotifySucess()
         {
             return "Save sucessful";
         }
+
+        public void LoadFile(FileStream file)
+        {
+            try
+            {
+                var serializer = new XmlSerializer(typeof(UltraSonicMeter));
+                this.meter = (UltraSonicMeter)serializer.Deserialize(file);
+                
+                MessageBox.Show("File was loaded. You are now using meter " + meter.Tag);
+
+            } 
+            catch
+            {
+                MessageBox.Show("File was not loaded");
+            }
+            
+
+        }
+
 
 
 

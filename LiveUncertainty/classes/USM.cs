@@ -126,7 +126,8 @@ namespace LiveUncertainty.classes
         {
             Tag = "Default";
             OperatingConditions = new OpConditions();
-            Internal_Diameter = 1;
+            Internal_Diameter = 1.2;
+            Calibration_Frequency = 1;
             save = string.Empty;
 
             this.paths = new List<Path>();
@@ -137,13 +138,6 @@ namespace LiveUncertainty.classes
             this.addPath(new Path());
             this.addPath(new Path());
             this.addPath(new Path());
-        }
-
-        public void LoadFile(FileInfo file)
-        {
-            throw new NotImplementedException();
-            //the idea will be to parse a CSV file but really it's a made up extension. Name TBD.
-
         }
 
         public void SaveFile(bool isNewFile)
@@ -243,7 +237,7 @@ namespace LiveUncertainty.classes
             }
         }
 
-        protected Int64 ManufacturerID
+        public Int64 ManufacturerID
         {
             get
             {
@@ -282,7 +276,7 @@ namespace LiveUncertainty.classes
             }
         }
 
-        protected Int16 SignalOutput
+        public Int16 SignalOutput
         {
             get
             {
@@ -296,7 +290,7 @@ namespace LiveUncertainty.classes
             }
         }
 
-        protected double Calibration_Frequency
+        public double Calibration_Frequency
         {
             get
             {
@@ -305,8 +299,11 @@ namespace LiveUncertainty.classes
 
             set
             {
-                calFrequency = value;
-                OnPropertyChanged("Calibration Frequency");
+                if (calFrequency != value)
+                {
+                    calFrequency = value;
+                    OnPropertyChanged("Calibration Frequency");
+                }
             }
         }
 
@@ -333,8 +330,12 @@ namespace LiveUncertainty.classes
 
             set
             {
-                internalDiameter = value;
-                OnPropertyChanged("Internal/Tube Diameter");
+                if (internalDiameter != value)
+                {
+                    internalDiameter = value;
+                    OnPropertyChanged("Internal/Tube Diameter");
+                }
+                
             }
         }
 
@@ -545,7 +546,7 @@ namespace LiveUncertainty.classes
                 switch (columnName)
                 {
                     case "Internal_Diameter":
-                        if(double.IsNaN(Internal_Diameter) || Internal_Diameter <= 0)
+                        if(double.IsNaN(Internal_Diameter) || Internal_Diameter < 0)
                         {
                             Error = "Internal Diameter cannot be zero or negative";
                             break;

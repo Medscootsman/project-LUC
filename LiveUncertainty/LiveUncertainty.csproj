@@ -298,6 +298,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="classes\Converters\DoubleConverter.cs" />
     <Compile Include="classes\FixedUncertainties.cs" />
     <Compile Include="classes\testclass.cs" />
     <Compile Include="classes\user.cs" />
@@ -311,6 +312,7 @@
     <Compile Include="settings.xaml.cs">
       <DependentUpon>settings.xaml</DependentUpon>
     </Compile>
+    <Compile Include="viewmodels\commands\LoadCommand.cs" />
     <Compile Include="viewmodels\commands\SaveCommand.cs" />
     <Compile Include="viewmodels\commands\UpdateCommand.cs" />
     <Compile Include="viewmodels\USMViewModel.cs" />

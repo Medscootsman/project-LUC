@@ -22,7 +22,7 @@
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary x:Name="actualicons" Source="/Resources/Icons.xaml" />
+        viewmodel        <ResourceDictionary x:Name="actualicons" Source="/Resources/Icons.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
@@ -41,15 +41,14 @@
             
         </Controls:WindowCommands>
     </Controls:MetroWindow.LeftWindowCommands>
-    <Page>
-
+    <Page x:Name="pg_main">
+        <Page.Resources>
+            <m:UltraSonicMeter x:Key="Meter"></m:UltraSonicMeter>
+            <m:Path x:Key="Path"></m:Path>
+            <vm:USMViewModel x:Key="viewmodel"></vm:USMViewModel>
+        </Page.Resources>
 
         <Grid>
-            <Grid.Resources>
-                <m:UltraSonicMeter x:Key="Meter"></m:UltraSonicMeter>
-                <m:Path x:Key="Path"></m:Path>
-                <vm:USMViewModel x:Key="viewmodel"></vm:USMViewModel>
-            </Grid.Resources>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="184*"/>

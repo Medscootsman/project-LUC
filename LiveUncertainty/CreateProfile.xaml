@@ -8,10 +8,15 @@
         xmlns:m="clr-namespace:LiveUncertainty.classes"
         xmlns:commands="clr-namespace:LiveUncertainty.viewmodels.commands"
         xmlns:vm="clr-namespace:LiveUncertainty.viewmodels"
-        mc:Ignorable="d"
+        xmlns:Converter="clr-namespace:LiveUncertainty.classes.Converters"
+                      mc:Ignorable="d"
         WindowState="Maximized"
         Closing="ProfileCreate_Closing"
         Title="Create your profile" Height="916" Width="942.6" HorizontalAlignment="Center">
+    <Custom:MetroWindow.Resources>
+        <vm:USMViewModel x:Key="viewmodel"/>
+    </Custom:MetroWindow.Resources>
+
     <Controls:MetroWindow.RightWindowCommands>
         <Controls:WindowCommands>
             <Controls:WindowCommands>
@@ -23,9 +28,10 @@
         <Page.Resources>
             <m:UltraSonicMeter x:Key="Meter"></m:UltraSonicMeter>
             <m:Path x:Key="Path"></m:Path>
+            <Converter:DoubleConverter x:Key="doubleconverter"></Converter:DoubleConverter>
             <vm:USMViewModel x:Key="viewmodel"></vm:USMViewModel>
         </Page.Resources>
-        <Grid Margin="10,0,2,0" DataContext="{Binding Source={StaticResource Meter}}">
+        <Grid Margin="10,0,2,0" DataContext="{Binding Source={StaticResource viewmodel}}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="1*"/>
@@ -42,11 +48,11 @@
             <Label x:Name="lblSectionTotal" Content="1/7" HorizontalAlignment="Left" Margin="54,163,0,0" VerticalAlignment="Top" Grid.Column="2" Height="0" Grid.Row="1" Width="0"/>
 
             <!-- Buttons-->
-            <Button x:Name="btn_Cancel" Content="Cancel" Style="{StaticResource AccentedSquareButtonStyle}" HorizontalAlignment="Stretch" FontSize="24" Margin="10,2,10,5" Width="auto" Grid.Column="3" Click="btn_Cancel_Click"/>
-            <Button x:Name="btn_Save" Content="Save" HorizontalAlignment="Stretch" FontSize="32" Margin="10,10,10,47" Grid.Row="2" Width="auto" Grid.Column="2" Click="btn_Save_Click" Command="{Binding _SaveCommand, Source={StaticResource viewmodel}}">
-                
+            <Button x:Name="btn_Cancel" Click="Cancel_Click" Content="Cancel" Style="{StaticResource AccentedSquareButtonStyle}" HorizontalAlignment="Stretch" FontSize="24" Margin="10,2,10,5" Width="auto" Grid.Column="3" IsCancel="True" />
+            <Button x:Name="btn_Save" Content="Save" HorizontalAlignment="Stretch" FontSize="32" Margin="10,10,10,47" Grid.Row="2" Width="auto" Grid.Column="2" Click="Cancel_Click" Command="{Binding _SaveCommand, Source={StaticResource viewmodel}}">
+
             </Button>
-            <Button x:Name="btn_Load" FontSize="24" FontWeight="SemiBold"  Content="Save And Load" Style="{StaticResource AccentedSquareButtonStyle}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10,2,10,5" Width="auto" Grid.Column="2" IsCancel="True" Click="Cancel_Click"/>
+            <Button x:Name="btn_Load" FontSize="24" FontWeight="SemiBold"  Content="Load" Style="{StaticResource AccentedSquareButtonStyle}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10,2,10,5" Width="auto" Grid.Column="2" Command="{Binding _Load}" Click="btn_Load_Click"/>
 
             <!--tab system -->
             <Custom:MetroAnimatedSingleRowTabControl x:Name="tabControl" Custom:TabControlHelper.UnderlineMouseOverSelectedBrush="Aquamarine" Custom:TabControlHelper.Transition="Left" Grid.ColumnSpan="4" HorizontalAlignment="Stretch" Height="367" Margin="0,2,5,0" Grid.Row="1" VerticalAlignment="Top">
@@ -55,72 +61,72 @@
                         <StackPanel Orientation="Vertical" Margin="0,-1,0,-18" HorizontalAlignment="Left" Width="543">
                             <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
                                 <Label x:Name="lbl_USMTag" Content="Tag Number:" HorizontalAlignment="Left" Width="160"/>
-                                <TextBox Custom:TextBoxHelper.Watermark="The USM's tag number." Text="{Binding Tag, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Width="200" x:Name="txtbox_Tag_USM"/>
+                                <TextBox Custom:TextBoxHelper.Watermark="The USM's tag number." Text="{Binding Meter.Tag, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Width="200" x:Name="txtbox_Tag_USM"/>
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
                                 <Label x:Name="lbl_calFrequency" HorizontalAlignment="Right" Width="160">Calibration Frequency</Label>
-                                <TextBox Custom:TextBoxHelper.Watermark="Can be a fraction of a month." Text="{Binding Calibration_Frequency, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Width="200" x:Name="txtbox_calFrequency"/>
+                                <TextBox Custom:TextBoxHelper.Watermark="Can be a fraction of a month." Text="{Binding Path=Meter.Calibration_Frequency, Delay=250, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource doubleconverter}, ValidatesOnDataErrors=True}" Width="200" x:Name="txtbox_calFrequency"/>
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Width="550" Margin="0,5,-7,5" HorizontalAlignment="Left">
                                 <Label x:Name="lbl_InternalDiameter" HorizontalAlignment="Right" Width="160" Content="Internal Diameter"/>
-                                <TextBox Custom:TextBoxHelper.Watermark="The meter tube's internal diameter" Text="{Binding Internal_Diameter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, ValidatesOnNotifyDataErrors=True}" Width="200" x:Name="txtbox_InternalDiameter" TextChanged="txtbox_InternalDiameter_TextChanged"></TextBox>
+                                <TextBox Custom:TextBoxHelper.Watermark="The meter tube's internal diameter" Text="{Binding Meter.Internal_Diameter, Delay=1000, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,  ValidatesOnNotifyDataErrors=True}" Width="200" x:Name="txtbox_InternalDiameter" TextChanged="txtbox_InternalDiameter_TextChanged"></TextBox>
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Margin="0,5,0,5" HorizontalAlignment="Left">
                                 <Label x:Name="lbl_nomDiameter" HorizontalAlignment="Right" Width="160">Nominal Diameter</Label>
-                                <TextBox Controls:TextBoxHelper.Watermark="The meter tube's nominal diameter" Text="{Binding Nominal_Diameter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Width="204" Name="txtbox_nomDiameter"></TextBox>
+                                <TextBox Controls:TextBoxHelper.Watermark="The meter tube's nominal diameter" TextChanged="txtbox_nomDiameter_TextChanged" Text="{Binding Meter.Nominal_Diameter, Delay=1000, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Width="204" Name="txtbox_nomDiameter"></TextBox>
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Width="550" Margin="0,5,0,5" HorizontalAlignment="Left">
                                 <Label x:Name="lbl_outerDiameter" HorizontalAlignment="Right" Width="160" Content="Outer Diameter"/>
-                                <TextBox Controls:TextBoxHelper.Watermark="The meter tube's outer diameter" Text="{Binding Outer_Diameter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Width="200" Name="txtbox_OuterDiameter"></TextBox>
+                                <TextBox Controls:TextBoxHelper.Watermark="The meter tube's outer diameter" Text="{Binding Meter.Outer_Diameter, Delay=1000, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Width="200" Name="txtbox_OuterDiameter"></TextBox>
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Width="550" Margin="0,5,0,5" HorizontalAlignment="Left">
                                 <Label x:Name="lbl_boreDiameter" HorizontalAlignment="Right" Width="160" Content="Bore Diameter"/>
-                                <TextBox Controls:TextBoxHelper.Watermark="The meter tube's bore diameter" Width="200" Text="{Binding Bore_Diameter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Name="txtbox_boreDiameter"></TextBox>
+                                <TextBox Controls:TextBoxHelper.Watermark="The meter tube's bore diameter" Width="200" Text="{Binding Meter.Bore_Diameter, Delay=1000, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Name="txtbox_boreDiameter"></TextBox>
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Width="550" Margin="0,5,0,5" HorizontalAlignment="Left">
                                 <Label x:Name="lbl_WallThickness" HorizontalAlignment="Right" Width="160" Content="Wall Thickness"/>
-                                <TextBox Controls:TextBoxHelper.Watermark="Thickness of the wall" Width="200" Name="txtbox_WallThickness" Text="{Binding Wall_Thickness, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></TextBox>
+                                <TextBox Controls:TextBoxHelper.Watermark="Thickness of the wall" Width="200" Name="txtbox_WallThickness" Text="{Binding Meter.Wall_Thickness, Delay=1000, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></TextBox>
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Width="550" Margin="0,5,0,5" HorizontalAlignment="Left">
                                 <Label x:Name="lbl_metrologyTolerance" HorizontalAlignment="Right" Width="160" Content="Metrology Tolerance"/>
-                                <TextBox Width="200" Name="txtbox_metrologyTolerance" Text="{Binding Metrology_Tolerance, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></TextBox>
+                                <TextBox Width="200" Name="txtbox_metrologyTolerance" Text="{Binding Meter.Metrology_Tolerance, Delay=1000, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></TextBox>
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Width="550" Margin="0,5,0,5" HorizontalAlignment="Left">
                                 <Label x:Name="lbl_transducerDistance" HorizontalAlignment="Right" Width="160" Content="Transducer Distance"/>
-                                <TextBox Width="200" Name="txtbox_transducerDistance" Text="{Binding Transducer_Distance, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></TextBox>
+                                <TextBox Width="200" Name="txtbox_transducerDistance" Text="{Binding Meter.Transducer_Distance, Mode=TwoWay, Delay=1000, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></TextBox>
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Width="550" Margin="0,5,0,5" HorizontalAlignment="Left">
                                 <Label x:Name="lbl_pathLengthTolerance" HorizontalAlignment="Right" Width="160" Content="Path Length Tolerance"/>
-                                <TextBox Width="200" Name="txtbox_pathLengthTolerance" Text="{Binding Path_Length_Tolerance, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></TextBox>
+                                <TextBox Width="200" Name="txtbox_pathLengthTolerance" Text="{Binding Meter.Path_Length_Tolerance, Delay=1000, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></TextBox>
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Width="550" Margin="0,5,0,5" HorizontalAlignment="Left">
                                 <Label x:Name="lbl_meterDiameterTolerance" HorizontalAlignment="Right" Width="160" Content="Meter Diameter Tolerance"/>
-                                <TextBox Width="200" Name="txtbox_meterDiameterTolerance" Text="{Binding Meter_Diameter_Tolerance, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></TextBox>
+                                <TextBox Width="200" Name="txtbox_meterDiameterTolerance" Text="{Binding Meter.Meter_Diameter_Tolerance, Delay=1000, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></TextBox>
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Width="550" Margin="0,5,0,5" HorizontalAlignment="Left">
                                 <Label x:Name="lbl_calLabUncertainty" HorizontalAlignment="Right" Width="160" Content="Calibration Lab Uncertainty"/>
-                                <TextBox Width="200" Name="txtbox_calLabUncertainty" Text="{Binding Calibration_Lab_Uncertainty, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></TextBox>
+                                <TextBox Width="200" Name="txtbox_calLabUncertainty" Text="{Binding Meter.Calibration_Lab_Uncertainty, Delay=1000, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></TextBox>
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Width="550" Margin="0,5,0,5" HorizontalAlignment="Left">
                                 <Label x:Name="lbl_calTemperature" HorizontalAlignment="Right" Width="160" Content="Calibration Temperature"/>
-                                <TextBox Width="200" Name="txtbox_calTemperature" Text="{Binding Calibration_Temperature, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></TextBox>
+                                <TextBox Width="200" Name="txtbox_calTemperature" Text="{Binding Meter.Calibration_Temperature, Delay=1000, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></TextBox>
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Width="550" Margin="0,5,0,5" HorizontalAlignment="Left">
                                 <Label x:Name="lbl_calPressure" HorizontalAlignment="Right" Width="160" Content="Calibration Pressure"/>
-                                <TextBox Width="200" Name="txtbox_calPressure" Text="{Binding Callibration_Pressure, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></TextBox>
+                                <TextBox Width="200" Name="txtbox_calPressure" Text="{Binding Meter.Callibration_Pressure, Delay=1000, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></TextBox>
                             </StackPanel>
                         </StackPanel>
 
@@ -132,7 +138,7 @@
                         <StackPanel Orientation="Vertical" Margin="0,0,0,-136" HorizontalAlignment="Left" Width="543">
                             <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
                                 <Label x:Name="lbl_NoOfPaths" Content="Number Of paths" HorizontalAlignment="Left" Width="150"/>
-                                <ComboBox Name="drop_Paths" HorizontalAlignment="Left">
+                                <ComboBox Name="drop_Paths" HorizontalAlignment="Left" SelectedItem="{Binding Meter.PathsTotal}">
                                     <ComboBoxItem IsSelected="True">1</ComboBoxItem>
                                     <ComboBoxItem>2</ComboBoxItem>
                                     <ComboBoxItem>3</ComboBoxItem>
@@ -147,32 +153,32 @@
 
                             <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
                                 <Label x:Name="lbl_PathLengthA" Content="First Path Length" HorizontalAlignment="Left" Width="150"/>
-                                <TextBox x:Name="txtbox_PathLenghA" Custom:TextBoxHelper.Watermark="Length of the first path" Width="200" Text="{Binding Paths[0].Length, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
+                                <TextBox x:Name="txtbox_PathLenghA" Custom:TextBoxHelper.Watermark="Length of the first path" Width="200" Text="{Binding Meter.Paths[0].Length, Delay=850, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
                                 <Label x:Name="lbl_PathLengthB" Content="Second Path Length" HorizontalAlignment="Left" Width="150"/>
-                                <TextBox x:Name="txtbox_PathLenghB" Custom:TextBoxHelper.Watermark="Length of the second path" Text="{Binding Paths[1].Length, Mode=TwoWay}" Width="200" />
+                                <TextBox x:Name="txtbox_PathLenghB" Custom:TextBoxHelper.Watermark="Length of the second path" Text="{Binding Meter.Paths[1].Length, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Delay=850}" Width="200" />
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
                                 <Label x:Name="lbl_PathLengthC" Content="Third Path Length" HorizontalAlignment="Left" Width="150"/>
-                                <TextBox x:Name="txtbox_PathLenghC" Custom:TextBoxHelper.Watermark="Length of the third path" Width="200" Text="{Binding Paths[2].Length}" />
+                                <TextBox x:Name="txtbox_PathLenghC" Custom:TextBoxHelper.Watermark="Length of the third path" Width="200" Text="{Binding Meter.Paths[2].Length, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Delay=850}" />
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
                                 <Label x:Name="lbl_PathLengthD" Content="Fourth Path Length" HorizontalAlignment="Left" Width="150"/>
-                                <TextBox x:Name="txtbox_PathLenghD" Custom:TextBoxHelper.Watermark="Length of the fourth path" Width="200" Text="{Binding Paths[3].Length}" />
+                                <TextBox x:Name="txtbox_PathLenghD" Custom:TextBoxHelper.Watermark="Length of the fourth path" Width="200" Text="{Binding Meter.Paths[3].Length,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Delay=850}" />
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
                                 <Label x:Name="lbl_PathLengthE" Content="Fifth Path Length" HorizontalAlignment="Left" Width="150"/>
-                                <TextBox x:Name="txtbox_PathLenghE" Custom:TextBoxHelper.Watermark="Length of the fifth path" Text="{Binding Paths[4].Length}" Width="200" />
+                                <TextBox x:Name="txtbox_PathLenghE" Custom:TextBoxHelper.Watermark="Length of the fifth path" Text="{Binding Meter.Paths[4].Length,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Delay=850}" Width="200" />
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
                                 <Label x:Name="lbl_PathLengthF" Content="Sixth Path Length" HorizontalAlignment="Left" Width="150"/>
-                                <TextBox x:Name="txtbox_PathLenghF" Custom:TextBoxHelper.Watermark="Length of the sixth path" Text="{Binding Paths[5].Length}" Width="200" />
+                                <TextBox x:Name="txtbox_PathLenghF" Custom:TextBoxHelper.Watermark="Length of the sixth path" Text="{Binding Meter.Paths[5].Length,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Delay=850}" Width="200" />
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
@@ -181,32 +187,32 @@
 
                             <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
                                 <Label x:Name="lbl_PathX_A" Content="First Path X" HorizontalAlignment="Left" Width="150"/>
-                                <TextBox x:Name="txtbox_PathX_A" Custom:TextBoxHelper.Watermark="X value of the first path" Text="{Binding Paths[0].X}" Width="200" />
+                                <TextBox x:Name="txtbox_PathX_A" Custom:TextBoxHelper.Watermark="X value of the first path" Text="{Binding Meter.Paths[0].X,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Delay=850}" Width="200" />
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
                                 <Label x:Name="lbl_PathX_B" Content="Second Path X" HorizontalAlignment="Left" Width="150"/>
-                                <TextBox x:Name="txtbox_Path_X_B" Custom:TextBoxHelper.Watermark="X value of the second path" Text="{Binding Paths[1].X}" Width="200" />
+                                <TextBox x:Name="txtbox_Path_X_B" Custom:TextBoxHelper.Watermark="X value of the second path" Text="{Binding Meter.Paths[1].X,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Delay=850}" Width="200" />
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
                                 <Label x:Name="lbl_PathX_C" Content="Third Path X" HorizontalAlignment="Left" Width="150"/>
-                                <TextBox x:Name="txtbox_PathX_C" Custom:TextBoxHelper.Watermark="X value of the third path" Text="{Binding Paths[2].X}" Width="200" />
+                                <TextBox x:Name="txtbox_PathX_C" Custom:TextBoxHelper.Watermark="X value of the third path" Text="{Binding Meter.Paths[2].X,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Delay=850}" Width="200" />
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
                                 <Label x:Name="lbl_PathX_D" Content="Fourth Path X" HorizontalAlignment="Left" Width="150"/>
-                                <TextBox x:Name="txtbox_PathX_D" Custom:TextBoxHelper.Watermark="X value of the fourth path" Text="{Binding Paths[3].X}" Width="200" />
+                                <TextBox x:Name="txtbox_PathX_D" Custom:TextBoxHelper.Watermark="X value of the fourth path" Text="{Binding Meter.Paths[3].X,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Delay=850}" Width="200" />
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
                                 <Label x:Name="lbl_PathX_E" Content="Fifth Path X" HorizontalAlignment="Left" Width="150"/>
-                                <TextBox x:Name="txtbox_PathX_E" Custom:TextBoxHelper.Watermark="X value of the fifth path" Width="200" Text="{Binding Paths[4].X}" />
+                                <TextBox x:Name="txtbox_PathX_E" Custom:TextBoxHelper.Watermark="X value of the fifth path" Width="200" Text="{Binding Meter.Paths[4].X,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Delay=850}" />
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
                                 <Label x:Name="lbl_PathX_F" Content="Sixth Path X" HorizontalAlignment="Left" Width="150"/>
-                                <TextBox x:Name="txtbox_PathX_F" Custom:TextBoxHelper.Watermark="X value of the Sixth path" Width="200" Text="{Binding Paths[5].X}" />
+                                <TextBox x:Name="txtbox_PathX_F" Custom:TextBoxHelper.Watermark="X value of the Sixth path" Width="200" Text="{Binding Meter.Paths[5].X,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Delay=850}" />
                             </StackPanel>
 
                         </StackPanel>
@@ -218,32 +224,32 @@
 
                             <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
                                 <Label x:Name="lbl_PathWeightingFactor_A" Content="First Weighting Factor" HorizontalAlignment="Left" Width="150"/>
-                                <TextBox x:Name="txtbox_WeightingFactor_A" Custom:TextBoxHelper.Watermark="First Weighting Factor" Width="200" Text="{Binding Paths[0].WeightingFactor}" />
+                                <TextBox x:Name="txtbox_WeightingFactor_A" Custom:TextBoxHelper.Watermark="First Weighting Factor" Width="200" Text="{Binding Meter.Paths[0].WeightingFactor,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Delay=850}" />
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
                                 <Label x:Name="lbl_PathWeightingFactor_B" Content="Second Weighting Factor" HorizontalAlignment="Left" Width="150"/>
-                                <TextBox x:Name="txtbox_WeightingFactor_B" Custom:TextBoxHelper.Watermark="Second Weighting Factor" Width="200" Text="{Binding Paths[1].WeightingFactor}" />
+                                <TextBox x:Name="txtbox_WeightingFactor_B" Custom:TextBoxHelper.Watermark="Second Weighting Factor" Width="200" Text="{Binding Meter.Paths[1].WeightingFactor,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Delay=850}" />
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
                                 <Label x:Name="lbl_PathWeightingFactor_C" Content="Third Weighting Factor" HorizontalAlignment="Left" Width="150"/>
-                                <TextBox x:Name="txtbox_WeightingFactor_C" Custom:TextBoxHelper.Watermark="Third Weighting Factor" Text="{Binding Paths[2].WeightingFactor}" Width="200" />
+                                <TextBox x:Name="txtbox_WeightingFactor_C" Custom:TextBoxHelper.Watermark="Third Weighting Factor" Text="{Binding Meter.Paths[2].WeightingFactor,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Delay=850}" Width="200" />
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
                                 <Label x:Name="lbl_PathWeightingFactor_D" Content="Fourth Weighting Factor" HorizontalAlignment="Left" Width="150"/>
-                                <TextBox x:Name="txtbox_PathWeightingFactor_D" Custom:TextBoxHelper.Watermark="Fourth Weighting Factor" Text="{Binding Paths[3].WeightingFactor}" Width="200" />
+                                <TextBox x:Name="txtbox_PathWeightingFactor_D" Custom:TextBoxHelper.Watermark="Fourth Weighting Factor" Text="{Binding Meter.Paths[3].WeightingFactor,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Delay=850}" Width="200" />
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
                                 <Label x:Name="lbl_PathWeightingFactor_E" Content="Fifth Weighting Factor" HorizontalAlignment="Left" Width="150"/>
-                                <TextBox x:Name="txtbox_PathWeightingFactor_E" Custom:TextBoxHelper.Watermark="Fifth Weighting Factor" Width="200" Text="{Binding Paths[4].WeightingFactor}" />
+                                <TextBox x:Name="txtbox_PathWeightingFactor_E" Custom:TextBoxHelper.Watermark="Fifth Weighting Factor" Width="200" Text="{Binding Meter.Paths[4].WeightingFactor,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Delay=850}" />
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
                                 <Label x:Name="lbl_PathWeightingFactor_F" Content="Sixth Weighting Factor" HorizontalAlignment="Left" Width="150"/>
-                                <TextBox x:Name="txtbox_PathWeightingFactor_F" Custom:TextBoxHelper.Watermark="Sixth Weighting Factor" Width="200" Text="{Binding Paths[5].WeightingFactor}"/>
+                                <TextBox x:Name="txtbox_PathWeightingFactor_F" Custom:TextBoxHelper.Watermark="Sixth Weighting Factor" Width="200" Text="{Binding Meter.Paths[5].WeightingFactor,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Delay=850}"/>
                             </StackPanel>
 
                         </StackPanel>
@@ -255,32 +261,32 @@
                         <StackPanel Orientation="Vertical" Margin="0,0,-123,-212" HorizontalAlignment="Left" Width="543">
                             <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
                                 <Label x:Name="lbl_opPressure" Content="Pressure" HorizontalAlignment="Left" Width="150"/>
-                                <TextBox x:Name="txtbox_opPressure" Custom:TextBoxHelper.Watermark="The pressure of the system" Text="{Binding OperatingConditions.OperatingPressure, Mode=TwoWay}" Width="200" />
+                                <TextBox x:Name="txtbox_opPressure" Custom:TextBoxHelper.Watermark="The pressure of the system" Text="{Binding Meter.OperatingConditions.OperatingPressure, Mode=TwoWay}" Width="200" />
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
                                 <Label x:Name="lbl_metTemperature" Content="Metrology Temperature" HorizontalAlignment="Left" Width="150"/>
-                                <TextBox x:Name="txtbox_opTemperature" Custom:TextBoxHelper.Watermark="The Metrology temperature" Text="{Binding MetrologyTemperature, Mode=TwoWay}"  Width="200" />
+                                <TextBox x:Name="txtbox_opTemperature" Custom:TextBoxHelper.Watermark="The Metrology temperature" Text="{Binding Meter.MetrologyTemperature, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Delay=850}"  Width="200" />
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
                                 <Label x:Name="lbl_opDensity" Content="Density" HorizontalAlignment="Left" Width="150"/>
-                                <TextBox x:Name="txtbox_opDensity" Custom:TextBoxHelper.Watermark="The density of the system" Text="{Binding OperatingConditions.OperatingDensity, Mode=TwoWay}"  Width="200" />
+                                <TextBox x:Name="txtbox_opDensity" Custom:TextBoxHelper.Watermark="The density of the system" Text="{Binding Meter.OperatingConditions.OperatingDensity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Delay=850}"  Width="200" />
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
                                 <Label x:Name="lbl_refPressure" Content="Reference Pressure" HorizontalAlignment="Left" Width="150"/>
-                                <TextBox x:Name="txtbox_refPressure" Custom:TextBoxHelper.Watermark="Used as a reference" Text="{Binding OperatingConditions.ReferencePressure, Mode=TwoWay}"  Width="200" />
+                                <TextBox x:Name="txtbox_refPressure" Custom:TextBoxHelper.Watermark="Used as a reference" Text="{Binding Meter.OperatingConditions.ReferencePressure, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Delay=850}"  Width="200" />
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
                                 <Label x:Name="lbl_maxMassFlow" Content="Maximum Fluid Velocity" HorizontalAlignment="Left" Width="150"/>
-                                <TextBox x:Name="txtbox_maxFluidFlow" Custom:TextBoxHelper.Watermark="The maximum flow of the meter" Width="200" Text="{Binding OperatingConditions.MaxFluidVelocity, Mode=TwoWay}"  />
+                                <TextBox x:Name="txtbox_maxFluidFlow" Custom:TextBoxHelper.Watermark="The maximum flow of the meter" Width="200" Text="{Binding Meter.OperatingConditions.MaxFluidVelocity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Delay=850}"  />
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
                                 <Label x:Name="lbl_baseCompressibility" Content="Base Compressibility" HorizontalAlignment="Left" Width="150"/>
-                                <TextBox x:Name="txtbox_baseCompressibility" Custom:TextBoxHelper.Watermark="Compressiblity" Width="200" Text="{Binding OperatingConditions.Base_compressibility, Mode=TwoWay}"  />
+                                <TextBox x:Name="txtbox_baseCompressibility" Custom:TextBoxHelper.Watermark="Compressiblity" Width="200" Text="{Binding Meter.OperatingConditions.Base_compressibility, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Delay=850}"  />
                             </StackPanel>
                         </StackPanel>
                     </TabPanel>
@@ -290,7 +296,7 @@
                     <StackPanel Orientation="Vertical" Margin="0,0,-123,-212" HorizontalAlignment="Left" Width="543">
                         <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
                             <Label x:Name="lbl_flowcomp_tagNo" Content="Tag Number" HorizontalAlignment="Left" Width="150"/>
-                            <TextBox x:Name="txtbox_tagNo_Flowcomp" Custom:TextBoxHelper.Watermark="Tag Number of the pressure model" Text="{Binding FlowComp.TagNo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Width="200" />
+                            <TextBox x:Name="txtbox_tagNo_Flowcomp" Custom:TextBoxHelper.Watermark="Tag Number of the pressure model" Text="{Binding Meter.FlowComp.TagNo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Width="200" />
                         </StackPanel>
 
                         <!--<StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
@@ -300,7 +306,7 @@
 
                         <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
                             <Label x:Name="lbl_calcUncertainty_flowcomp" Content="Calculation Uncertainty" HorizontalAlignment="Left" Width="150"/>
-                            <TextBox x:Name="txtbox_calcUncertainty_flowcomp" Text="{Binding FlowComp.Uncertainty, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Custom:TextBoxHelper.Watermark="Uncertainty of the flow reading" Width="200" />
+                            <TextBox x:Name="txtbox_calcUncertainty_flowcomp" Text="{Binding Meter.FlowComp.Uncertainty, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Custom:TextBoxHelper.Watermark="Uncertainty of the flow reading" Width="200" />
                         </StackPanel>
                     </StackPanel>
                 </TabItem>
@@ -309,7 +315,6 @@
             <!--Profile name -->
             <TextBox x:Name="txtbox_ProfileName" Grid.Column="1" Custom:TextBoxHelper.Watermark="Profile ID" HorizontalAlignment="Stretch" Height="26" Margin="95,26,0,0" TextWrapping="Wrap"  VerticalAlignment="Top"/>
             <Label x:Name="lbl_profilename" Content="Profile Name" Grid.Column="1" HorizontalAlignment="Left" Margin="10,26,0,0" VerticalAlignment="Top" Width="85" Height="26"/>
-            <Label x:Name="lbl_Info" Content="{Binding SaveStatus, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, BindsDirectlyToSource=True}"  FontFamily="Verdana" FontStyle="Italic" FontWeight="Light" FontSize="16" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="2" VerticalAlignment="Top" Height="50" Width="211"/>
         </Grid>
     </Page>
 </Controls:MetroWindow>

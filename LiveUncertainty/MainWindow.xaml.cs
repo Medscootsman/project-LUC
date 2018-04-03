@@ -74,6 +74,15 @@ namespace LiveUncertainty
             this.Visibility = Visibility.Collapsed;
             ProfileCreate profile = new ProfileCreate();
             profile.ShowDialog();
+
+            if(profile.DialogResult == true)
+            {
+                this.pg_main.Resources["viewmodel"] = profile._model;
+            }
+            else
+            {
+
+            }
             //this.DataContext = profile.DataContext;
             this.Visibility = Visibility.Visible;
             

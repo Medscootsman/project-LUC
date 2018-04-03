@@ -14,6 +14,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using LiveUncertainty.classes;
+using LiveUncertainty.viewmodels;
+
 namespace LiveUncertainty
 {
     /// <summary>
@@ -22,6 +24,12 @@ namespace LiveUncertainty
     public partial class ProfileCreate : MetroWindow
     {
         private readonly string Meter = "Meter";
+        public USMViewModel _model
+        {
+            get;
+            private set;
+        }
+
 
         public ProfileCreate()
         {
@@ -30,7 +38,6 @@ namespace LiveUncertainty
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
         }
 
         void ProfileCreate_Closing(object sender, CancelEventArgs e)
@@ -66,12 +73,22 @@ namespace LiveUncertainty
 
         private void txtbox_InternalDiameter_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+            
         }
 
-        private void lbl_Info_Executed(object sender, ExecutedRoutedEventArgs e)
+        private void txtbox_nomDiameter_TextChanged(object sender, TextChangedEventArgs e)
         {
-            lbl_Info.Content = "File was successfully saved";
+ 
+        }
+
+        private void btn_Load_Click(object sender, RoutedEventArgs e)
+        {
+            USMViewModel model = (USMViewModel)this.pg_Main.Resources["viewmodel"];
+            //send this back to the main window.
+            this._model = model;
+            this.DialogResult = true;
+            this.Close();
+
         }
     }
 }
