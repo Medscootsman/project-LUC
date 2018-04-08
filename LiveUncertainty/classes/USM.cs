@@ -1003,7 +1003,7 @@ namespace LiveUncertainty.classes
         {
 
             List<double> chordDry = new List<double>();
-            List<double> chords = this.pathChordsX;
+            List<double> chords = this.pathChords;
             List<uint> noOfBounces = this.pathBounces;
             List<double> angles = new List<double>();
             //check if there's values in the path angles

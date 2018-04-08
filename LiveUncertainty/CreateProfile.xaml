@@ -49,7 +49,7 @@
 
             <!-- Buttons-->
             <Button x:Name="btn_Cancel" Click="Cancel_Click" Content="Cancel" Style="{StaticResource AccentedSquareButtonStyle}" HorizontalAlignment="Stretch" FontSize="24" Margin="10,2,10,5" Width="auto" Grid.Column="3" IsCancel="True" />
-            <Button x:Name="btn_Save" Content="Save" HorizontalAlignment="Stretch" FontSize="32" Margin="10,10,10,47" Grid.Row="2" Width="auto" Grid.Column="2" Click="Cancel_Click" Command="{Binding _SaveCommand, Source={StaticResource viewmodel}}">
+            <Button x:Name="btn_Save" Content="Save" HorizontalAlignment="Stretch" FontSize="32" Margin="10,10,11,47" Grid.Row="2" Width="auto" Grid.Column="3" Click="Cancel_Click" Command="{Binding _SaveCommand, Source={StaticResource viewmodel}}">
 
             </Button>
             <Button x:Name="btn_Load" FontSize="24" FontWeight="SemiBold"  Content="Load" Style="{StaticResource AccentedSquareButtonStyle}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10,2,10,5" IsCancel="False" Width="auto" Grid.Column="2" Click="btn_Load_Click"/>
@@ -182,43 +182,44 @@
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
-                                <Label x:Name="lbl_PathX" FontSize="15" FontStyle="Normal" FontWeight="Bold" Content="Path X dimensions" HorizontalAlignment="Left" Width="150"/>
+                                <Label x:Name="lbl_PathX" FontSize="15" FontStyle="Normal" FontWeight="Bold" Content="Path Chords" HorizontalAlignment="Left" Width="150"/>
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
-                                <Label x:Name="lbl_PathX_A" Content="First Path X" HorizontalAlignment="Left" Width="150"/>
-                                <TextBox x:Name="txtbox_PathX_A" Custom:TextBoxHelper.Watermark="X value of the first path" Text="{Binding Meter.Paths[0].X,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Delay=850}" Width="200" />
+                                <Label x:Name="lbl_PathChord_A" Content="First Path Chord" HorizontalAlignment="Left" Width="150"/>
+                                <TextBox x:Name="txtbox_PathChord_A" Custom:TextBoxHelper.Watermark="value of the first Chord" Text="{Binding Meter.Paths[0].Chord,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Delay=850}" Width="200" />
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
-                                <Label x:Name="lbl_PathX_B" Content="Second Path X" HorizontalAlignment="Left" Width="150"/>
-                                <TextBox x:Name="txtbox_Path_X_B" Custom:TextBoxHelper.Watermark="X value of the second path" Text="{Binding Meter.Paths[1].X,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Delay=850}" Width="200" />
+                                <Label x:Name="lbl_PathChord_B" Content="Second Path Chord" HorizontalAlignment="Left" Width="150"/>
+                                <TextBox x:Name="txtbox_Path_X_B" Custom:TextBoxHelper.Watermark="Chord value of the second path" Text="{Binding Meter.Paths[1].X,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Delay=850}" Width="200" />
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
-                                <Label x:Name="lbl_PathX_C" Content="Third Path X" HorizontalAlignment="Left" Width="150"/>
-                                <TextBox x:Name="txtbox_PathX_C" Custom:TextBoxHelper.Watermark="X value of the third path" Text="{Binding Meter.Paths[2].X,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Delay=850}" Width="200" />
+                                <Label x:Name="lbl_PathChord_C" Content="Third Path Chord" HorizontalAlignment="Left" Width="150"/>
+                                <TextBox x:Name="txtbox_PathChord_C" Custom:TextBoxHelper.Watermark="X value of the third path" Text="{Binding Meter.Paths[2].X,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Delay=850}" Width="200" />
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
-                                <Label x:Name="lbl_PathX_D" Content="Fourth Path X" HorizontalAlignment="Left" Width="150"/>
-                                <TextBox x:Name="txtbox_PathX_D" Custom:TextBoxHelper.Watermark="X value of the fourth path" Text="{Binding Meter.Paths[3].X,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Delay=850}" Width="200" />
+                                <Label x:Name="lbl_PathX_D" Content="Fourth Path Chord" HorizontalAlignment="Left" Width="150"/>
+                                <TextBox x:Name="txtbox_PathX_D" Custom:TextBoxHelper.Watermark="Chord value of the fourth path" Text="{Binding Meter.Paths[3].X,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Delay=850}" Width="200" />
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
-                                <Label x:Name="lbl_PathX_E" Content="Fifth Path X" HorizontalAlignment="Left" Width="150"/>
-                                <TextBox x:Name="txtbox_PathX_E" Custom:TextBoxHelper.Watermark="X value of the fifth path" Width="200" Text="{Binding Meter.Paths[4].X,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Delay=850}" />
+                                <Label x:Name="lbl_PathChord_E" Content="Fifth Path Chord" HorizontalAlignment="Left" Width="150"/>
+                                <TextBox x:Name="txtbox_PathChord_E" Custom:TextBoxHelper.Watermark="Chord value of the fifth path" Width="200" Text="{Binding Meter.Paths[4].X,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Delay=850}" />
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
-                                <Label x:Name="lbl_PathX_F" Content="Sixth Path X" HorizontalAlignment="Left" Width="150"/>
-                                <TextBox x:Name="txtbox_PathX_F" Custom:TextBoxHelper.Watermark="X value of the Sixth path" Width="200" Text="{Binding Meter.Paths[5].X,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Delay=850}" />
+                                <Label x:Name="lbl_PathChord_F" Content="Sixth Path Chord" HorizontalAlignment="Left" Width="150"/>
+                                <TextBox x:Name="txtbox_PathX_F" Custom:TextBoxHelper.Watermark="Chord value of the Sixth path" Width="200" Text="{Binding Meter.Paths[5].X,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Delay=850}" />
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="365" HorizontalAlignment="Left">
                                 <Label x:Name="lbl_bounces" Content="Path 1's Bounces" HorizontalAlignment="Left" Width="150"/>
-                                <ComboBox x:Name="drop_bounces0" HorizontalAlignment="Left" SelectedItem="{Binding Meter.Paths[0].Bounces, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                                    <ComboBoxItem IsSelected="True" Content="1"/>
-                                    <ComboBoxItem Content="2"/>
+                                <ComboBox x:Name="drop_bounces0" HorizontalAlignment="Left" SelectedValuePath="{Binding Meter.Paths[0].Bounces, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                    <ComboBoxItem>0</ComboBoxItem>
+                                    <ComboBoxItem IsSelected="True" Content="1"></ComboBoxItem>
+                                    <ComboBoxItem Content="2"></ComboBoxItem>
                                 </ComboBox>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="365" HorizontalAlignment="Left">
