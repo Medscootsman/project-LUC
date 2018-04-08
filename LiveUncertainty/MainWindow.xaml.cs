@@ -16,6 +16,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using LiveCharts;
 using LiveCharts.Wpf;
+using LiveCharts.SeriesAlgorithms;
 using LiveUncertainty.classes;
 using LiveUncertainty.viewmodels;
 using MahApps.Metro.Controls;
@@ -35,20 +36,19 @@ namespace LiveUncertainty
             splash.Show(false);
             InitializeComponent();
             splash.Close(new TimeSpan(5));
-            ChartValues<double> vals = new ChartValues<double>();
-            Collection = new SeriesCollection()
-            {
-                new LineSeries
+            Collection = new SeriesCollection
                 {
 
-                    Title = "Example 1",
-                    Values = new ChartValues<double> {2.4543, 2.234234, 1.958435, 1.65344, 1.2344543, 0.545, 0.516, 0.5, 0.4, 0.3,},
-                    PointForeground = Brushes.Blue,
-                    
-                }
-                
-            };
-            DataContext = this;
+                    new LineSeries()
+                    {
+                        Title= "GOV values",
+                        Values = new ChartValues<double>() {20, 18, 16, 14, 12, 10, 8, 6, 4, 2, 0.432 },
+                        PointForeground = Brushes.Blue,
+                       
+                    }
+
+                };
+            this.DataContext = this;    
 
 
         }
@@ -61,7 +61,36 @@ namespace LiveUncertainty
 
         }
 
+        public void UpdateCollection(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var vals = ((USMViewModel)pg_main.Resources["viewmodel"]).Meter.OperatingConditions.CalculateViv().GetEnumerator();
 
+                ChartValues<double> chartvals = new ChartValues<double>();
+                while (vals.MoveNext())
+                {
+                    chartvals.Add(vals.Current);
+                }
+                Collection = new SeriesCollection
+                {
+
+                    new LineSeries()
+                    {
+                        Title= "GOV values",
+                        Values = chartvals,
+                        PointForeground = Brushes.Blue
+                    }
+
+                };
+               
+                this.DataContext = this;
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
         private void Btn_Play_Click(object sender, RoutedEventArgs e)
         {
 
@@ -78,6 +107,10 @@ namespace LiveUncertainty
             if(profile.DialogResult == true)
             {
                 this.pg_main.Resources["viewmodel"] = profile._model;
+                //test 01
+                MessageBox.Show(((USMViewModel)pg_main.Resources["viewmodel"]).Meter.Tag);
+
+
             }
             else
             {
@@ -99,6 +132,11 @@ namespace LiveUncertainty
             if(result == MessageBoxResult.OK)
             {
                 e.Cancel = false;
+            }
+
+            else
+            {
+                e.Cancel = true;
             }
         }
 
@@ -137,6 +175,21 @@ namespace LiveUncertainty
                 EditWindow.DataContext = this.DataContext;
             }
 
+        }
+
+        private void AxesCollection_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            UpdateCollection(null, null);
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void tag_number_val_TargetUpdated(object sender, DataTransferEventArgs e)
+        {
+            tag_number_val.GetBindingExpression(System.Windows.Controls.Label.ContentProperty).UpdateTarget();
         }
     }
 }

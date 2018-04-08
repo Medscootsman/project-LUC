@@ -9,17 +9,11 @@ namespace LiveUncertainty.classes
 {
     class WeightingFactorEnum : IEnumerator
     {
-        public double[] _factors;
 
         // Enumerators are positioned before the first element
         // until the first MoveNext() call.
         int position = -1;
         private List<double> pathWeightingFactors;
-
-        public WeightingFactorEnum(double[] list)
-        {
-            _factors = list;
-        }
 
         public WeightingFactorEnum(List<double> pathWeightingFactors)
         {
@@ -29,7 +23,7 @@ namespace LiveUncertainty.classes
         public bool MoveNext()
         {
             position++;
-            return (position < _factors.Length);
+            return (position < pathWeightingFactors.Count);
         }
 
         public void Reset()
@@ -51,7 +45,7 @@ namespace LiveUncertainty.classes
             {
                 try
                 {
-                    return _factors[position];
+                    return pathWeightingFactors[position];
                 }
                 catch (IndexOutOfRangeException)
                 {

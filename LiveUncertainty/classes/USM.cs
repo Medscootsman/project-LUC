@@ -74,7 +74,6 @@ namespace LiveUncertainty.classes
         public FlowComputer flow;
 
         //these are used for calculating the chords and getting arrays, etcc.
-        public List<Path> paths;
         public List<Double> pathLengthsL;
         public List<Double> pathLengths;
         public List<Double> pathXvals;
@@ -117,10 +116,11 @@ namespace LiveUncertainty.classes
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private void OnPropertyChanged(string name)
+        public void OnPropertyChanged(string name)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
+
 
         public UltraSonicMeter()
         {
@@ -129,15 +129,11 @@ namespace LiveUncertainty.classes
             Internal_Diameter = 1.2;
             Calibration_Frequency = 1;
             save = string.Empty;
+            TargetUncertainty = 1;
+            this.Paths = new List<Path>();
 
-            this.paths = new List<Path>();
 
-            this.addPath(new Path());
-            this.addPath(new Path());
-            this.addPath(new Path());
-            this.addPath(new Path());
-            this.addPath(new Path());
-            this.addPath(new Path());
+            
         }
 
         public void SaveFile(bool isNewFile)
@@ -192,7 +188,7 @@ namespace LiveUncertainty.classes
             set
             {
                 flow = value;
-                OnPropertyChanged("Flow Computer");
+                OnPropertyChanged("FlowComp");
             }
         }
 
@@ -206,7 +202,7 @@ namespace LiveUncertainty.classes
             set
             {
                 tag = value;
-                OnPropertyChanged("tag");
+                OnPropertyChanged("Tag");
             }
         }
         public string Name
@@ -268,12 +264,17 @@ namespace LiveUncertainty.classes
             }
         }
 
+        public double TargetUncertainty
+        {
+            get;
+            set;
+        }
+
         public List<Path> Paths
         {
-            get
-            {
-                return paths;
-            }
+            get;
+            set;
+            
         }
 
         public Int16 SignalOutput
@@ -658,14 +659,14 @@ namespace LiveUncertainty.classes
 
         public void addPath(Path path)
         {
-            paths.Add(path);
-            pathsTotal += 1;
+            Paths.Add(path);
+            PathsTotal += 1;
         }
 
         public void AddPathLengthsL()
         {
             pathLengthsL.Clear();
-            foreach (Path pathobj in paths)
+            foreach (Path pathobj in Paths)
             {
                 pathLengthsL.Add(pathobj.Length * Math.Pow(10, 3));
             }
@@ -674,7 +675,7 @@ namespace LiveUncertainty.classes
         public void AddPathLengths()
         {
             pathLengths.Clear();
-            foreach (Path pathobj in paths)
+            foreach (Path pathobj in Paths)
             {
                 pathLengths.Add(pathobj.Length);
             }
@@ -685,7 +686,7 @@ namespace LiveUncertainty.classes
         public void AddPathAngles_Degrees()
         {
             pathAngles_DegreeMultiplied.Clear();
-            foreach (Path pathobj in paths)
+            foreach (Path pathobj in Paths)
             {
                 pathAngles_DegreeMultiplied.Add(pathobj.Angle * deg);
             }
@@ -695,7 +696,7 @@ namespace LiveUncertainty.classes
         public void AddPathAngles()
         {
             pathAngles.Clear();
-            foreach (Path pathobj in paths)
+            foreach (Path pathobj in Paths)
             {
                 pathAngles.Add(pathobj.Angle);
             }
@@ -704,7 +705,7 @@ namespace LiveUncertainty.classes
         public void AddPathChords() //offsets
         {
             pathChords.Clear();
-            foreach (Path pathobj in paths)
+            foreach (Path pathobj in Paths)
             {
                 pathChords.Add(pathobj.offset);
             }
@@ -714,7 +715,7 @@ namespace LiveUncertainty.classes
         public void AddPathChordsDividedbydDdry() //offsets
         {
             pathChords.Clear();
-            foreach (Path pathobj in paths)
+            foreach (Path pathobj in Paths)
             {
                 pathChords.Add(pathobj.offset * (this.CalculateMeterTubeBore() / 2));
             }
@@ -724,7 +725,7 @@ namespace LiveUncertainty.classes
         public void AddPathWeightingFactors()
         {
             pathWeightingFactors.Clear();
-            foreach (Path pathobj in paths)
+            foreach (Path pathobj in Paths)
             {
                 pathWeightingFactors.Add(pathobj.weightingFactor);
             }
@@ -733,7 +734,7 @@ namespace LiveUncertainty.classes
         public void AddPathXValues()
         {
             pathXvals.Clear();
-            foreach (Path pathobj in paths)
+            foreach (Path pathobj in Paths)
             {
                 pathXvals.Add(pathobj.x * Math.Pow(10, 3));
             }
@@ -742,7 +743,7 @@ namespace LiveUncertainty.classes
         public void AddNoOfBounces()
         {
             pathBounces.Clear();
-            foreach (Path pathobj in paths)
+            foreach (Path pathobj in Paths)
             {
                 pathBounces.Add(pathobj.Bounces);
             }
@@ -882,9 +883,10 @@ namespace LiveUncertainty.classes
             List<uint> sumlist = GetSumofBounces();
 
             List<double> swt = new List<double>();
-
+            double total = 0;
             foreach (uint sum in sumlist)
             {
+                total += sum;
                 if (sum > 0)
                 {
                     swt.Add(2 * CalculateMeterWallThickness());
@@ -894,7 +896,7 @@ namespace LiveUncertainty.classes
                     swt.Add(CalculateMeterWallThickness());
                 }
             }
-
+           
             return swt;
         }
 
@@ -963,7 +965,7 @@ namespace LiveUncertainty.classes
 
             bool hasvalues;
 
-            foreach (double val in pathAngles_DegreeMultiplied)
+            foreach (double val in pathAngles)
             {
                 sum += val;
             }
@@ -1038,9 +1040,6 @@ namespace LiveUncertainty.classes
 
                     chordDry.Add(valuetoadd);
                 }
-
-                //When we get around to implementing the database i will need to add code here that does a calculation if the selected usmt meter is "7".
-                //it should be the first if statement
             }
 
             return chordDry;
@@ -1517,11 +1516,11 @@ namespace LiveUncertainty.classes
         public List<double> CalculateIndividualPathVelocities() //this might not be done correctly. 
         {
             List<double> IPV = new List<double>();
-
+            AddPathWeightingFactors();
             var weightingfactorenum = new WeightingFactorEnum(pathWeightingFactors);
             using (var IVenum = OperatingConditions.CalculateViv().GetEnumerator())
             {
-                while (weightingfactorenum.MoveNext() && weightingfactorenum.MoveNext())
+                while (weightingfactorenum.MoveNext() && IVenum.MoveNext())
                 {
                     double val = weightingfactorenum.Current * IVenum.Current;
 
@@ -1711,7 +1710,7 @@ namespace LiveUncertainty.classes
         }
 
         /// <summary>
-        /// Calculates the uncertainty values of the axial paths (Xf)
+        /// Calculates the uncertainty values of the axial Paths (Xf)
         /// </summary>
         /// <returns></returns>
 

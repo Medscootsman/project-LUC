@@ -27,13 +27,13 @@ namespace LiveUncertainty.classes
         double kf = 1.3;
 
         //velocity and steps.
-        int velocityIncrementStep;
+        double velocityIncrementStep;
 
         double lowestVelocityIncrementStep;
 
-        int velocityForStepChangeOver;
+        double velocityForStepChangeOver;
 
-        int stepChangeOver;
+        double stepChangeOver;
 
         public Int16 measurementType;
 
@@ -43,6 +43,11 @@ namespace LiveUncertainty.classes
         {
             OperatingTemperature = 0;
             OperatingPressure = 0;
+
+            VelocityForStepChangeOver = 2;
+            VelocityIncrementStep = 2;
+            LowestVelocityIncrementStep = 2;
+            StepChangeOver = 2;
         }
 
         private void OnPropertyChanged(string name)
@@ -52,32 +57,32 @@ namespace LiveUncertainty.classes
 
         //getters and setters. All attributes will be assigned this way.
 
-        public int VelocityIncrementStep
+        public double VelocityIncrementStep
         {
             get => velocityIncrementStep;
 
-            set => velocityIncrementStep = value;
+            set { velocityIncrementStep = value; OnPropertyChanged("VelocityIncrementStep"); }
         }
 
         public double LowestVelocityIncrementStep
         {
             get => lowestVelocityIncrementStep;
 
-            set => lowestVelocityIncrementStep = value;
+            set { lowestVelocityIncrementStep = value; OnPropertyChanged("LowestVelocityIncrementStep"); }
         }
 
-        public int VelocityForStepChangeOver
+        public double VelocityForStepChangeOver
         {
             get => velocityForStepChangeOver;
 
-            set => velocityForStepChangeOver = value;
-        }
+            set { velocityForStepChangeOver = value; OnPropertyChanged("VelocityForStepChangeOver"); }
+            }
 
-        public int StepChangeOver
+        public double StepChangeOver
         {
             get => stepChangeOver;
 
-            set => stepChangeOver = value;
+            set { stepChangeOver = value; OnPropertyChanged("StepChangeOver"); }
         }
 
 
@@ -119,6 +124,7 @@ namespace LiveUncertainty.classes
             set
             {
                 opDensity = value;
+                OnPropertyChanged("OperatingDensity");
             }
         }
 
@@ -132,6 +138,7 @@ namespace LiveUncertainty.classes
             set
             {
                 baseDensity = value;
+                OnPropertyChanged("BaseDensity");
             }
         }
 
@@ -145,6 +152,7 @@ namespace LiveUncertainty.classes
             set
             {
                 refTemperature = value;
+                OnPropertyChanged("ReferenceTemperature");
             }
         }
 
@@ -158,6 +166,7 @@ namespace LiveUncertainty.classes
             set
             {
                 refPressure = value;
+                OnPropertyChanged("ReferencePressure");
             }
         }
 
@@ -171,6 +180,7 @@ namespace LiveUncertainty.classes
             set
             {
                 ptz_calc = value;
+                OnPropertyChanged("PYZ_CalcUsed");
             }
         }
 
@@ -184,6 +194,7 @@ namespace LiveUncertainty.classes
             set
             {
                 maximumfluidvelocity = value;
+                OnPropertyChanged("MaxFluidVelocity");
             }
         }
 
@@ -197,6 +208,7 @@ namespace LiveUncertainty.classes
             set
             {
                 measurementType = value;
+                OnPropertyChanged("MeasurementType");
             }
         }
 
@@ -257,6 +269,7 @@ namespace LiveUncertainty.classes
             set
             {
                 baseCompressibility = value;
+                OnPropertyChanged("BaseCompressiblity");
             }
         }
 
@@ -380,13 +393,11 @@ namespace LiveUncertainty.classes
         /// Rounds the Maximum fluid Velocity. (vmax)
         /// </summary>
         /// <returns>returns rounded fluid velocity</returns>
-        public int RoundFluidVelocity()
+        public double RoundFluidVelocity()
         {
             double fluidrounded = Math.Round(this.maximumfluidvelocity);
 
-            int roundedmfv = (int)fluidrounded;
-
-            return roundedmfv;
+            return fluidrounded;
         }
 
         /// <summary>
@@ -402,7 +413,7 @@ namespace LiveUncertainty.classes
 
         public double CalculateStepChangeOverIX()
         {
-            double ix = Math.Truncate((double)(RoundFluidVelocity() - VelocityForStepChangeOver) / VelocityIncrementStep);
+            double ix = Math.Truncate((RoundFluidVelocity() - VelocityForStepChangeOver) / VelocityIncrementStep);
 
             return ix;
         }
@@ -438,11 +449,11 @@ namespace LiveUncertainty.classes
 
         public List<double> CalculateWiv() 
         {
-            List<int> wiv = new List<int>();
+            List<double> wiv = new List<double>();
 
             for(int i = 0; i < CalculateIV(); i++)
             {
-                int val = VelocityForStepChangeOver - ((i - 1) * (StepChangeOver));
+                double val = VelocityForStepChangeOver - ((i - 1) * (StepChangeOver));
                 wiv.Add(val);
             }
 

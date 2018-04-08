@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
+using System.Runtime.Serialization;
 /// <summary>
 /// USM Path. Can only be initialized by a USM object.
 /// </summary>
@@ -15,7 +16,10 @@ namespace LiveUncertainty.classes
         public Double length;
         public Double offset; //chords
         public Double x;
+
+        [IgnoreDataMember]
         public Double angle;
+
         public bool weightingFactorUse;
         public double weightingFactor;
         public uint bounces;

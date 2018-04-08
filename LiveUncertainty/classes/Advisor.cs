@@ -3,18 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Accord.MachineLearning;
+using Newtonsoft.Json.Linq;
 
 namespace LiveUncertainty
 {
     class Advisor
     {
         public double uncertaintyTarget;
+        
         public double reductionPotential;
+        public KNearestNeighbors KNN;
         public bool feasible;
 
         public Advisor()
         {
-
+            KNN = new KNearestNeighbors();
         }
 
         public void Analyse()
@@ -25,6 +29,11 @@ namespace LiveUncertainty
         public void extractFeatures()
         {
             
+        }
+
+        public void Train()
+        {
+  
         }
 
         public Double Target
