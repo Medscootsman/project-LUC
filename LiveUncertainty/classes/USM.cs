@@ -740,6 +740,15 @@ namespace LiveUncertainty.classes
             }
         }
 
+        public void AddXNormal()
+        {
+            pathXvals.Clear();
+            foreach(Path pathobj in Paths)
+            {
+                pathXvals.Add(pathobj.x);
+            }
+        }
+
         public void AddNoOfBounces()
         {
             pathBounces.Clear();
@@ -1256,7 +1265,7 @@ namespace LiveUncertainty.classes
         public List<double> CalculateXf()
         {
             List<double> Xf = new List<double>();
-            List<double> Xdry = CalculateAxialPathLength();
+            List<double> Xdry = this.pathXvals;
 
             double Ctsfa = CalculateCtsfa();
 
@@ -1273,7 +1282,7 @@ namespace LiveUncertainty.classes
         public List<double> CalculateXwet()
         {
             List<double> Xwet = new List<double>();
-            List<double> Xdry = CalculateAxialPathLength();
+            List<double> Xdry = pathXvals;
 
             double Ctswa = CalculateCtswa();
 
@@ -1292,8 +1301,8 @@ namespace LiveUncertainty.classes
             List<double> fpl = new List<double>();
             List<double> bay = new List<double>();
 
-            List<double> XDry = CalculateAxialPathLength();
-            List<double> LDry = CalculatePathLength();
+            List<double> XDry = this.pathXvals;
+            List<double> LDry = pathLengths;
             List<double> pathradians = SelectPathAngleRadians();
 
             using (var _XDry = XDry.GetEnumerator())
@@ -1323,7 +1332,7 @@ namespace LiveUncertainty.classes
         {
             List<double> chordwidth = new List<double>();
             List<double> pathradians = SelectPathAngleRadians();
-            List<double> XDry = CalculateAxialPathLength();
+            List<double> XDry = this.pathXvals;
 
             using (var path = pathradians.GetEnumerator())
             using (var xdry = XDry.GetEnumerator())
@@ -1372,7 +1381,7 @@ namespace LiveUncertainty.classes
         {
             List<double> zeroF = new List<double>();
             List<double> chordf = CalculateChordWidthf();
-            List<double> Xf = CalculateXf();
+            List<double> Xf = pathXvals;
 
             // chord divided by xf
             using (var chord = chordf.GetEnumerator())
@@ -1410,7 +1419,7 @@ namespace LiveUncertainty.classes
         {
             List<double> Lf = new List<double>();
 
-            List<double> Xf = CalculateXf();
+            List<double> Xf = pathXvals;
 
             List<double> ZeroF = CalculatePathAngleAfterPressure();
 
@@ -1433,7 +1442,7 @@ namespace LiveUncertainty.classes
         {
             List<double> Lwet = new List<double>();
 
-            List<double> Xf = CalculateXf();
+            List<double> Xf = pathXvals;
 
             List<double> ZeroWet = CalculatePathAngleTemperature();
 
@@ -1614,7 +1623,7 @@ namespace LiveUncertainty.classes
 
             //enumerators for our pathvalues.
             var Lfenum = this.pathLengths.GetEnumerator();
-            var Xfenum = this.CalculateXf().GetEnumerator();
+            var Xfenum = this.pathXvals.GetEnumerator();
             var vivenum = this.OperatingConditions.CalculateViv().GetEnumerator();
             //get the size of the viv list
             int vivSize = OperatingConditions.CalculateViv().Count;
@@ -1643,7 +1652,7 @@ namespace LiveUncertainty.classes
 
             //enumerators for our pathvalues.
             var Lfenum = this.pathLengths.GetEnumerator();
-            var Xfenum = this.CalculateXf().GetEnumerator();
+            var Xfenum = this.pathXvals.GetEnumerator();
             var vivenum = this.OperatingConditions.CalculateViv().GetEnumerator();
             //get the size of the viv list
             int vivSize = OperatingConditions.CalculateViv().Count;
@@ -1718,7 +1727,7 @@ namespace LiveUncertainty.classes
         {
             List<double> pathAxialLengthUncertainty = new List<double>();
 
-            foreach (double val in CalculateXf())
+            foreach (double val in pathXvals)
             {
                 pathAxialLengthUncertainty.Add((pathlengthResolution / val) * 100);
             }

@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using LiveUncertainty.classes;
+using LiveUncertainty.viewmodels;
 using MahApps.Metro.Controls;
 
 namespace LiveUncertainty
@@ -25,6 +26,7 @@ namespace LiveUncertainty
         public EditProfile()
         {
             InitializeComponent();
+            ((USMViewModel)pg_Main.Resources["viewmodel"]).Meter.OnPropertyChanged(string.Empty);
         }
 
         public EditProfile(UltraSonicMeter meter)

@@ -110,7 +110,7 @@ namespace LiveUncertainty.viewmodels
                 this.meter.AddPathLengths();
                 this.meter.AddPathLengthsL();
                 this.meter.AddPathWeightingFactors();
-                this.meter.AddPathXValues();
+                this.meter.AddXNormal();
                 this.meter.AddPathChords();
                 this.meter.AddPathAngles();
                 this.meter.AddPathAngles_Degrees();

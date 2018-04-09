@@ -171,6 +171,9 @@ namespace LiveUncertainty
             {
 
                 EditProfile EditWindow = new EditProfile();
+
+                //Force propertychanged to be called
+                ((USMViewModel)EditWindow.pg_Main.Resources["viewmodel"]).Meter = ((USMViewModel)pg_main.Resources["viewmodel"]).Meter;
                 EditWindow.ShowDialog();
                 EditWindow.DataContext = this.DataContext;
             }
