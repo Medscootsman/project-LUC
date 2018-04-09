@@ -1066,7 +1066,7 @@ namespace LiveUncertainty.classes
             }
 
             //get lists for ultrasonic path chords and radian path angles
-            List<double> chordDry = CalculateUltraSonicPathChord();
+            List<double> chordDry = this.pathChords;
 
             using (var chords = chordDry.GetEnumerator())
             using (var radianpathangles = angles.GetEnumerator())
