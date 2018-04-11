@@ -96,7 +96,7 @@ namespace LiveUncertainty.classes
             set
             {
                 opPressure = value;
-                OnPropertyChanged("Pressure");
+                OnPropertyChanged("OperatingPressure");
             }
         }
 

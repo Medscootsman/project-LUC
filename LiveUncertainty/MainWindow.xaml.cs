@@ -174,8 +174,9 @@ namespace LiveUncertainty
 
                 //Force propertychanged to be called
                 ((USMViewModel)EditWindow.pg_Main.Resources["viewmodel"]).Meter = ((USMViewModel)pg_main.Resources["viewmodel"]).Meter;
-                EditWindow.ShowDialog();
                 EditWindow.DataContext = this.DataContext;
+                EditWindow.ShowDialog();
+                
             }
 
         }
@@ -187,7 +188,7 @@ namespace LiveUncertainty
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            
+
         }
 
         private void tag_number_val_TargetUpdated(object sender, DataTransferEventArgs e)

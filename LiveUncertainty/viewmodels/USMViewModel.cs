@@ -15,6 +15,7 @@ using LiveCharts.SeriesAlgorithms;
 using System.Xml.Serialization;
 using System.Windows;
 using System.Windows.Media;
+using System.Reflection;
 
 namespace LiveUncertainty.viewmodels
 {
@@ -35,7 +36,11 @@ namespace LiveUncertainty.viewmodels
         public UltraSonicMeter Meter
         {
             get { return meter; }
-            set => meter = value;
+            set
+            {
+                meter = value;
+                OnPropertyChanged("Meter");
+            }
 
         }
         public USMViewModel()
@@ -103,10 +108,29 @@ namespace LiveUncertainty.viewmodels
                 this.meter.Paths.Clear();
                 var serializer = new XmlSerializer(typeof(UltraSonicMeter));
                 UltraSonicMeter test = (UltraSonicMeter)serializer.Deserialize(file);
+
+                this.meter.Internal_Diameter = test.Internal_Diameter;
+
+                this.meter.OperatingConditions.OperatingDensity = test.OperatingConditions.OperatingDensity;
+                this.meter.OperatingConditions.OperatingPressure = test.OperatingConditions.OperatingPressure;
+                this.meter.OperatingConditions.OperatingTemperature = test.OperatingConditions.OperatingTemperature;
+                this.meter.OperatingConditions.MaxFluidVelocity = test.OperatingConditions.MaxFluidVelocity;
+
+
+                this.meter.PathsTotal = test.PathsTotal;
+
+                this.meter.TargetUncertainty = test.TargetUncertainty;
+
+                this.meter.MetrologyTemperature = test.MetrologyTemperature;
+
+                this.meter.Nominal_Diameter = test.Nominal_Diameter;
+
                 this.meter.Tag = test.Tag;
+
                 this.meter = test;
-                MessageBox.Show("File was loaded. You are now using meter " + meter.Tag);
-                this.meter.OnPropertyChanged("Tag");
+
+                OnPropertyChanged(string.Empty);
+
                 this.meter.AddPathLengths();
                 this.meter.AddPathLengthsL();
                 this.meter.AddPathWeightingFactors();
@@ -116,7 +140,7 @@ namespace LiveUncertainty.viewmodels
                 this.meter.AddPathAngles_Degrees();
                 this.meter.AddNoOfBounces();
                 this.meter.AddPathChordsDividedbydDdry();
-
+                MessageBox.Show("File was loaded. You are now using meter " + meter.Tag);
 
             } 
             catch(Exception ex)

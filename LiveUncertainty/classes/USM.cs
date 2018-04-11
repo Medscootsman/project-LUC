@@ -112,13 +112,21 @@ namespace LiveUncertainty.classes
         //Assumed depth 
         double innersurfacedepth = 0;
 
+        //target uncertainty
+        double target;
+
         //Commands
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         public void OnPropertyChanged(string name)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+            var handler = this.PropertyChanged;
+
+            if (handler != null)
+            {
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+            }
         }
 
 
@@ -266,8 +274,15 @@ namespace LiveUncertainty.classes
 
         public double TargetUncertainty
         {
-            get;
-            set;
+            get
+            {
+                return target;
+            }
+            set
+            {
+                target = value;
+                OnPropertyChanged("TargetUncertainty");
+            }
         }
 
         public List<Path> Paths
@@ -287,7 +302,7 @@ namespace LiveUncertainty.classes
             set
             {
                 signal_output = value;
-                OnPropertyChanged("Signal Output");
+                OnPropertyChanged("Signal_Output");
             }
         }
 
@@ -303,7 +318,7 @@ namespace LiveUncertainty.classes
                 if (calFrequency != value)
                 {
                     calFrequency = value;
-                    OnPropertyChanged("Calibration Frequency");
+                    OnPropertyChanged("Calibration+Frequency");
                 }
             }
         }
@@ -334,7 +349,7 @@ namespace LiveUncertainty.classes
                 if (internalDiameter != value)
                 {
                     internalDiameter = value;
-                    OnPropertyChanged("Internal/Tube Diameter");
+                    OnPropertyChanged("Internal_Diameter");
                 }
                 
             }
@@ -523,7 +538,7 @@ namespace LiveUncertainty.classes
 
         public double MetrologyTemperature
         {
-            get => metrologyTemp;
+            get { return metrologyTemp; }
 
             set
             {
