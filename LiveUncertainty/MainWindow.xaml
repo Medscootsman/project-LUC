@@ -56,11 +56,11 @@
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="202*"/>
-                <ColumnDefinition Width="202*"/>
-                <ColumnDefinition Width="201*"/>
-                <ColumnDefinition Width="118*"/>
-                <ColumnDefinition Width="284*"/>
+                <ColumnDefinition Width="213*"/>
+                <ColumnDefinition Width="296*"/>
+                <ColumnDefinition Width="253*"/>
+                <ColumnDefinition Width="0*"/>
+                <ColumnDefinition Width="300*"/>
             </Grid.ColumnDefinitions>
 
             <DockPanel VerticalAlignment="Top" HorizontalAlignment="Stretch" Grid.Row="1" Grid.ColumnSpan="5" Height="40">
@@ -74,8 +74,6 @@
                     </MenuItem>
                     <MenuItem Header="_Edit" Height="Auto">
                         <MenuItem Header="_Edit Profile" Click="EditProfile_Click"/>
-                        <MenuItem Header="_Delete Current Profile"/>
-                        <MenuItem Header="_Manage all profiles"/>
                     </MenuItem>
                     <MenuItem Header="_Help" Height="Auto">
                         <MenuItem Header="_Quickstart"/>
@@ -101,8 +99,8 @@
             <!-- Labels that will be used for Displaying Data -->
 
             <Label Grid.Row="2" FontSize="15" Grid.Column="0" FontWeight="Medium" FontFamily="Verdana" Margin="62,10,51,93" HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="100" Content="Meter Info"/>
-            <Label Grid.Row="2" Grid.Column="1" FontSize="15" FontWeight="Medium" FontFamily="Verdana" Margin="15,10,14,88" HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="184" Content="Operating Conditions"/>
-            <Label Grid.Row="2" Grid.Column="2" FontSize="15" FontWeight="Medium" FontFamily="Verdana" Margin="16,10,14,88" HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="182" Content="Uncertainty Values"/>
+            <Label Grid.Row="2" Grid.Column="1" FontSize="15" FontWeight="Medium" FontFamily="Verdana" Margin="59,10,53,88" HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="184" Content="Operating Conditions"/>
+            <Label Grid.Row="2" Grid.Column="2" FontSize="15" FontWeight="Medium" FontFamily="Verdana" Margin="39,10,32,88" HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="182" Content="Uncertainty Values"/>
             <Label x:Name="Tagnumber" Grid.Column="0" FontFamily="Verdana" FontSize="11" FontWeight="Light" Content="Model Name:" HorizontalAlignment="Center" Margin="14,38,115,67" Grid.Row="2" VerticalAlignment="Stretch" Width="84" RenderTransformOrigin="-0.012,0.654"/>
             <Label x:Name="TotalPaths" Content="Total Paths used:" FontFamily="Verdana" FontSize="11" HorizontalAlignment="Center" Margin="16,64,95,36" Grid.Row="2" VerticalAlignment="Stretch" Width="102"/>
             <Label x:Name="TubeDiameter" Content="Tube Diameter: " FontFamily="Verdana" FontSize="11" HorizontalAlignment="Center" Margin="16,95,99,5" Grid.Row="2" VerticalAlignment="Stretch" Width="98"/>
@@ -111,25 +109,24 @@
             <Label x:Name="tag_number_val" Content="{Binding Path=Meter.Tag, Mode=Default, UpdateSourceTrigger=PropertyChanged, FallbackValue=Updating}" TargetUpdated="tag_number_val_TargetUpdated" SourceUpdated="tag_number_val_TargetUpdated" Grid.Column="0" FontFamily="Verdana" FontSize="11" FontWeight="Light" HorizontalAlignment="Center" Margin="118,38,15,67" Grid.Row="2" VerticalAlignment="Stretch" Width="80"/>
             <Label x:Name="total_paths_val" Content="{Binding Meter.PathsTotal, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, FallbackValue=Updating}" Grid.Column="0" FontFamily="Verdana" FontSize="11" FontWeight="Light" HorizontalAlignment="Center" Margin="118,64,15,41" Grid.Row="2" VerticalAlignment="Stretch" Width="80"/>
             <Label x:Name="Tube_Diameter_Val" Grid.Column="0" FontFamily="Verdana" FontSize="11" FontWeight="Light" Content="{Binding Meter.Internal_Diameter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, FallbackValue=Updating}" HorizontalAlignment="Center" Margin="118,95,15,98" Grid.Row="2" VerticalAlignment="Stretch" Width="80"/>
-            <Label x:Name="label_MetTemp" FontFamily="Verdana" FontSize="10.5" FontWeight="Light" Content="Metrology Temperature:" HorizontalAlignment="Center" Margin="209,41,75,151" Grid.Row="2" VerticalAlignment="Stretch" Width="142" RenderTransformOrigin="-0.012,0.654" Grid.ColumnSpan="2"/>
-            <Label x:Name="lbl_OpPressure" Content="Operating Pressure:" FontFamily="Verdana" FontSize="11" HorizontalAlignment="Center" Margin="10,67,75,126" Grid.Row="2" VerticalAlignment="Stretch" Grid.Column="1" Width="128" RenderTransformOrigin="0.915,0.645"/>
-            <Label x:Name="lbl_Density" Content="Density:" FontFamily="Verdana" FontSize="11" HorizontalAlignment="Center" Margin="74,95,75,98" Grid.Row="2" VerticalAlignment="Stretch" Grid.Column="1" Width="64"/>
-            <Label x:Name="lbl_MetTemp_Val" Grid.Column="1" FontFamily="Verdana" FontSize="11" FontWeight="Light" Content="{Binding Path=Meter.MetrologyTemperature, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, FallbackValue=Updating}" HorizontalAlignment="Center" Margin="143,42,10,148" Grid.Row="2" VerticalAlignment="Stretch" Width="60" RenderTransformOrigin="0.925,0.654"/>
-            <Label x:Name="lbl_OpPressureVal" Grid.Column="1" FontFamily="Verdana" FontSize="11" FontWeight="Light" Content="{Binding Meter.OperatingConditions.OperatingPressure, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, FallbackValue=Updating}" HorizontalAlignment="Center" Margin="143,69,10,0" Grid.Row="2" VerticalAlignment="Top" Width="60" Height="26"/>
-            <Label x:Name="lbl_Density_Val" Grid.Column="1" FontFamily="Verdana" FontSize="11" FontWeight="Light" Content="{Binding Meter.OperatingConditions.OperatingDensity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, FallbackValue=Updating}" HorizontalAlignment="Center" Margin="143,95,19,98" Grid.Row="2" VerticalAlignment="Stretch" Width="51"/>
-            <Label x:Name="lbl_TargetUncertainty" Grid.Column="2" FontFamily="Verdana" FontSize="11" FontWeight="Light" Content="Target Uncertainty:" HorizontalAlignment="Center" Margin="6,40,92,65" Grid.Row="2" VerticalAlignment="Stretch" Width="114" RenderTransformOrigin="-0.012,0.654"/>
-            <Label x:Name="lbl_Flow_Rate" Content="Flow Rate:" FontFamily="Verdana" FontSize="11" HorizontalAlignment="Center" Margin="52,66,78,122" Grid.Row="2" VerticalAlignment="Stretch" Grid.Column="2" Width="82"/>
-            <Label x:Name="lbl_TargetUncertainty_Val" Grid.Column="2" FontFamily="Verdana" FontSize="11" FontWeight="Light" Content="{Binding Meter.TargetUncertainty, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, FallbackValue=Updating}" HorizontalAlignment="Center" Margin="120,39,34,156" Grid.Row="2" VerticalAlignment="Stretch" Width="58"/>
-            <Label x:Name="lbl_CurrentFlowRate_val" Grid.Column="2" FontFamily="Verdana" FontSize="11" FontWeight="Light" Content="{Binding Meter.OperatingConditions.MaxFluidVelocity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, FallbackValue=Updating}" HorizontalAlignment="Center" Margin="120,64,36,128" Grid.Row="2" VerticalAlignment="Stretch" Width="56"/>
+            <Label x:Name="label_MetTemp" FontFamily="Verdana" FontSize="10.5" FontWeight="Light" Content="Metrology Temperature:" HorizontalAlignment="Center" Margin="39,41,115,151" Grid.Row="2" VerticalAlignment="Stretch" Width="142" RenderTransformOrigin="-0.012,0.654" Grid.Column="1"/>
+            <Label x:Name="lbl_OpPressure" Content="Operating Pressure:" FontFamily="Verdana" FontSize="11" HorizontalAlignment="Center" Margin="53,67,115,126" Grid.Row="2" VerticalAlignment="Stretch" Grid.Column="1" Width="128" RenderTransformOrigin="0.915,0.645"/>
+            <Label x:Name="lbl_Density" Content="Density:" FontFamily="Verdana" FontSize="11" HorizontalAlignment="Center" Margin="117,95,115,98" Grid.Row="2" VerticalAlignment="Stretch" Grid.Column="1" Width="64"/>
+            <Label x:Name="lbl_MetTemp_Val" Grid.Column="1" FontFamily="Verdana" FontSize="11" FontWeight="Light" Content="{Binding Path=Meter.MetrologyTemperature, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, FallbackValue=Updating}" HorizontalAlignment="Center" Margin="187,42,49,148" Grid.Row="2" VerticalAlignment="Stretch" Width="60" RenderTransformOrigin="0.925,0.654"/>
+            <Label x:Name="lbl_OpPressureVal" Grid.Column="1" FontFamily="Verdana" FontSize="11" FontWeight="Light" Content="{Binding Meter.OperatingConditions.OperatingPressure, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, FallbackValue=Updating}" HorizontalAlignment="Center" Margin="187,69,49,0" Grid.Row="2" VerticalAlignment="Top" Width="60" Height="26"/>
+            <Label x:Name="lbl_Density_Val" Grid.Column="1" FontFamily="Verdana" FontSize="11" FontWeight="Light" Content="{Binding Meter.OperatingConditions.OperatingDensity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, FallbackValue=Updating}" HorizontalAlignment="Center" Margin="187,95,59,98" Grid.Row="2" VerticalAlignment="Stretch" Width="50"/>
+            <Label x:Name="lbl_TargetUncertainty" Grid.Column="2" FontFamily="Verdana" FontSize="11" FontWeight="Light" Content="Target Uncertainty:" HorizontalAlignment="Center" Margin="29,40,110,65" Grid.Row="2" VerticalAlignment="Stretch" Width="114" RenderTransformOrigin="-0.012,0.654"/>
+            <Label x:Name="lbl_Flow_Rate" Content="Flow Rate:" FontFamily="Verdana" FontSize="11" HorizontalAlignment="Center" Margin="75,66,96,122" Grid.Row="2" VerticalAlignment="Stretch" Grid.Column="2" Width="82"/>
+            <Label x:Name="lbl_TargetUncertainty_Val" Grid.Column="2" FontFamily="Verdana" FontSize="11" FontWeight="Light" Content="{Binding Meter.TargetUncertainty, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, FallbackValue=Updating}" HorizontalAlignment="Center" Margin="143,39,52,156" Grid.Row="2" VerticalAlignment="Stretch" Width="58"/>
+            <Label x:Name="lbl_CurrentFlowRate_val" Grid.Column="2" FontFamily="Verdana" FontSize="11" FontWeight="Light" Content="{Binding Meter.OperatingConditions.MaxFluidVelocity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, FallbackValue=Updating}" HorizontalAlignment="Center" Margin="143,64,54,128" Grid.Row="2" VerticalAlignment="Stretch" Width="56"/>
             <Label x:Name="Lbl_control" Grid.Row="2" Grid.Column="4" FontSize="15" FontWeight="Medium" FontFamily="Verdana" Margin="95,5,80,185" HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="125" Content="Control Graph"/>
-            <Label Grid.Row="2" Grid.Column="3" FontSize="15" FontWeight="Medium" FontFamily="Verdana" Margin="24,10,26,88" HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="74" Content="Analyse"/>
 
             <ToggleButton x:Name="btn_Play" Command="{Binding _CalculateCommand}" ToolTip="Play" Content="" Style="{DynamicResource MetroCircleToggleButtonStyle}" Grid.Column="4" HorizontalAlignment="Center"  Margin="17,32,239,0" Grid.Row="2" VerticalAlignment="Top" Width="44" Height="36" FontFamily="Verdana" Custom:ControlsHelper.ContentCharacterCasing="Lower" ClickMode="Press" RenderTransformOrigin="0.227,0.528" HorizontalContentAlignment="Left">
                 <ToggleButton.Background>
                     <VisualBrush Visual="{StaticResource appbar_control_play}"></VisualBrush>
                 </ToggleButton.Background>
             </ToggleButton>
-            <ToggleButton x:Name="btn_Reset" ToolTip="Reset" Content="" Style="{DynamicResource MetroCircleToggleButtonStyle}" Grid.Column="4" HorizontalAlignment="Center" Margin="238,28,10,149" Grid.Row="2" Width="52" FontFamily="Verdana" VerticalAlignment="Top" Height="40">
+            <ToggleButton x:Name="btn_Reset" ToolTip="Reset" Content="" Style="{DynamicResource MetroCircleToggleButtonStyle}" Grid.Column="4" HorizontalAlignment="Center" Margin="238,28,10,0" Grid.Row="2" Width="52" FontFamily="Verdana" VerticalAlignment="Top" Height="40">
                 <ToggleButton.Background>
                     <VisualBrush Visual="{StaticResource appbar_reset}"></VisualBrush>
                 </ToggleButton.Background>
@@ -140,8 +137,6 @@
                     <VisualBrush Visual="{StaticResource appbar_control_pause}"></VisualBrush>
                 </ToggleButton.Background>
             </ToggleButton>
-
-            <Button x:Name="btn_StartAnalyser" Style="{StaticResource AccentedSquareButtonStyle}" Content="Start" Grid.Column="3" HorizontalAlignment="Center" Margin="14,41,13,0" Grid.Row="2" VerticalAlignment="Top" Width="97" Height="27" FontFamily="Verdana"/>
             <Label x:Name="lblSCOV" Content="Step Change Over Velocity" Grid.Column="4" HorizontalAlignment="Left" Margin="0,88,0,0" Grid.Row="2" VerticalAlignment="Top" Height="26" Width="150"/>
             <TextBox x:Name="txtbox_StepChangeOverVel" Text="{Binding Meter.OperatingConditions.VelocityForStepChangeOver, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Delay=350, ValidatesOnDataErrors=True}" Grid.Column="4" HorizontalAlignment="Center" Height="26" Margin="155,89,15,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="130"/>
 

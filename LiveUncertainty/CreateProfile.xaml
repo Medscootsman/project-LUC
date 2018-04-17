@@ -193,27 +193,27 @@
 
                                 <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
                                     <Label x:Name="lbl_PathChord_B" Content="Second Path Chord" HorizontalAlignment="Left" Width="150"/>
-                                    <TextBox x:Name="txtbox_Path_X_B" Custom:TextBoxHelper.Watermark="Chord value of the second path" Text="{Binding Meter.Paths[1].X,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Delay=850}" Width="200" />
+                                    <TextBox x:Name="txtbox_Path_X_B" Custom:TextBoxHelper.Watermark="Chord value of the second path" Text="{Binding Meter.Paths[1].Chord,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Delay=850}" Width="200" />
                                 </StackPanel>
 
                                 <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
                                     <Label x:Name="lbl_PathChord_C" Content="Third Path Chord" HorizontalAlignment="Left" Width="150"/>
-                                    <TextBox x:Name="txtbox_PathChord_C" Custom:TextBoxHelper.Watermark="X value of the third path" Text="{Binding Meter.Paths[2].X,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Delay=850}" Width="200" />
+                                    <TextBox x:Name="txtbox_PathChord_C" Custom:TextBoxHelper.Watermark="X value of the third path" Text="{Binding Meter.Paths[2].Chord,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Delay=850}" Width="200" />
                                 </StackPanel>
 
                                 <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
                                     <Label x:Name="lbl_PathX_D" Content="Fourth Path Chord" HorizontalAlignment="Left" Width="150"/>
-                                    <TextBox x:Name="txtbox_PathX_D" Custom:TextBoxHelper.Watermark="Chord value of the fourth path" Text="{Binding Meter.Paths[3].X,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Delay=850}" Width="200" />
+                                    <TextBox x:Name="txtbox_PathX_D" Custom:TextBoxHelper.Watermark="Chord value of the fourth path" Text="{Binding Meter.Paths[3].Chord,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Delay=850}" Width="200" />
                                 </StackPanel>
 
                                 <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
                                     <Label x:Name="lbl_PathChord_E" Content="Fifth Path Chord" HorizontalAlignment="Left" Width="150"/>
-                                    <TextBox x:Name="txtbox_PathChord_E" Custom:TextBoxHelper.Watermark="Chord value of the fifth path" Width="200" Text="{Binding Meter.Paths[4].X,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Delay=850}" />
+                                    <TextBox x:Name="txtbox_PathChord_E" Custom:TextBoxHelper.Watermark="Chord value of the fifth path" Width="200" Text="{Binding Meter.Paths[4].Chord,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Delay=850}" />
                                 </StackPanel>
 
                                 <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
                                     <Label x:Name="lbl_PathChord_F" Content="Sixth Path Chord" HorizontalAlignment="Left" Width="150"/>
-                                    <TextBox x:Name="txtbox_PathX_F" Custom:TextBoxHelper.Watermark="Chord value of the Sixth path" Width="200" Text="{Binding Meter.Paths[5].X,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Delay=850}" />
+                                    <TextBox x:Name="txtbox_PathX_F" Custom:TextBoxHelper.Watermark="Chord value of the Sixth path" Width="200" Text="{Binding Meter.Paths[5].Chord,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Delay=850}" />
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="365" HorizontalAlignment="Left"/>
                                 <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="365" HorizontalAlignment="Left"/>
@@ -272,27 +272,27 @@
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="0,5" Width="366" HorizontalAlignment="Left">
                                     <Label x:Name="lbl_PathX_A2" Content="First Path X dimension" HorizontalAlignment="Left" Width="150"/>
-                                    <TextBox x:Name="txtbox_PathX_A2" Custom:TextBoxHelper.Watermark="value of the first X dimension" Text="{Binding Meter.Paths[0].Angle, Delay=850, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Width="180" />
+                                    <TextBox x:Name="txtbox_PathX_A2" Custom:TextBoxHelper.Watermark="value of the first X dimension" Text="{Binding Meter.Paths[0].X, Delay=850, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Width="180" />
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="0,5" Width="366" HorizontalAlignment="Left">
                                     <Label x:Name="lbl_PathX_B2" Content="Second Path X dimension" HorizontalAlignment="Left" Width="150"/>
-                                    <TextBox x:Name="txtbox_Path_X_B2" Custom:TextBoxHelper.Watermark="value of the second X dimension" Text="{Binding Meter.Paths[1].Angle, Delay=850, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Width="180" />
+                                    <TextBox x:Name="txtbox_Path_X_B2" Custom:TextBoxHelper.Watermark="value of the second X dimension" Text="{Binding Meter.Paths[1].X, Delay=850, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Width="180" />
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="0,5" Width="366" HorizontalAlignment="Left">
                                     <Label x:Name="lbl_PathX_C2" Content="Third Path X dimension" HorizontalAlignment="Left" Width="150"/>
-                                    <TextBox x:Name="txtbox_PathX_C2" Custom:TextBoxHelper.Watermark="value of the third X dimension" Text="{Binding Meter.Paths[2].Angle, Delay=850, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Width="180" />
+                                    <TextBox x:Name="txtbox_PathX_C2" Custom:TextBoxHelper.Watermark="value of the third X dimension" Text="{Binding Meter.Paths[2].X, Delay=850, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Width="180" />
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="0,5" Width="366" HorizontalAlignment="Left">
                                     <Label x:Name="lbl_PathX_D2" Content="Fourth Path X dimension" HorizontalAlignment="Left" Width="150"/>
-                                    <TextBox x:Name="txtbox_PathX_D2" Custom:TextBoxHelper.Watermark="value of the fourth X dimension" Text="{Binding Meter.Paths[3].Angle, Delay=850, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Width="180" />
+                                    <TextBox x:Name="txtbox_PathX_D2" Custom:TextBoxHelper.Watermark="value of the fourth X dimension" Text="{Binding Meter.Paths[3].X, Delay=850, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Width="180" />
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="0,5" Width="366" HorizontalAlignment="Left">
                                     <Label x:Name="lbl_PathX_E2" Content="Fifth Path X dimension" HorizontalAlignment="Left" Width="150"/>
-                                    <TextBox x:Name="txtbox_PathX_E2" Custom:TextBoxHelper.Watermark="value of the fifth X dimension" Width="180" Text="{Binding Meter.Paths[4].Angle, Delay=850, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+                                    <TextBox x:Name="txtbox_PathX_E2" Custom:TextBoxHelper.Watermark="value of the fifth X dimension" Width="180" Text="{Binding Meter.Paths[4].X, Delay=850, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="0,5" Width="366" HorizontalAlignment="Left">
                                     <Label x:Name="lbl_PathX_F2" Content="Sixth Path X dimension" HorizontalAlignment="Left" Width="150"/>
-                                    <TextBox x:Name="txtbox_PathX_F2" Custom:TextBoxHelper.Watermark="value of the Sixth X dimension" Width="180" Text="{Binding Meter.Paths[5].Angle, Delay=850, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+                                    <TextBox x:Name="txtbox_PathX_F2" Custom:TextBoxHelper.Watermark="value of the Sixth X dimension" Width="180" Text="{Binding Meter.Paths[5].X, Delay=850, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
                                 </StackPanel>
 
                             </StackPanel>

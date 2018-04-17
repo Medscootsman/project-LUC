@@ -90,7 +90,7 @@ namespace LiveUncertainty.classes
         double electronicsStabilityUncertainty = 0.01;
 
         //Stability Of Timing Circuit Resolution
-        double stabilityOfTime = 4 * Math.Pow(10, 9);
+        double stabilityOfTime = 4 * Math.Pow(10, -9);
 
         //Meter Uncertainty from mathematical model.
         double meterUncertainty_mathmodel = 0.04;
@@ -1542,6 +1542,7 @@ namespace LiveUncertainty.classes
             List<double> IPV = new List<double>();
             AddPathWeightingFactors();
             var weightingfactorenum = new WeightingFactorEnum(pathWeightingFactors);
+
             using (var IVenum = OperatingConditions.CalculateViv().GetEnumerator())
             {
                 while (weightingfactorenum.MoveNext() && IVenum.MoveNext())
@@ -1550,7 +1551,7 @@ namespace LiveUncertainty.classes
 
                     IPV.Add(val);
 
-                    if(weightingfactorenum.MoveNext() == false)
+                    if(weightingfactorenum.CheckNext() == false)
                     {
                         weightingfactorenum.Reset();
                     }
@@ -1653,6 +1654,8 @@ namespace LiveUncertainty.classes
                     double val = Lfenum.Current / (OperatingConditions.CalculateVelocityofSound() + vivenum.Current * (Lfenum.Current / Xfenum.Current));
                     Dwn.Add(val);
                 }
+                Lfenum = this.pathLengths.GetEnumerator();
+                Xfenum = this.pathXvals.GetEnumerator();
             }
 
 
@@ -1682,6 +1685,8 @@ namespace LiveUncertainty.classes
                     double val = Lfenum.Current / (OperatingConditions.CalculateVelocityofSound() - vivenum.Current * (Lfenum.Current / Xfenum.Current));
                     Tup.Add(val);
                 }
+                Lfenum = this.pathLengths.GetEnumerator();
+                Xfenum = this.pathXvals.GetEnumerator();
             }
 
 
@@ -1762,7 +1767,7 @@ namespace LiveUncertainty.classes
 
             foreach (double val in Viv)
             {
-                GOVisd.Add((Math.PI * Math.Pow(CalculateMeterTubeBore() - 2 * CalculateAssumedDepth(), 2)) / 4);
+                GOVisd.Add(val * (Math.PI * Math.Pow(CalculateMeterTubeBore() - 2 * CalculateAssumedDepth(), 2)) / 4);
             }
 
             return GOVisd;
@@ -1773,7 +1778,7 @@ namespace LiveUncertainty.classes
         {
             List<double> Eisd = new List<double>();
 
-            var qgovivEnum = CalculateGrossObservedFlowRateInTonnes().GetEnumerator();
+            var qgovivEnum = CalculateActualGrossObservedFlowRate().GetEnumerator();
 
             var qgovisdEnum = CalculateGrossObservedVolumeWithSurfaceDeposition().GetEnumerator();
 
@@ -1897,11 +1902,12 @@ namespace LiveUncertainty.classes
             List<double> Erau = new List<double>();
 
             var transitTimesUpwardsEnum = CalculateTransitTimeUpwards().GetEnumerator();
+            List<double> check = CalculateTransitTimeUpwards();
             var transitTimesDownwardsEnum = CalculateTransitTimesDownwards().GetEnumerator();
             var transitTimesUncertaintyDownwardsEnum = CalculateTransitTimingUncertainty(false).GetEnumerator();
             var transitTimesUncertaintyUpwardsEnum = CalculateTransitTimingUncertainty(true).GetEnumerator();
 
-            while (transitTimesDownwardsEnum.MoveNext() && transitTimesDownwardsEnum.MoveNext() && transitTimesUncertaintyDownwardsEnum.MoveNext() && transitTimesUncertaintyUpwardsEnum.MoveNext())
+            while (transitTimesDownwardsEnum.MoveNext() && transitTimesUpwardsEnum.MoveNext() && transitTimesUncertaintyDownwardsEnum.MoveNext() && transitTimesUncertaintyUpwardsEnum.MoveNext())
             {
                 double val = Math.Sqrt(
                                         Math.Pow(transitTimesDownwardsEnum.Current / transitTimesUpwardsEnum.Current - transitTimesDownwardsEnum.Current, 2) * (Math.Pow(transitTimesUncertaintyUpwardsEnum.Current, 2))
@@ -1981,7 +1987,7 @@ namespace LiveUncertainty.classes
 
                 evm.Add(returnval);
 
-                if(weightingfactors.MoveNext() == false)
+                if(weightingfactors.CheckNext() == false)
                 {
                     weightingfactors.Reset();
                 }
@@ -1990,7 +1996,7 @@ namespace LiveUncertainty.classes
             return evm;
 
         }
-
+        
         /// <summary>
         /// Calculates the uncertainty of the meter's Gross Observed Volume.
         /// </summary>

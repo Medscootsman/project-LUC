@@ -193,11 +193,5 @@ namespace LiveUncertainty.viewmodels
 
                 };
         }
-
-
-
-
-
-
     }
 }

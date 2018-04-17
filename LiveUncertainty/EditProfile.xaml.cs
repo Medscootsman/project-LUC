@@ -23,10 +23,13 @@ namespace LiveUncertainty
     /// </summary>
     public partial class EditProfile : MetroWindow
     {
+        public USMViewModel _model { get; private set; }
+
         public EditProfile()
         {
             InitializeComponent();
             ((USMViewModel)pg_Main.Resources["viewmodel"]).Meter.OnPropertyChanged(string.Empty);
+            
         }
 
         public EditProfile(UltraSonicMeter meter)
@@ -42,27 +45,38 @@ namespace LiveUncertainty
 
         void ProfileEdit_Closing(object sender, CancelEventArgs e)
         {
-            MessageBoxResult result = MessageBox.Show(
-                "Are you sure you want to close this window? Any unsaved progress will be lost!", //Message
-                "Warning!", //Caption
-                MessageBoxButton.YesNoCancel,
-                MessageBoxImage.Warning
-                );
-
-            if (result == MessageBoxResult.No || result == MessageBoxResult.Cancel)
+            if (DialogResult == false || DialogResult == null)
             {
-                e.Cancel = true;
-            }
+                MessageBoxResult result = MessageBox.Show(
+                    "Are you sure you want to close this window? Any unsaved progress will be lost!", //Message
+                    "Warning!", //Caption
+                    MessageBoxButton.YesNoCancel,
+                    MessageBoxImage.Warning
+                    );
 
-            else
-            {
-                e.Cancel = false;
+                if (result == MessageBoxResult.No || result == MessageBoxResult.Cancel)
+                {
+                    e.Cancel = true;
+                }
+
+                else
+                {
+                    e.Cancel = false;
+                }
             }
         }
 
         private void submit_Click(object sender, RoutedEventArgs e)
         {
             //Create an object and save it into a the file directory.
+        }
+
+        private void load_Click(object sender, RoutedEventArgs e)
+        {
+            USMViewModel model = (USMViewModel)this.pg_Main.Resources["viewmodel"];
+            //send this back to the main window.
+            this._model = model;
+            this.DialogResult = true;
         }
     }
 }

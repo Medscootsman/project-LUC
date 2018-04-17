@@ -106,9 +106,11 @@ namespace LiveUncertainty
 
             if(profile.DialogResult == true)
             {
+                ((USMViewModel)this.pg_main.Resources["viewmodel"]).Meter.Tag = profile._model.Meter.Tag;
                 this.pg_main.Resources["viewmodel"] = profile._model;
+
+                ((USMViewModel)this.pg_main.Resources["viewmodel"]).Meter.OnPropertyChanged("Internal_Diameter");
                 //test 01
-                MessageBox.Show(((USMViewModel)pg_main.Resources["viewmodel"]).Meter.Tag);
 
 
             }
@@ -174,9 +176,11 @@ namespace LiveUncertainty
 
                 //Force propertychanged to be called
                 ((USMViewModel)EditWindow.pg_Main.Resources["viewmodel"]).Meter = ((USMViewModel)pg_main.Resources["viewmodel"]).Meter;
-                EditWindow.DataContext = this.DataContext;
+                ((USMViewModel)pg_main.Resources["viewmodel"]).Meter.OnPropertyChanged("all");
                 EditWindow.ShowDialog();
-                
+
+                ((USMViewModel)pg_main.Resources["viewmodel"]).Meter = ((USMViewModel)EditWindow.pg_Main.Resources["viewmodel"]).Meter;
+
             }
 
         }

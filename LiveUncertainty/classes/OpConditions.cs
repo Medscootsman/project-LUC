@@ -52,7 +52,10 @@ namespace LiveUncertainty.classes
 
         private void OnPropertyChanged(string name)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(name));
+            }
         }
 
         //getters and setters. All attributes will be assigned this way.
@@ -381,7 +384,7 @@ namespace LiveUncertainty.classes
         public double CalculateVelocityofSound()
         {
             double Pf = CalculateSIAbsoluteOperatingPressureConverted();
-            double pf = CalculateSIAbsoluteOperatingPressure();
+            double pf = OperatingDensity;
             double vosfResult = Math.Sqrt((kf * Pf) / pf);
 
             return vosfResult;
@@ -424,9 +427,16 @@ namespace LiveUncertainty.classes
             return iy;
         }
 
-        public int CalculateIV()
+        public List<int> CalculateIV()
         {
-            return (int)CalculateStepChangeOverIX() + (int)CalcuateStepChangeOverIY();
+            List<int> iv = new List<int>();
+            int i = 1;
+
+            while(i < (int)CalculateStepChangeOverIX() + (int)CalcuateStepChangeOverIY()) {
+                iv.Add(i);
+                i++;
+            }
+            return iv;
         }
 
         /// <summary>
@@ -437,7 +447,7 @@ namespace LiveUncertainty.classes
         {
             List<double> Viv = new List<double>();
 
-            for(int i = 0; i < CalculateIV(); i++)
+            foreach(int i in CalculateIV())
             {
                 double val = RoundFluidVelocity() + (i - 1) * (CalculatenextVelocityIncrement() - RoundFluidVelocity());
                 Viv.Add(val);
@@ -451,7 +461,7 @@ namespace LiveUncertainty.classes
         {
             List<double> wiv = new List<double>();
 
-            for(int i = 0; i < CalculateIV(); i++)
+            foreach(int i in CalculateIV())
             {
                 double val = VelocityForStepChangeOver - ((i - 1) * (StepChangeOver));
                 wiv.Add(val);

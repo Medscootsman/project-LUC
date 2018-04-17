@@ -22,8 +22,32 @@ namespace LiveUncertainty.classes
 
         public bool MoveNext()
         {
-            position++;
-            return (position < pathWeightingFactors.Count);
+            if(position < pathWeightingFactors.Count - 1)
+            {
+                position++;
+                return true;
+
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Checks if the position is still valid without actually moving.
+        /// </summary>
+        public bool CheckNext()
+        {
+            if (position < pathWeightingFactors.Count - 1)
+            {
+                return true;
+
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public void Reset()
