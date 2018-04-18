@@ -427,12 +427,12 @@ namespace LiveUncertainty.classes
             return iy;
         }
 
-        public List<int> CalculateIV()
+        public List<double> CalculateIV()
         {
-            List<int> iv = new List<int>();
+            List<double> iv = new List<double>();
             int i = 1;
 
-            while(i < (int)CalculateStepChangeOverIX() + (int)CalcuateStepChangeOverIY()) {
+            while(i < CalculateStepChangeOverIX() + CalcuateStepChangeOverIY()) {
                 iv.Add(i);
                 i++;
             }
@@ -447,7 +447,7 @@ namespace LiveUncertainty.classes
         {
             List<double> Viv = new List<double>();
 
-            foreach(int i in CalculateIV())
+            foreach(double i in CalculateIV())
             {
                 double val = RoundFluidVelocity() + (i - 1) * (CalculatenextVelocityIncrement() - RoundFluidVelocity());
                 Viv.Add(val);
@@ -461,7 +461,7 @@ namespace LiveUncertainty.classes
         {
             List<double> wiv = new List<double>();
 
-            foreach(int i in CalculateIV())
+            foreach(double i in CalculateIV())
             {
                 double val = VelocityForStepChangeOver - ((i - 1) * (StepChangeOver));
                 wiv.Add(val);
@@ -469,7 +469,7 @@ namespace LiveUncertainty.classes
 
             List<double> finalWiv = new List<double>();
 
-            foreach(int val in wiv)
+            foreach(double val in wiv)
             {
                 finalWiv.Add(val + CalculateStepChangeOverIX());
             }

@@ -1547,7 +1547,7 @@ namespace LiveUncertainty.classes
             {
                 while (weightingfactorenum.MoveNext() && IVenum.MoveNext())
                 {
-                    double val = weightingfactorenum.Current * IVenum.Current;
+                    double val = IVenum.Current * weightingfactorenum.Current;
 
                     IPV.Add(val);
 
@@ -1784,7 +1784,8 @@ namespace LiveUncertainty.classes
 
             while (qgovisdEnum.MoveNext() && qgovivEnum.MoveNext())
             {
-                Eisd.Add((qgovivEnum.Current - qgovisdEnum.Current / qgovivEnum.Current) * 100);
+                double returnval = (qgovivEnum.Current - qgovisdEnum.Current) / qgovivEnum.Current * 100;
+                Eisd.Add(returnval);
             }
 
             return Eisd;
@@ -1927,10 +1928,10 @@ namespace LiveUncertainty.classes
 
             //Lists we will be using.
 
-            var Elf = CalculateBeamLengthUncertainty().GetEnumerator();
+            var Elf = new WeightingFactorEnum(CalculateBeamLengthUncertainty());
 
-            var Exf = CalculateAxialBeamTraverseUncertainty().GetEnumerator();
-
+            var Exf = new WeightingFactorEnum(CalculateAxialBeamTraverseUncertainty());
+            
             var Erau = CalculateTotalTransitTimesUncertainty().GetEnumerator();
 
             //Fixed values we will be using.
@@ -1958,6 +1959,16 @@ namespace LiveUncertainty.classes
                                              );
 
                 Evf.Add(returnval);
+
+                if(Elf.CheckNext() == false)
+                {
+                    Elf.Reset();
+                }
+
+                if (Exf.CheckNext() == false)
+                {
+                    Exf.Reset();
+                }
 
             }
 
@@ -2013,9 +2024,10 @@ namespace LiveUncertainty.classes
 
             while(evmenum.MoveNext() && edfenum.MoveNext())
             {
-                double returnval = Math.Sqrt(Math.Pow(evmenum.Current, 2) + Math.Pow(edfenum.Current, 2) + Emf);
+                double returnval = Math.Sqrt(Math.Pow(evmenum.Current, 2) + Math.Pow(2 * edfenum.Current, 2) + Emf);
 
                 GOVuncertainty.Add(returnval);
+
             }
 
             return GOVuncertainty;

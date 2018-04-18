@@ -87,7 +87,7 @@
                 </Menu>
             </DockPanel>
             <!-- Graph -->
-            <lvc:CartesianChart Series="{Binding Collection}" LegendLocation="Right" Grid.ColumnSpan="5" Margin="15,50,15,10" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="1">
+            <lvc:CartesianChart Series="{Binding Collection}"  LegendLocation="Right" Grid.ColumnSpan="5" Margin="15,50,15,10" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="1">
                 <lvc:CartesianChart.AxisY>
                     <lvc:Axis Title="Relative Expanded Uncertainty"/>
                 </lvc:CartesianChart.AxisY>

@@ -168,30 +168,39 @@ namespace LiveUncertainty.viewmodels
         public void Calculate()
         {
             var valsvelocity = Meter.OperatingConditions.CalculateViv().GetEnumerator();
-            ChartValues<double> chartvals = new ChartValues<double>();
+            List<double> chartvals = new List<double>();
             ChartValues<double> GOVvals = new ChartValues<double>();
 
-            var valsGOV = Meter.CalculateGOVUncertainty().GetEnumerator();
+            var valsGOV = Meter.CalculateGOVUncertainty();
+            
+            //reverse the order.
+            valsGOV.Reverse();
+            var valsenum = valsGOV.GetEnumerator();
             while (valsvelocity.MoveNext())
             {
+
                 chartvals.Add(valsvelocity.Current);
             }
 
-            while (valsGOV.MoveNext())
+            while (valsenum.MoveNext())
             {
-                GOVvals.Add(valsGOV.Current);
+                GOVvals.Add(valsenum.Current);
             }
             Collection = new SeriesCollection
+
+            {
+
+                new LineSeries()
                 {
+                    Title="GOV Uncertainty",
+                    Values = GOVvals,
+                }
 
-                    new LineSeries()
-                    {
-                        Title= "GOV values",
-                        Values = chartvals,
-                        PointForeground = Brushes.Blue
-                    }
 
-                };
+            };
+
+            //get string representation of charvals
+
         }
     }
 }
