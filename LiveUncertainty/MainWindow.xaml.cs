@@ -32,7 +32,7 @@ namespace LiveUncertainty
         public MainWindow()
         {
             loadprofile = false;
-            var splash = new SplashScreen("media/splash_placeholder.png");
+            var splash = new SplashScreen("media/loading.png");
             splash.Show(false);
             InitializeComponent();
             splash.Close(new TimeSpan(5));

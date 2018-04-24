@@ -44,10 +44,10 @@ namespace LiveUncertainty.classes
             OperatingTemperature = 0;
             OperatingPressure = 0;
 
-            VelocityForStepChangeOver = 2;
-            VelocityIncrementStep = 2;
-            LowestVelocityIncrementStep = 2;
-            StepChangeOver = 2;
+            VelocityForStepChangeOver = 4; //defaults
+            VelocityIncrementStep = 2; //defaults
+            LowestVelocityIncrementStep = 0.1; //defaults
+            StepChangeOver = 0.12; //defaults   
         }
 
         private void OnPropertyChanged(string name)
@@ -257,7 +257,7 @@ namespace LiveUncertainty.classes
         public double CalculateSIAbsoluteOperatingPressureConverted() //Pf Capitalized
         {
             //add 1.01325 to the value.
-            double correctedOpPressure = this.CalculateSIAbsoluteOperatingPressure() + 1.01325;
+            double correctedOpPressure = this.CalculateSIAbsoluteOperatingPressure() + 1.01325 * Math.Pow(10, 5);
 
             return correctedOpPressure;
         }
@@ -376,6 +376,10 @@ namespace LiveUncertainty.classes
             }
         }
 
+        /// <summary>
+        /// Adjusts to the Operating Pressure to standard
+        /// </summary>
+        /// <returns></returns>
         public double CalculatePM()
         {
             return this.OperatingPressure + 1.01325;
@@ -423,7 +427,7 @@ namespace LiveUncertainty.classes
 
         public double CalcuateStepChangeOverIY()
         {
-            double iy = Math.Truncate(VelocityForStepChangeOver - LowestVelocityIncrementStep / StepChangeOver);
+            double iy = Math.Truncate((VelocityForStepChangeOver - LowestVelocityIncrementStep) / StepChangeOver);
             return iy;
         }
 
@@ -432,7 +436,7 @@ namespace LiveUncertainty.classes
             List<double> iv = new List<double>();
             int i = 1;
 
-            while(i < CalculateStepChangeOverIX() + CalcuateStepChangeOverIY()) {
+            while(i <= CalculateStepChangeOverIX() + CalcuateStepChangeOverIY()) {
                 iv.Add(i);
                 i++;
             }
@@ -457,6 +461,54 @@ namespace LiveUncertainty.classes
 
         }
 
+        public List<double> AppendWivToViv()
+        {
+            List<double> appendedList = new List<double>();
+
+            List<double> Viv = CalculateViv();
+
+            List<double> Wiv = CalculateWiv();
+
+            //The idea here is to append Wiv once viv reaches a point where it is less than the step change over.
+            //Loop through it to see if it will work.
+            //loop through Viv until we reach the step change over velocity
+
+            int startindex = -1;
+
+            for (int i = 0; i < Viv.Count; i++)
+            {
+                if (Viv[i] <= VelocityForStepChangeOver)
+                {
+                    startindex = i;
+                    break;
+                }
+
+            }
+
+            if (startindex != -1)
+            {
+                //now that we have the index where it becomes lower, add the results from Viv up to that point to the appended list
+                for (int i = 0; i < startindex; i++)
+                {
+                    appendedList.Add(Viv[i]);
+                }
+
+                //now, append the remainder to wiv.
+
+                foreach (double val in Wiv)
+                {
+                    appendedList.Add(val);
+                }
+
+                return appendedList;
+            }
+
+            else
+            {
+                return Viv;
+            }
+        }
+
         public List<double> CalculateWiv() 
         {
             List<double> wiv = new List<double>();
@@ -467,14 +519,7 @@ namespace LiveUncertainty.classes
                 wiv.Add(val);
             }
 
-            List<double> finalWiv = new List<double>();
-
-            foreach(double val in wiv)
-            {
-                finalWiv.Add(val + CalculateStepChangeOverIX());
-            }
-
-            return finalWiv;
+            return wiv;
         }
 
        

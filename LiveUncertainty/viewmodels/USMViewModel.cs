@@ -167,7 +167,8 @@ namespace LiveUncertainty.viewmodels
 
         public void Calculate()
         {
-            var valsvelocity = Meter.OperatingConditions.CalculateViv().GetEnumerator();
+            
+            var valsvelocity = Meter.OperatingConditions.AppendWivToViv().GetEnumerator();
             List<double> chartvals = new List<double>();
             ChartValues<double> GOVvals = new ChartValues<double>();
 

@@ -491,7 +491,8 @@
     <Resource Include="media\play.png" />
     <Resource Include="Resources\WindowsIcons-license.txt" />
     <Resource Include="Resources\Entypo-license.txt" />
-    <Resource Include="media\splash_placeholder.png" />
+    <Resource Include="media\loader.gif" />
+    <Resource Include="media\loading.png" />
     <Content Include="sharpdx_direct3d11_1_effects_arm.dll" />
     <Content Include="sharpdx_direct3d11_1_effects_x64.dll" />
     <Content Include="sharpdx_direct3d11_1_effects_x86.dll" />
