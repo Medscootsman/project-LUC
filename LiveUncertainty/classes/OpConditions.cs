@@ -13,6 +13,7 @@ namespace LiveUncertainty.classes
         public double opTemperature;
         public double opDensity;
         public double baseDensity;
+        public double fixedBaseDensity = 0.7761;
         public double refTemperature;
         public double refPressure;
         public bool ptz_calc;
@@ -41,13 +42,21 @@ namespace LiveUncertainty.classes
 
         public OpConditions()
         {
-            OperatingTemperature = 0;
-            OperatingPressure = 0;
+            //defaults so it works during the degree show
+            OperatingTemperature = 43.6;
+            OperatingPressure = 83.85;
+            ReferencePressure = 1.01325;
+            ReferenceTemperature = 15;
 
-            VelocityForStepChangeOver = 4; //defaults
-            VelocityIncrementStep = 2; //defaults
-            LowestVelocityIncrementStep = 0.1; //defaults
-            StepChangeOver = 0.12; //defaults   
+            OperatingDensity = 67.887;
+            fixedBaseDensity = 0.7761;
+
+            MaxFluidVelocity = 20;
+
+            VelocityForStepChangeOver = 4; 
+            VelocityIncrementStep = 2; 
+            LowestVelocityIncrementStep = 0.1; 
+            StepChangeOver = 0.25; 
         }
 
         private void OnPropertyChanged(string name)
@@ -497,7 +506,9 @@ namespace LiveUncertainty.classes
 
                 foreach (double val in Wiv)
                 {
-                    appendedList.Add(val);
+                    if(val > 0) {
+                        appendedList.Add(val);
+                    }
                 }
 
                 return appendedList;

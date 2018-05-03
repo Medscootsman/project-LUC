@@ -28,6 +28,7 @@ namespace LiveUncertainty.viewmodels
         public CalculateCommand _CalculateCommand { get; set; }
         public SeriesCollection col;
         public UltraSonicMeter meter;
+        public string[] Labels { get; set; }
         /// <summary>
         /// Creates a view model for manipulating the object
         /// </summary>
@@ -51,23 +52,8 @@ namespace LiveUncertainty.viewmodels
             this._Load = new LoadCommand(this);
             this._Load2 = new LoadCommand(this);
             this._CalculateCommand = new CalculateCommand(this);
-            this.Meter.addPath(new classes.Path());
-            this.Meter.addPath(new classes.Path());
-            this.Meter.addPath(new classes.Path());
-            this.Meter.addPath(new classes.Path());
-            this.Meter.addPath(new classes.Path());
-            this.Meter.addPath(new classes.Path());
-            Collection = new SeriesCollection
-                {
-
-                    new LineSeries()
-                    {
-                        Title= "GOV values",
-                        Values = new ChartValues<double> { 20, 18, 16, 14, 12, 10, 9, 1,},
-                        PointForeground = Brushes.Blue
-                    }    
-
-                };
+            this.meter.addDefaultPaths();
+            
 
         }
 
@@ -163,12 +149,11 @@ namespace LiveUncertainty.viewmodels
                 OnPropertyChanged("Collection");
             }
         }
-        public string[] Labels { get; set; }
 
         public void Calculate()
         {
-            
-            var valsvelocity = Meter.OperatingConditions.AppendWivToViv().GetEnumerator();
+            var viv = Meter.OperatingConditions.AppendWivToViv();
+            var vivenum = Meter.OperatingConditions.AppendWivToViv().GetEnumerator();
             List<double> chartvals = new List<double>();
             ChartValues<double> GOVvals = new ChartValues<double>();
 
@@ -177,10 +162,10 @@ namespace LiveUncertainty.viewmodels
             //reverse the order.
             valsGOV.Reverse();
             var valsenum = valsGOV.GetEnumerator();
-            while (valsvelocity.MoveNext())
+            while (vivenum.MoveNext())
             {
 
-                chartvals.Add(valsvelocity.Current);
+                chartvals.Add(vivenum.Current);
             }
 
             while (valsenum.MoveNext())
@@ -198,6 +183,12 @@ namespace LiveUncertainty.viewmodels
                 }
 
 
+            };
+
+            Labels = new string[]
+            {
+                "10",
+                "8",
             };
 
             //get string representation of charvals

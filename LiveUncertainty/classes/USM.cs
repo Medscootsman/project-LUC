@@ -92,8 +92,6 @@ namespace LiveUncertainty.classes
         //Stability Of Timing Circuit Resolution
         double stabilityOfTime = 4 * Math.Pow(10, -9);
 
-        //Meter Uncertainty from mathematical model.
-        double meterUncertainty_mathmodel = 0.04;
 
         //Meter Uncertainty from long term drift. (Eydrift)
         double longtermdrift = 0.1;
@@ -129,19 +127,86 @@ namespace LiveUncertainty.classes
             }
         }
 
-
+        /// <summary>
+        /// For demonstration purposes only
+        /// </summary>
         public UltraSonicMeter()
         {
-            Tag = "Default";
+
+            Tag = "Degree Show";
             OperatingConditions = new OpConditions();
-            Internal_Diameter = 1.2;
-            Calibration_Frequency = 1;
+            Internal_Diameter = 280.85;
+            Calibration_Frequency = 3;
+            MetrologyTemperature = 20;
+
+            this.pathLengthsL = new List<double>();
+            this.pathLengths = new List<double>();
+            this.pathXvals = new List<double>();
+            this.pathChords = new List<double>();
+            this.pathChordsX = new List<double>();
+            this.pathWeightingFactors = new List<double>();
+            this.pathAngles = new List<double>();
+            this.pathAngles_DegreeMultiplied = new List<double>();
+            this.pathBounces = new List<uint>();
+
+
             save = string.Empty;
-            TargetUncertainty = 1;
+            TargetUncertainty = 1.25;
             this.Paths = new List<Path>();
 
 
             
+        }
+
+        /// <summary>
+        /// For demonstration purposes only
+        /// </summary>
+        public void addDefaultPaths()
+        {
+            Paths.Clear();
+            Path path1 = new Path();
+
+            path1.Length = 0.23393;
+            path1.X = 0.095349;
+            path1.Chord = 0.11239;
+            path1.WeightingFactor = 0.1382;
+
+            Path path2 = new Path();
+
+            path2.Length = 0.329703;
+            path2.X = 0.154263;
+            path2.Chord = 0.042146;
+            path2.WeightingFactor = 0.3618;
+
+            Path path3 = new Path();
+
+            path3.Length = 0.329721;
+            path3.X = 0.015299;
+            path3.Chord = 0.042146;
+            path3.WeightingFactor = 0.3618;
+
+            Path path4 = new Path();
+
+            path4.Length = 0.23447;
+            path4.X = 0.095349;
+            path4.Chord = 0.11239;
+            path4.WeightingFactor = 0.1382;
+
+            this.addPath(path1);
+            this.addPath(path2);
+            this.addPath(path3);
+            this.addPath(path4);
+
+            this.AddPathLengths();
+            this.AddPathLengthsL();
+            this.AddPathWeightingFactors();
+            this.AddXNormal();
+            this.AddPathChords();
+            this.AddPathAngles();
+            this.AddPathAngles_Degrees();
+            this.AddNoOfBounces();
+            this.AddPathChordsDividedbydDdry();
+
         }
 
         public void SaveFile(bool isNewFile)
@@ -739,7 +804,10 @@ namespace LiveUncertainty.classes
 
         public void AddPathWeightingFactors()
         {
-            pathWeightingFactors.Clear();
+            if (pathWeightingFactors != null)
+            {
+                pathWeightingFactors.Clear();
+            }
             foreach (Path pathobj in Paths)
             {
                 pathWeightingFactors.Add(pathobj.weightingFactor);
@@ -1537,35 +1605,36 @@ namespace LiveUncertainty.classes
             return CalculateBaseDensity() / 1.22541;
         }
 
-        public List<double> CalculateIndividualPathVelocities() //this might not be done correctly. 
+        public List<double> CalculateIndividualPathVelocities() //done correctly
         {
-            List<double> IPV = new List<double>();
+            List<double> VIP = new List<double>();
             AddPathWeightingFactors();
             var weightingfactorenum = new WeightingFactorEnum(pathWeightingFactors);
-
-            using (var IVenum = OperatingConditions.CalculateViv().GetEnumerator())
-            {
-                while (weightingfactorenum.MoveNext() && IVenum.MoveNext())
+            var test = OperatingConditions.AppendWivToViv();
+            var IVenum = new WeightingFactorEnum(OperatingConditions.AppendWivToViv());
+                while (weightingfactorenum.MoveNext())
                 {
-                    double val = IVenum.Current * weightingfactorenum.Current;
-
-                    IPV.Add(val);
-
-                    if(weightingfactorenum.CheckNext() == false)
+                    IVenum.Reset();
+                    while (IVenum.MoveNext())
                     {
-                        weightingfactorenum.Reset();
-                    }
-                }
-            }
 
-            return IPV;
+                        double val = IVenum.Current * weightingfactorenum.Current;
+
+                        VIP.Add(val);
+
+                    }
+                    
+                 }
+
+            //return IPV
+            return VIP;
         }
 
         public List<double> CalculateActualGrossObservedFlowRate()
         {
             List<double> gov = new List<double>();
 
-            foreach (double val in OperatingConditions.CalculateViv())
+            foreach (double val in OperatingConditions.AppendWivToViv())
             {
                 double addedval = val * (Math.PI * Math.Pow(CalculateMeterTubeBore(), 2)) / 4;
 
@@ -1612,7 +1681,7 @@ namespace LiveUncertainty.classes
 
             foreach (double val in CalculateGrossObservedFlowRateInMetrics())
             {
-                double returnval = val * Math.Pow(10, 3) / this.OperatingConditions.BaseDensity;
+                double returnval = val * Math.Pow(10, 3) / this.OperatingConditions.fixedBaseDensity;
                 gov.Add(returnval);
             }
 
@@ -1640,9 +1709,9 @@ namespace LiveUncertainty.classes
             //enumerators for our pathvalues.
             var Lfenum = this.pathLengths.GetEnumerator();
             var Xfenum = this.pathXvals.GetEnumerator();
-            var vivenum = this.OperatingConditions.CalculateViv().GetEnumerator();
+            var vivenum = this.OperatingConditions.AppendWivToViv().GetEnumerator();
             //get the size of the viv list
-            int vivSize = OperatingConditions.CalculateViv().Count;
+            int vivSize = OperatingConditions.AppendWivToViv().Count;
 
 
             //get the maximum number
@@ -1671,9 +1740,9 @@ namespace LiveUncertainty.classes
             //enumerators for our pathvalues.
             var Lfenum = this.pathLengths.GetEnumerator();
             var Xfenum = this.pathXvals.GetEnumerator();
-            var vivenum = this.OperatingConditions.CalculateViv().GetEnumerator();
+            var vivenum = this.OperatingConditions.AppendWivToViv().GetEnumerator();
             //get the size of the viv list
-            int vivSize = OperatingConditions.CalculateViv().Count;
+            int vivSize = OperatingConditions.AppendWivToViv().Count;
 
 
             //get the maximum number
@@ -1763,7 +1832,7 @@ namespace LiveUncertainty.classes
         public List<double> CalculateGrossObservedVolumeWithSurfaceDeposition()
         {
             List<double> GOVisd = new List<double>();
-            List<double> Viv = OperatingConditions.CalculateViv();
+            List<double> Viv = OperatingConditions.AppendWivToViv();
 
             foreach (double val in Viv)
             {
@@ -1893,7 +1962,7 @@ namespace LiveUncertainty.classes
         }
 
         /// <summary>
-        /// Otherwise known as erau on the mathcad sheet.
+        /// Otherwise known as etau on the mathcad sheet.
         /// </summary>
         /// <returns></returns>
 
@@ -1953,7 +2022,7 @@ namespace LiveUncertainty.classes
             while(Elf.MoveNext() && Exf.MoveNext() && Erau.MoveNext())
             {
                 double returnval = Math.Sqrt(
-                                             (Math.Pow(Elf.Current, 2) + Math.Pow(Exf.Current, 2)) + Math.Pow(Erau.Current, 2) +
+                                             (Math.Pow(2*Elf.Current, 2) + Math.Pow(Exf.Current, 2)) + Math.Pow(Erau.Current, 2) +
                                              (Math.Pow(env, 2) + Math.Pow(usn, 2) + Math.Pow(psu, 2) + Math.Pow(calc, 2)) +
                                              (Math.Pow(fs, 2) + Math.Pow(pwc, 2) + Math.Pow(drift, 2))
                                              );
@@ -1982,26 +2051,33 @@ namespace LiveUncertainty.classes
             var evm = new List<double>();
             var uncertainties = new FixedUncertainties();
 
-            var vip = CalculateIndividualPathVelocities().GetEnumerator();
+            var vip = new WeightingFactorEnum(CalculateIndividualPathVelocities());
             var weightingfactors = new WeightingFactorEnum(pathWeightingFactors);
-            var viv = OperatingConditions.CalculateViv().GetEnumerator();
-            var evf = CalculateTotalFlowUncertainty().GetEnumerator();
+            var viv = OperatingConditions.AppendWivToViv().GetEnumerator();
+            var evf = new WeightingFactorEnum(CalculateTotalFlowUncertainty());
 
             double mm = uncertainties.MathModel;
-            
 
-            while(vip.MoveNext() && weightingfactors.MoveNext() && viv.MoveNext() && evf.MoveNext())
+            while (viv.MoveNext())
             {
-                double returnval = Math.Sqrt(
-                    Math.Pow((weightingfactors.Current * vip.Current / viv.Current), 2) * (Math.Pow(mm, 2) + Math.Pow(evf.Current, 2))
-                    );
+                double returnval = 0;
+                vip.Reset(); evf.Reset();
 
-                evm.Add(returnval);
-
-                if(weightingfactors.CheckNext() == false)
+                while (vip.MoveNext() && evf.MoveNext())
                 {
                     weightingfactors.Reset();
+
+                    //Sum the weighting factors together.
+                    while (weightingfactors.MoveNext())
+                    {
+                        returnval += Math.Sqrt(
+                            Math.Pow(((weightingfactors.Current * vip.Current) / viv.Current), 2) * (Math.Pow(mm, 2) + Math.Pow(evf.Current, 2))
+                            );
+                    }
+                    
+
                 }
+                evm.Add(returnval);
             }
 
             return evm;
@@ -2024,6 +2100,8 @@ namespace LiveUncertainty.classes
 
             while(evmenum.MoveNext() && edfenum.MoveNext())
             {
+                double evm = Math.Pow(evmenum.Current, 2);
+                double edf = Math.Pow(2 * edfenum.Current, 2);
                 double returnval = Math.Sqrt(Math.Pow(evmenum.Current, 2) + Math.Pow(2 * edfenum.Current, 2) + Emf);
 
                 GOVuncertainty.Add(returnval);

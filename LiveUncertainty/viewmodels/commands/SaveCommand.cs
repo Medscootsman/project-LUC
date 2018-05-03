@@ -24,7 +24,7 @@ namespace LiveUncertainty.viewmodels.commands
 
         public bool CanExecute(object parameter)
         {
-            return String.IsNullOrWhiteSpace(Meter.meter.Error);
+            return true;
         }
 
         public void Execute(object parameter)
