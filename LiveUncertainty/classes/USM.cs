@@ -219,14 +219,16 @@ namespace LiveUncertainty.classes
                 {
                     if(dialog.ShowDialog() == DialogResult.OK)
                     {
-                        System.IO.Path.ChangeExtension(dialog.FileName, "lsav");
-                        using (var sw = new StreamWriter(dialog.FileName))
+                        string filename = System.IO.Path.ChangeExtension(dialog.FileName, "lsav");
+      
+                        using (var sw = new StreamWriter(filename))
                         {
                             
                             var serializer = new XmlSerializer(typeof(UltraSonicMeter));
                             try
                             {
                                 serializer.Serialize(sw, this);
+                                
                                 sw.Close();
                                 MessageBox.Show("Save Sucessful", "Save Status", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             }

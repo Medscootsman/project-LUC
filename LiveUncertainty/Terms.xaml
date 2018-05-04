@@ -1,0 +1,18 @@
+﻿<Window x:Class="LiveUncertainty.Window1"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LiveUncertainty"
+        mc:Ignorable="d"
+        Title="Terminology" Height="320.619" Width="300">
+    <Grid Margin="0,0,0,3">
+        <Label x:Name="label" Content="Terminologies" HorizontalAlignment="Left" Margin="28,0,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.329,-0.715" FontSize="36"/>
+        <Label x:Name="label1" Content="GOV = Gross Observed Volume" HorizontalAlignment="Left" Margin="52,63,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label1_Copy" Content="USM = UltraSonic Meter" HorizontalAlignment="Left" Margin="52,109,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label1_Copy1" Content="Tag = The tag number for the meter" HorizontalAlignment="Left" Margin="52,149,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label1_Copy2" Content="Relative Expanded Uncertainty = the uncertainty&#xD;&#xA;at various flow rates" HorizontalAlignment="Left" Margin="10,191,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="button" Content="Close" HorizontalAlignment="Left" Margin="69,238,0,0" VerticalAlignment="Top" Width="149" Height="39" Click="button_Click"/>
+
+    </Grid>
+</Window>

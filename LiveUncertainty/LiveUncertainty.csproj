@@ -335,6 +335,9 @@
     <Compile Include="viewmodels\commands\SaveCommand.cs" />
     <Compile Include="viewmodels\commands\UpdateCommand.cs" />
     <Compile Include="viewmodels\USMViewModel.cs" />
+    <Compile Include="Terms.xaml.cs">
+      <DependentUpon>Terms.xaml</DependentUpon>
+    </Compile>
     <Page Include="EditProfile.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -418,6 +421,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="CreateProfile.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Terms.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

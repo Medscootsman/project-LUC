@@ -119,17 +119,6 @@
                 <TabItem Header="Paths">
                     <TabPanel>
                         <StackPanel Orientation="Vertical" Margin="0,0,0,-317" HorizontalAlignment="Left" Width="375">
-                            <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="365" HorizontalAlignment="Left">
-                                <Label x:Name="lbl_NoOfPaths" Content="Number Of paths" HorizontalAlignment="Left" Width="150"/>
-                                <ComboBox Name="drop_Paths" HorizontalAlignment="Left" SelectedItem="{Binding Meter.PathsTotal, Delay=200, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                                    <ComboBoxItem IsSelected="True">1</ComboBoxItem>
-                                    <ComboBoxItem>2</ComboBoxItem>
-                                    <ComboBoxItem>3</ComboBoxItem>
-                                    <ComboBoxItem>4</ComboBoxItem>
-                                    <ComboBoxItem>5</ComboBoxItem>
-                                    <ComboBoxItem>6</ComboBoxItem>
-                                </ComboBox>
-                            </StackPanel>
                             <StackPanel Orientation="Horizontal" Margin="0,5,0,5" Width="550" HorizontalAlignment="Left">
                                 <Label x:Name="lbl_PathLengths" FontSize="15" FontStyle="Normal" FontWeight="Bold" Content="Path Lengths" HorizontalAlignment="Left" Width="150"/>
                             </StackPanel>

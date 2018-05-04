@@ -199,5 +199,11 @@ namespace LiveUncertainty
         {
             tag_number_val.GetBindingExpression(System.Windows.Controls.Label.ContentProperty).UpdateTarget();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Window1 termwindow = new Window1();
+            termwindow.ShowDialog();
+        }
     }
 }
