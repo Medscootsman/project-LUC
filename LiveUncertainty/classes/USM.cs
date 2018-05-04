@@ -213,14 +213,16 @@ namespace LiveUncertainty.classes
         {
             if (isNewFile)
             {
+                
                 //use a save dialog to save the file. here we use CSVHelper to make the csv file process a little easier for us.
                 using (SaveFileDialog dialog = new SaveFileDialog() { Filter = "lsav | LSAV", ValidateNames = true, CheckPathExists = true })
                 {
                     if(dialog.ShowDialog() == DialogResult.OK)
                     {
+                        System.IO.Path.ChangeExtension(dialog.FileName, "lsav");
                         using (var sw = new StreamWriter(dialog.FileName))
                         {
-                            Type[] types = new Type[] {typeof(OpConditions), typeof(Path), typeof(FlowComputer)  };
+                            
                             var serializer = new XmlSerializer(typeof(UltraSonicMeter));
                             try
                             {

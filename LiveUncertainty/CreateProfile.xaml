@@ -360,8 +360,6 @@
                 </Custom:MetroAnimatedSingleRowTabControl>
 
                 <!--Profile name -->
-                <TextBox x:Name="txtbox_ProfileName" Grid.Column="1" Custom:TextBoxHelper.Watermark="Profile ID" HorizontalAlignment="Stretch" Height="26" Margin="95,26,0,0" TextWrapping="Wrap"  VerticalAlignment="Top"/>
-                <Label x:Name="lbl_profilename" Content="Profile Name" Grid.Column="1" HorizontalAlignment="Left" Margin="10,26,0,0" VerticalAlignment="Top" Width="85" Height="26"/>
             </Grid>
         </ScrollViewer>
     </Page>

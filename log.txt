@@ -1,0 +1,522 @@
+commit 9be669ffbc6830c2481a89a0660a026206764efe
+Author: Medscootsman <murraylyne2@Gmail.com>
+Date:   Thu May 3 16:52:10 2018 +0100
+
+    Degree show
+
+commit 4fa4741d680f722d18a98e83b6a53e1532318238
+Author: Medscootsman <murraylyne2@Gmail.com>
+Date:   Tue Apr 24 13:44:41 2018 +0100
+
+    About to make some medium to large changes
+
+commit f674bde0af57abf8ac46cbd6337034244d2e476d
+Author: Medscootsman <murraylyne2@Gmail.com>
+Date:   Wed Apr 18 15:21:45 2018 +0100
+
+    fixes
+
+commit 8fc5087b1872c9cd9823031378b2fa205195491d
+Author: Medscootsman <murraylyne2@Gmail.com>
+Date:   Tue Apr 17 21:40:30 2018 +0100
+
+    Calculation Engine is now returning something. Holy smokes batman!
+    
+    Pretty happy rn
+
+commit ede7f5406f9dd477b6e3e48a8932212f63720d4b
+Author: Medscootsman <murraylyne2@Gmail.com>
+Date:   Wed Apr 11 01:00:14 2018 +0100
+
+    FINALLY FIXED THE PROPERTYCHANGER
+
+commit 6f6ab8e88b65032ef5524b9cddf05afbd557807a
+Author: Medscootsman <murraylyne2@Gmail.com>
+Date:   Mon Apr 9 13:25:45 2018 +0100
+
+    Editprofile rework
+
+commit 86e5536f2d733fbd00da55d64ce72d05ad606ac4
+Author: Medscootsman <murraylyne2@Gmail.com>
+Date:   Mon Apr 9 09:03:54 2018 +0100
+
+    no longer using a method that causes problems
+
+commit a273fefdfe2a2ef11bf3be0793f847447a1b1386
+Author: Medscootsman <murraylyne2@Gmail.com>
+Date:   Sun Apr 8 22:56:16 2018 +0100
+
+    WHY DID I NOT USE CHORDS IN THE FIRST PLACE???
+
+commit 1f415754feaf59216a40ccef00846b3312126942
+Author: Medscootsman <murraylyne2@Gmail.com>
+Date:   Sun Apr 8 18:56:32 2018 +0100
+
+    Debugging phase - near completion, r-right guys?
+
+commit a92982babc49896f222cee0ba7e663c9a45f547e
+Author: Medscootsman <murraylyne2@Gmail.com>
+Date:   Tue Apr 3 22:41:39 2018 +0100
+
+    Tomorrow we test the main meat of the application for reporting back.
+
+commit 3b93629e459c01a0045f32df6344b449aa525c24
+Author: Medscootsman <murraylyne2@Gmail.com>
+Date:   Mon Apr 2 23:36:25 2018 +0100
+
+    I can now save files
+
+commit cb566ddc04c9e0a84ffa79e75c73e9e169abae78
+Author: Medscootsman <murraylyne2@Gmail.com>
+Date:   Sun Apr 1 23:17:30 2018 +0100
+
+    Got the data for USM tagged up.
+
+commit 393d03864bed24066560e57958d6b138498e04f6
+Author: Medscootsman <murraylyne2@Gmail.com>
+Date:   Sun Apr 1 15:25:21 2018 +0100
+
+    More changes!
+
+commit 63fdfa10ac4f0652cf9913ab90ed6bab4950ad51
+Author: Medscootsman <murraylyne2@Gmail.com>
+Date:   Sun Apr 1 14:04:34 2018 +0100
+
+    Saturday's work
+
+commit 5ff8dc672ef7ba54e5feb757a38f783e03da5d20
+Author: Medscootsman <murraylyne2@Gmail.com>
+Date:   Fri Mar 30 22:31:41 2018 +0100
+
+    P I  N K  D A R T H  V A D E R
+    
+    Some new librarys for making save files.
+
+commit de3bd4281868f22388f18bdc8b3f1b02d501149f
+Author: Medscootsman <murraylyne2@Gmail.com>
+Date:   Fri Mar 30 21:56:08 2018 +0100
+
+    ui implementation
+
+commit 97870687aceb1428df79536fe47593175dabc845
+Author: Medscootsman <murraylyne2@Gmail.com>
+Date:   Fri Mar 30 17:30:34 2018 +0100
+
+    Working on the window. Planned to do it all tonight
+
+commit 1d9b51f76192b0fa338f1b49914e608035ea6fd3
+Author: Medscootsman <murraylyne2@Gmail.com>
+Date:   Thu Mar 29 22:02:34 2018 +0100
+
+    Made the edit profile.
+
+commit 4149540203124e9405d33c87c52b8bbf054a1d25
+Author: Medscootsman <murraylyne2@Gmail.com>
+Date:   Thu Mar 29 17:51:08 2018 +0100
+
+    New branch
+
+commit 622d5270d00021b878889e3dfda7a5e36a7b4dae
+Author: Medscootsman <murraylyne2@Gmail.com>
+Date:   Thu Mar 29 17:45:00 2018 +0100
+
+    Changes + test class
+
+commit 2cc4317c0e16bbbbc1c4f68ef3144c9ff2f69263
+Author: Medscootsman <murraylyne2@Gmail.com>
+Date:   Tue Mar 27 22:52:19 2018 +0100
+
+    test class for testing.
+
+commit 75d0a7a2e0e268feecf59978aa5ba2eba9b64786
+Author: Medscootsman <murraylyne2@Gmail.com>
+Date:   Tue Mar 27 22:51:46 2018 +0100
+
+    Calculation Engine code complete: Now to test said code and cry at the bugs to fix... I should probably complete my UI for now however.
+    
+    Do UI on wednesday.
+
+commit 4dcfd25cb1b7dcbe5f91fe38c572f510840e16b2
+Author: Medscootsman <murraylyne2@Gmail.com>
+Date:   Tue Mar 27 15:40:26 2018 +0100
+
+    should probably commit now than later.
+
+commit 2b12bd60a89e22f372538aa4acb56f05c8d4f9c8
+Author: Medscootsman <murraylyne2@Gmail.com>
+Date:   Thu Mar 22 22:50:29 2018 +0000
+
+    Calculated Calibration Temperature Uncertainty + new class
+    
+    added a class with all the new uncertainties. I did this because they
+    are fixed and are better to be encapsulated within their own class.
+
+commit c8732a5a164a9adb7c42228349159997e33d840f
+Author: Medscootsman <murraylyne2@Gmail.com>
+Date:   Thu Mar 15 23:26:18 2018 +0000
+
+    More code to the Calculation Engine - gonna finish it all by Friday!!!!!!
+
+commit c1ba438ca9ca3043b593b8565778765e822a3d1e
+Author: Medscootsman <murraylyne2@Gmail.com>
+Date:   Sat Mar 10 23:39:34 2018 +0000
+
+    began work on new, simplified worksheet.
+
+commit 1fb43187b5531e320ac89ada7da0725e7c9a3a33
+Author: Medscootsman <murraylyne2@Gmail.com>
+Date:   Tue Mar 6 22:47:51 2018 +0000
+
+    Settings window
+    
+    added a settings window.
+
+commit 25d00983a3f8e323b0274308d19000f0df8e97fa
+Author: Medscootsman <murraylyne2@Gmail.com>
+Date:   Tue Mar 6 16:46:42 2018 +0000
+
+    Completed the design for create a profile
+    
+    Doesn't do anything yet
+
+commit 4474716d15d81fb166a418befb5583ddb26735b4
+Author: Medscootsman <murraylyne2@Gmail.com>
+Date:   Tue Mar 6 12:02:34 2018 +0000
+
+    fixed the invalid markup
+    
+    invalid markup was present in the last commit
+
+commit c741ce4cd9b1c80202f66994081538e6014446da
+Author: Medscootsman <murraylyne2@Gmail.com>
+Date:   Tue Mar 6 11:56:11 2018 +0000
+
+    create profile UI
+
+commit 35f23adb2b37ddd41c30873d84647cab8fd6d063
+Author: Medscootsman <murraylyne2@Gmail.com>
+Date:   Mon Mar 5 23:06:14 2018 +0000
+
+    Ui work and placeholder splash screen feature a fabulous man.
+
+commit 6922a1dbf2ea541708ffbb9fd7378dc43e24b8f9
+Author: Medscootsman <murraylyne2@Gmail.com>
+Date:   Sun Mar 4 21:20:05 2018 +0000
+
+    ViewModel class.
+
+commit 4469dd2480f573e9cbb754dad6cb83bca348ec45
+Author: Medscootsman <murraylyne2@Gmail.com>
+Date:   Sat Mar 3 23:38:21 2018 +0000
+
+    Working on adding a profile.
+
+commit 35f10f3ec5a4af14e9825d12de09634c8caa9b13
+Author: Medscootsman <murraylyne2@Gmail.com>
+Date:   Thu Mar 1 22:16:03 2018 +0000
+
+    Finished a preliminary version of the UI.
+    
+    Planning on working on some dialog windows now. I've spent way too much time on this!
+
+commit b605193ce6af17056e7ff02246b2434aaedff36b
+Author: Medscootsman <murraylyne2@Gmail.com>
+Date:   Thu Mar 1 21:29:09 2018 +0000
+
+    Completed reconstructed the UI to scale better and now uses mahapps for that modern edge and extra functionality.
+
+commit c76fff50dcda34d8ef30dd40949efea02ffc98de
+Author: Medscootsman <murraylyne2@Gmail.com>
+Date:   Thu Mar 1 15:23:34 2018 +0000
+
+    Redesigned the main window to scale more effectively.
+
+commit 96362765fe3015ff3879dc3b4fda0c3e835d3518
+Author: Medscootsman <murraylyne2@Gmail.com>
+Date:   Wed Feb 28 22:17:44 2018 +0000
+
+    Did some work on a profile creator and a popup for added information about the Operating Conditions
+
+commit 7b45b0383d5264adade9a4d5c3c448374f1be894
+Author: Medscootsman <murraylyne2@Gmail.com>
+Date:   Tue Feb 27 16:01:37 2018 +0000
+
+    Started work on UI.
+
+commit 86833573ead6961bda3183c7222ef140da8134f5
+Author: Medscootsman <murraylyne2@Gmail.com>
+Date:   Tue Feb 27 10:48:30 2018 +0000
+
+    Morning's work - added a sorting function.
+
+commit bb6daab8fb7c09433f643625caa419d7767de79b
+Author: Medscootsman <murraylyne2@Gmail.com>
+Date:   Mon Feb 26 22:46:07 2018 +0000
+
+    query
+
+commit 28572cae185a49131c44903fa3d1dde520354585
+Author: Medscootsman <murraylyne2@Gmail.com>
+Date:   Mon Feb 26 22:45:47 2018 +0000
+
+    Got the data working for reals this time.
+
+commit fef53c01df17ae5e988f7eda9694030ef4d9b7f8
+Author: Medscootsman <murraylyne2@Gmail.com>
+Date:   Sun Feb 25 22:25:13 2018 +0000
+
+    Added the actual database file. We'll convert what i've put in into a dataset
+
+commit 35ad5d19f55d9ba71e66cdc81b632eb7731a8634
+Author: Medscootsman <murraylyne2@Gmail.com>
+Date:   Sun Feb 25 21:38:31 2018 +0000
+
+    Setting up some sql stuff for the AGA 8 calculations
+
+commit f76f8d2f3f7a66dfb9ae994f6b22b16a4234e7dc
+Author: Medscootsman <murraylyne2@Gmail.com>
+Date:   Sat Feb 24 16:27:03 2018 +0000
+
+    AGA8 Entity framework
+
+commit 6a77dd6c328e53719f7ec4824c285b7a78e68b14
+Author: Medscootsman <murraylyne2@Gmail.com>
+Date:   Wed Feb 21 19:17:41 2018 +0000
+
+    Added a separate class to store information about each gas. Next set of tasks is to calculate sound and velocity.
+
+commit 5ff96d5fc2580bbc483043dfacf853496ced0d4f
+Author: Medscootsman <murraylyne2@Gmail.com>
+Date:   Mon Feb 19 21:46:11 2018 +0000
+
+    missed a couple of gases.
+
+commit e066344735e1f0608775bf80fa68aa01bc493caf
+Author: Medscootsman <murraylyne2@Gmail.com>
+Date:   Mon Feb 19 21:34:07 2018 +0000
+
+    Made it to page 13
+
+commit 2816bdc0983f319f1119cfc158ab0d1de40727c0
+Author: Medscootsman <murraylyne2@Gmail.com>
+Date:   Mon Feb 19 18:22:22 2018 +0000
+
+    I felt the need to commit for some reason. Also, 1000 lines on USM.cs
+
+commit 38307016c3d28bb1330c557cbaaa2645bf6ae2a9
+Author: Medscootsman <murraylyne2@Gmail.com>
+Date:   Sun Feb 18 23:07:30 2018 +0000
+
+    Finish page 11 calculations.
+    
+    Moving onto operating conditions calculations.
+
+commit 85b6d088680b151adaca4093d291323df30baceb
+Author: Murray Lyne <murraylyne2@Gmail.com>
+Date:   Fri Feb 16 17:58:46 2018 +0000
+
+    Fixed error it metertube and added 2 more methods to USM
+
+commit 99b4ec45c33a1b9320573ef1a98d2951ff9b23d5
+Author: Medscootsman <murraylyne2@Gmail.com>
+Date:   Thu Feb 15 23:16:29 2018 +0000
+
+    CalculatrAxialPathLength complete with some minor changes.
+
+commit 41ff89e71f3172ee5b155934e0081972716221ce
+Author: Medscootsman <murraylyne2@Gmail.com>
+Date:   Thu Feb 15 20:35:19 2018 +0000
+
+    reworked CalculatePathAngle_ClampMeters() after realizing it wouldn't work in practice. I'm a terrible programmer! /s
+
+commit 83a797268024f002f5ad7500b55070b5d632b1a7
+Author: Medscootsman <murraylyne2@Gmail.com>
+Date:   Thu Feb 15 19:06:22 2018 +0000
+
+    redesigned the clamp on meter calculation since steelwallthickness is actually an array in the mathcad worksheet.
+
+commit fdbfadcd2f6879d70d264a463220268049148727
+Author: Medscootsman <murraylyne2@Gmail.com>
+Date:   Thu Feb 15 13:52:38 2018 +0000
+
+    Path angle radians
+
+commit 25261278e233d462cde712c680510c1cfaf78acf
+Author: Medscootsman <murraylyne2@Gmail.com>
+Date:   Thu Feb 15 00:35:32 2018 +0000
+
+    Making good progress on Path Angles but i still think i could be faster. I need to keeping up a consistent pace.
+
+commit 914a6cf40f7d0ad3d3f5755d5b379dff7ef27281
+Author: Medscootsman <murraylyne2@Gmail.com>
+Date:   Tue Feb 13 21:38:48 2018 +0000
+
+    one last method before i hit the bed.
+
+commit cb1d3a777f056ba9dfe1d5f90413b780996555e7
+Author: Medscootsman <murraylyne2@Gmail.com>
+Date:   Tue Feb 13 21:28:37 2018 +0000
+
+    Made it halfway through "Meter Spool Piece Corrections to Operating (f) & Flow Laboratory (wet) conditions :" Could work a bit faster with a proper mathcad sheet.
+
+commit 39f09a8639e061d17ef5991bfef699fbd1f96ad5
+Author: Medscootsman <murraylyne2@Gmail.com>
+Date:   Tue Feb 13 16:52:50 2018 +0000
+
+    sqrt b
+
+commit 52ed324ced86004a88ee6f27c5e86777dc836483
+Author: Medscootsman <murraylyne2@Gmail.com>
+Date:   Mon Feb 12 22:50:47 2018 +0000
+
+    SI and Absolute conversions from convential.
+    
+    This is part of the correction calculations in the mathcad sheet.
+
+commit 3ed70d57a52f20cf8214bff8e4d97d13a8078773
+Author: Medscootsman <murraylyne2@Gmail.com>
+Date:   Mon Feb 12 22:09:09 2018 +0000
+
+    finish hardcoded sqrtb's in the morning.
+    
+    They are hardcoded becuase it means data is constant when object is created.
+
+commit c9e5fc8df792ce8df2a6eab688613b95aa906cdc
+Author: Medscootsman <murraylyne2@Gmail.com>
+Date:   Mon Feb 12 21:13:45 2018 +0000
+
+    USM path weighting factors
+    
+    molecular weights
+
+commit 3aa5cae7acd25790d7bf83cd7eb822ed94718d8d
+Author: Murray Lyne <murraylyne2@Gmail.com>
+Date:   Sun Feb 11 21:05:08 2018 +0000
+
+    getting some of the pipe code setup
+
+commit 682bcc3ee79e99846ad9ab65ec25eb8c947ec909
+Author: Murray Lyne <murraylyne2@Gmail.com>
+Date:   Sun Feb 11 20:03:01 2018 +0000
+
+    outerdiameter and meterborewallthickness complete.
+
+commit ebb24962f959d75ce92c7ba795a29a0e93bf6b33
+Author: Murray Lyne <murraylyne2@Gmail.com>
+Date:   Sun Feb 11 17:52:25 2018 +0000
+
+    properties
+
+commit 967c50da7af60de88f85f3a5dbe8a1814b73ed2a
+Author: Murray Lyne <murraylyne2@Gmail.com>
+Date:   Sun Feb 11 13:54:17 2018 +0000
+
+    finished properties
+
+commit eab88ab907ad0485e51a22057def2a9b8fc54af2
+Author: Medscootsman <murraylyne2@Gmail.com>
+Date:   Sat Feb 10 23:55:08 2018 +0000
+
+    gas comp complete
+
+commit 3eb554ad48bae96cb05e6fb49cf8e05dcc845218
+Author: Medscootsman <murraylyne2@Gmail.com>
+Date:   Fri Feb 9 18:14:00 2018 +0000
+
+    gas composition
+
+commit bb16b085e00ce08deb9ee83566ff003a3bb5a494
+Author: Medscootsman <murraylyne2@Gmail.com>
+Date:   Fri Feb 9 17:54:14 2018 +0000
+
+    gas comp + meter tube
+
+commit 0f384650c0007e2fdbde865b63d0fd603b9abb4c
+Author: Medscootsman <murraylyne2@Gmail.com>
+Date:   Wed Feb 7 22:30:47 2018 +0000
+
+    classifier: will be worked on once everything else is working
+
+commit b448bda7c150cc128bcf812de0d6584affbb89d1
+Author: Medscootsman <murraylyne2@Gmail.com>
+Date:   Wed Feb 7 22:23:20 2018 +0000
+
+    flowcomp structure
+
+commit e0c07f80e11b8123dd8e6ab23939565fd54cb64b
+Author: Medscootsman <murraylyne2@Gmail.com>
+Date:   Wed Feb 7 22:16:52 2018 +0000
+
+    analysers
+
+commit 7e3f4ac84d10633bdd592c8bf1fc09442b144c2c
+Author: Medscootsman <murraylyne2@Gmail.com>
+Date:   Sun Feb 4 22:39:14 2018 +0000
+
+    code
+
+commit c00aa1ad4cc4b853697f909133dc66daba5e73f8
+Author: Medscootsman <murraylyne2@Gmail.com>
+Date:   Sun Feb 4 22:14:30 2018 +0000
+
+    dependencies
+
+commit 3cbccbbfb0acc4816f86a8306a462967aa46e217
+Author: Medscootsman <murraylyne2@Gmail.com>
+Date:   Sun Feb 4 22:08:39 2018 +0000
+
+    namespaces
+
+commit 90e40959d23daffdaa84fa53c803938e7b5d8d17
+Author: Medscootsman <murraylyne2@Gmail.com>
+Date:   Sun Feb 4 21:53:56 2018 +0000
+
+    Completed skeleton of code. (Properties)
+
+commit 5348c58d8b4e9a85ac62240acaa57ba0d92b45d1
+Author: Medscootsman <murraylyne2@Gmail.com>
+Date:   Tue Jan 30 13:58:44 2018 +0000
+
+    Renamed Transmitters to stored a superclass and 2 derived classes. Makes things easier for coding. Added more attributes.
+
+commit dfa1f765653f9371bc5ef2cdab4c5f253432d6f3
+Author: Medscootsman <murraylyne2@Gmail.com>
+Date:   Mon Jan 29 21:39:28 2018 +0000
+
+    fixed minor mistake
+
+commit e431e83f8361b756129d1adf252c9efe6f42ee43
+Author: Medscootsman <murraylyne2@Gmail.com>
+Date:   Mon Jan 29 21:38:11 2018 +0000
+
+    New classes with, some have been populated with attributes.
+
+commit a03b3cf11374ceef66885da786845fc33b3d722f
+Author: Medscootsman <murraylyne2@Gmail.com>
+Date:   Sun Jan 28 00:05:13 2018 +0000
+
+    Added some classes to be worked on. Expect more soon.
+
+commit 110aeba15e7e3481e0202ef3091850b445f76847
+Author: Murray Lyne <murraylyne2@Gmail.com>
+Date:   Mon Jan 22 15:21:07 2018 +0000
+
+    Changed size
+
+commit 0b7d1e75067740282b1e47c05109a660ef245f04
+Author: Murray Lyne <murraylyne2@Gmail.com>
+Date:   Mon Jan 22 15:16:32 2018 +0000
+
+    First commit
+
+commit 3ae74892bc3a0ef84e03b66619463356ed75595b
+Author: Murray Lyne <murraylyne2@Gmail.com>
+Date:   Mon Jan 22 14:55:36 2018 +0000
+
+    Add project files.
+
+commit 9dd2e01d187d862b6f6f3b393e7e0647bc64cde4
+Author: Murray Lyne <murraylyne2@Gmail.com>
+Date:   Mon Jan 22 14:55:34 2018 +0000
+
+    Add .gitignore and .gitattributes.

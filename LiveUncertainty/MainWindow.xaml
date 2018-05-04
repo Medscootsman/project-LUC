@@ -29,8 +29,7 @@
 
     <Controls:MetroWindow.RightWindowCommands>
         <Controls:WindowCommands>
-            <Button Content="Settings" Click="settings_open_click"></Button>
-            <Button Content="Quickstart"></Button>
+            <Button Content="Terminology" Click="Button_Click"></Button>
         </Controls:WindowCommands>
     </Controls:MetroWindow.RightWindowCommands>
 
@@ -70,18 +69,15 @@
                         <MenuItem Header="_Load Profile" Command="{Binding _Load}" Click="MenuItem_Click"/>
                         <MenuItem Header="_Save current Profile" Command="{Binding _SaveCommand}" />
                         <MenuItem Header="_Create New Profile" x:Name="create_profile" Click="ProfileCreate_click"/>
-                        <MenuItem Header="_Settings" Click="settings_open_click"/>
                         <MenuItem Header="_Exit"/>
                     </MenuItem>
                     <MenuItem Header="_Edit" Height="Auto">
                         <MenuItem Header="_Edit Profile" Click="EditProfile_Click"/>
                     </MenuItem>
                     <MenuItem Header="_Help" Height="Auto">
-                        <MenuItem Header="_Quickstart"/>
                         <MenuItem Header="_Terminology Guide"/>
                     </MenuItem>
                     <MenuItem Header="_Tools" Height="Auto">
-                        <MenuItem Header="_Change Layout"/>
                         <MenuItem Header="_Give feedback" Click="Feedback_Click"/>
                     </MenuItem>
 
